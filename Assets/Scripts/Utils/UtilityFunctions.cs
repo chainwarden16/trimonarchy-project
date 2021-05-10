@@ -107,11 +107,31 @@ public class UtilityFunctions : MonoBehaviour
     {
         if (EditorApplication.isPlaying)
         {
-            File.WriteAllText(Path.Combine(directorioLocal, name), message);
+            if (IsFolderPresent(folderName))
+            {
+                if (!File.Exists(Path.Combine(directorioLocal, name)))
+                    File.WriteAllText(Path.Combine(directorioLocal, name), message);
+            }
+            else
+            {
+                RecreateSpecialFolder();
+                File.WriteAllText(Path.Combine(directorioLocal, name), message);
+            }
+
         }
         else
         {
-            File.WriteAllText(Path.Combine(Application.streamingAssetsPath, folderName), message);
+            if (IsFolderPresent(folderName))
+            {
+                if (!File.Exists(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), name)))
+                    File.WriteAllText(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), name), message);
+            }
+            else
+            {
+                RecreateSpecialFolder();
+                File.WriteAllText(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), name), message);
+            }
+
         }
     }
 
@@ -127,13 +147,14 @@ public class UtilityFunctions : MonoBehaviour
 
         if (EditorApplication.isPlaying)
         {
-            Directory.CreateDirectory(directorioLocal);
+            if (!Directory.Exists(directorioLocal))
+                Directory.CreateDirectory(directorioLocal);
 
         }
         else
         {
-
-            Directory.CreateDirectory(Application.streamingAssetsPath + name);
+            if (!Directory.Exists(Path.Combine(Application.streamingAssetsPath, name)))
+                Directory.CreateDirectory(Path.Combine(Application.streamingAssetsPath, name));
         }
     }
 
@@ -160,8 +181,8 @@ public class UtilityFunctions : MonoBehaviour
         else
         {
 
-            CreateFolder(Application.streamingAssetsPath);
-            CreateFolder(Application.streamingAssetsPath + "/Files");
+            CreateFolder("");
+            CreateFolder("Files");
         }
 
 
@@ -182,7 +203,7 @@ public class UtilityFunctions : MonoBehaviour
     {
         bool esHashCorrecto = false;
 
-        if (IsFilePresent(name))
+        if (IsFilePresent(name, path))
         { /*
             var dir = new DirectoryInfo(directory);
             // Get the FileInfo objects for every file in the directory.
@@ -231,28 +252,61 @@ public class UtilityFunctions : MonoBehaviour
     /// Comprueba si existe un archivo en el directorio indicado con el nombre pasado como parámetro. O más bien, copia uno que ya está guardado dentro de los Assets del proyecto y lo esconde en el directorio que se le porporcione
     /// 
     /// </summary>
-    public static bool IsFilePresent(string name)
+    public static bool IsFilePresent(string fileName, string folderName)
     {
         bool estaPresente = false;
 
-        DirectoryInfo info;
-
         if (EditorApplication.isPlaying)
         {
-            info = new DirectoryInfo(directorioLocal);
+            if (File.Exists(Path.Combine(directorioLocal, fileName)))
+            {
+                estaPresente = true;
+            }
         }
         else
         {
-            info = new DirectoryInfo(Application.streamingAssetsPath + "/Files");
+            if(File.Exists(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), fileName))){
+                estaPresente = true;
+            }
         }
 
+
+        /*
+         * DirectoryInfo info;
+         * 
+        if (IsFolderPresent(folderName))
+        {
+            if (EditorApplication.isPlaying)
+            {
+                info = new DirectoryInfo(directorioLocal);
+            }
+            else
+            {
+                
+                info = new DirectoryInfo(Path.Combine(Application.streamingAssetsPath, folderName));
+            }
+
+        }
+        else
+        {
+            RecreateSpecialFolder();
+            if (EditorApplication.isPlaying)
+            {
+                info = new DirectoryInfo(directorioLocal);
+            }
+            else
+            {
+
+                info = new DirectoryInfo(Path.Combine(Application.streamingAssetsPath, folderName));
+            }
+        }
 
         if (info != null)
         {
             var fileInfo = info.GetFiles();
             foreach (var file in fileInfo)
             {
-                if (file.Name == name) //falta colocar el check con el hashcode y la creacion de un archivo en caso de que se intente hacer trampa
+                if (file.Name == fileName) //falta colocar el check con el hashcode y la creacion de un archivo en caso de que se intente hacer trampa
                 {
                     estaPresente = true;
                     break;
@@ -264,7 +318,7 @@ public class UtilityFunctions : MonoBehaviour
 
             CreateFile("/Files", "Stop.txt", "Keep yourself from deleting this folder or any other created automatically. You might affect something and leave this whole thing broken beyond repair, forcing you to restart all over again.");
         }
-
+        */
 
         return estaPresente;
     }
@@ -278,8 +332,21 @@ public class UtilityFunctions : MonoBehaviour
     {
         bool estaPresente = false;
 
-        string[] carpetas = new string[100];
-        try
+        if (EditorApplication.isPlaying)
+        {
+            if (Directory.Exists(directorioLocal))
+                estaPresente = true;
+
+        }
+        else
+        {
+            if (Directory.Exists(Path.Combine(Application.streamingAssetsPath, name)))
+                estaPresente = true;
+        }
+
+
+
+        /*try
         {
             if (EditorApplication.isPlaying)
             {
@@ -333,7 +400,7 @@ public class UtilityFunctions : MonoBehaviour
         else
         {
             RecreateSpecialFolder();
-        }
+        }*/
 
 
         return estaPresente;
@@ -341,7 +408,5 @@ public class UtilityFunctions : MonoBehaviour
 
 
     #endregion
-
-
 
 }

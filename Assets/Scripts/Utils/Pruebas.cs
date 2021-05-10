@@ -35,8 +35,8 @@ public class Pruebas : MonoBehaviour
     void Update()
     {
 
-        existeCarpeta = UtilityFunctions.IsFolderPresent("/Files/");
-        existeFichero = UtilityFunctions.IsFilePresent("Hey.txt");
+        existeCarpeta = UtilityFunctions.IsFolderPresent("Files");
+        existeFichero = UtilityFunctions.IsFilePresent("Hey.txt", "Files");
 
         print("¿El directorio Files existe? La respuesta es: " + existeCarpeta);
         print("¿El fichero Hey.txt existe? La respuesta es: " + existeFichero);
