@@ -14,11 +14,15 @@ public class Pruebas : MonoBehaviour
 
     bool existeFichero;
 
+    byte[] hashcodeCorrecto;
+
+    bool pararEstaEjecucion = false;
+
     void Start()
     {
 
         //Buscar archivo
-        
+
         /*
         bool prueba = UtilityFunctions.IsFilePresent("mind.txt");
 
@@ -29,6 +33,7 @@ public class Pruebas : MonoBehaviour
         //UtilityFunctions.CreateFolder("Test");
 
         */
+
     }
 
     // Update is called once per frame
@@ -40,6 +45,16 @@ public class Pruebas : MonoBehaviour
 
         print("¿El directorio Files existe? La respuesta es: " + existeCarpeta);
         print("¿El fichero Hey.txt existe? La respuesta es: " + existeFichero);
+
+        if (!pararEstaEjecucion)
+        {
+
+            string hash = UtilityFunctions.CalculateHashcodeSha("mind.txt", "Files");
+            Debug.Log("¿Coinciden los hash? La respuesta es: " +UtilityFunctions.IsSameHashcode(hash));
+            pararEstaEjecucion = !pararEstaEjecucion;
+
+
+        }
 
         /*if (UtilityFunctions.IsFolderPresent("/Test") && !UtilityFunctions.IsFilePresent(Application.streamingAssetsPath + "/Test", "Hey.txt")){
             UtilityFunctions.CreateFile("/Test/Hey.txt", "Don't waste your time tampering. It won't work.");

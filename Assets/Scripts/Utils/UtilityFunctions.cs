@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Security.Cryptography;
+using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 using System;
 using UnityEditor;
-using System.Security.Cryptography;
+using UnityEngine;
+
 
 
 /// <summary>
@@ -15,7 +17,7 @@ using System.Security.Cryptography;
 public class UtilityFunctions : MonoBehaviour
 {
 
-    private readonly Dictionary<string, string> shaFicherosARecibir = new Dictionary<string, string> { { "Hola", "Alo" }, { "Hey", "Hello" } };
+    private static readonly Dictionary<string, string> shaFicherosARecibir = new Dictionary<string, string> { { "mind.txt", "1822315416359141710902123516621918144421211701640216101182036881391492421222" }, { "Hey", "Hello" } };
 
     private const string directorioLocal = "d:/Users/Usuario/Desktop/Cursos CICE/Unity/Editor Unity/Trimonarchy/Files";
     private const string directorioProyectoLocal = "d:/Users/Usuario/Desktop/Cursos CICE/Unity/Editor Unity/Trimonarchy";
@@ -163,8 +165,17 @@ public class UtilityFunctions : MonoBehaviour
     /// Hace desaparecer un archivo de un directorio siempre que tenga el nombre pasado. Hay que comprobar que existe, que para eso se tiene IsFilePresent
     /// 
     /// </summary>
-    public static void DeleteFile(string path, string name)
+    public static void DeleteFile(string fileName, string folderName)
     {
+        if (IsFilePresent(fileName, folderName))
+            if (EditorApplication.isPlaying)
+            {
+                File.Delete(Path.Combine(directorioLocal, fileName));
+            }
+            else
+            {
+                File.Delete(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), fileName));
+            }
 
     }
 
@@ -199,44 +210,87 @@ public class UtilityFunctions : MonoBehaviour
     /// Comprueba si el archivo en el directorio indicado con el nombre pasado como parámetro coincide con el archivo que se debía proporcionar. Esto es para evitar que el usuario cree un archivo con el nombre que se espera y se acepte como bueno sin más. Se usará SHA256 para comprobar
     /// si el archivo es el correcto, pues sigue siendo un SHA seguro. Los SHA de los archivos se tendrán precalculados dentro de un diccionario para ahorrar tiempo.
     /// </summary>
-    public static bool IsCorrectHashcodeSha(string path, string name)
+    public static string CalculateHashcodeSha(string name, string folder)
     {
-        bool esHashCorrecto = false;
+        byte[] hashcode;
 
-        if (IsFilePresent(name, path))
-        { /*
-            var dir = new DirectoryInfo(directory);
+        DirectoryInfo direccion;
+        string hashcodeLegible = "";
+
+        if (IsFilePresent(name, folder))
+        {
+            if (EditorApplication.isPlaying)
+            {
+                direccion = new DirectoryInfo(Path.Combine(directorioLocal));
+            }
+            else
+            {
+                direccion = new DirectoryInfo(Path.Combine(Path.Combine(Application.streamingAssetsPath, folder)));
+            }
+
             // Get the FileInfo objects for every file in the directory.
-            FileInfo[] files = dir.GetFiles();
-            
+            FileInfo[] files = direccion.GetFiles();
+
             SHA256 mySHA256 = SHA256.Create();
-            try
+
+
+
+            foreach (var file in files)
             {
-                // Create a fileStream for the file.
-                FileStream fileStream = fInfo.Open(FileMode.Open);
-                // Be sure it's positioned to the beginning of the stream.
-                fileStream.Position = 0;
-                // Compute the hash of the fileStream.
-                byte[] hashValue = mySHA256.ComputeHash(fileStream);
-                // Write the name and hash value of the file to the console.
-                Console.Write($"{fInfo.Name}: ");
-                PrintByteArray(hashValue);
-                // Close the file.
-                fileStream.Close();
+
+                try
+                {
+                    if (file.Name == name)
+                    {
+
+                        // Create a fileStream for the file.
+                        FileStream fileStream = file.Open(FileMode.Open);
+                        // Be sure it's positioned to the beginning of the stream.
+                        fileStream.Position = 0;
+                        // Compute the hash of the fileStream.
+                        hashcode = mySHA256.ComputeHash(fileStream);
+                        // Write the name and hash value of the file to the console.
+                        Debug.Log($"{file.Name}: ");
+
+                        for (int i = 0; i < hashcode.Length; i++)
+                        {
+                            hashcodeLegible += hashcode[i];
+                        }
+                        Debug.Log(hashcodeLegible);
+                        // Close the file.
+                        fileStream.Close();
+
+                        break;
+                    }
+
+
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine("No se ha encontrado el archivo o se ha producido un error mientras se procesaba.");
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine("No se tiene permiso para acceder a este archivo.");
+                }
             }
-            catch (IOException e)
-            {
-                Console.WriteLine($"I/O Exception: {e.Message}");
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                Console.WriteLine($"Access Exception: {e.Message}");
-            }*/
+
         }
 
+        return hashcodeLegible;
 
+    }
 
-        return esHashCorrecto;
+    public static bool IsSameHashcode(string hashcodeItem)
+    {
+        bool sameHashcode = false;
+
+        if (shaFicherosARecibir.ContainsValue(hashcodeItem))
+        {
+            sameHashcode = true;
+        }
+
+        return sameHashcode;
 
 
     }
@@ -265,7 +319,8 @@ public class UtilityFunctions : MonoBehaviour
         }
         else
         {
-            if(File.Exists(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), fileName))){
+            if (File.Exists(Path.Combine(Path.Combine(Application.streamingAssetsPath, folderName), fileName)))
+            {
                 estaPresente = true;
             }
         }
