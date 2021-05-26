@@ -36,6 +36,15 @@ public class UtilityFunctions : MonoBehaviour
     [DllImport("Dwmapi.dll")]
     private static extern uint DwmExtendFrameIntoClientArea(IntPtr tamanoVentana, ref MARGINS margenes);
 
+    [DllImport("User32.dll")]
+    public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    [DllImport("User32.dll")]
+    public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    private const int GWL_EXSTYLE = -0x14;
+    private const int WS_EX_TOOLWINDOW = 0x0080;
+    private const int WS_EX_APPWINDOW = 0x00040000;
+
 
     #region Operaciones de manipulacion de ventana
 
@@ -78,6 +87,8 @@ public class UtilityFunctions : MonoBehaviour
     /// </summary>
     public static void MakeWindowRunHidden()
     {
+        IntPtr pMainWindow = GetActiveWindow();
+        SetWindowLong(pMainWindow, GWL_EXSTYLE, GetWindowLong(pMainWindow, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
 
     }
 
@@ -86,10 +97,10 @@ public class UtilityFunctions : MonoBehaviour
     /// Hace que la ventana principal se vuelva visible en la barra de herramientas. Sólo funciona en Windows, así que hay que verificar que se esté usando ese sistema operativo
     /// 
     /// </summary>
-    public static void MakeWindowRunInSight()
-    {
+    public static void MakeWindowRunInSight()    {
 
-
+        IntPtr pMainWindow = GetActiveWindow();
+        SetWindowLong(pMainWindow, GWL_EXSTYLE, GetWindowLong(pMainWindow, GWL_EXSTYLE) | WS_EX_APPWINDOW);
 
     }
 

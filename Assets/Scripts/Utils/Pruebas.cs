@@ -39,7 +39,7 @@ public class Pruebas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         existeCarpeta = UtilityFunctions.IsFolderPresent("Files");
         existeFichero = UtilityFunctions.IsFilePresent("Hey.txt", "Files");
 
@@ -54,6 +54,19 @@ public class Pruebas : MonoBehaviour
             pararEstaEjecucion = !pararEstaEjecucion;
 
 
+        }
+        */
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (estaTransparente)
+            {
+                UtilityFunctions.MakeWindowRunInSight();
+            }
+            else
+            {
+                UtilityFunctions.MakeWindowRunHidden();
+            }
+            estaTransparente = !estaTransparente;
         }
 
         /*if (UtilityFunctions.IsFolderPresent("/Test") && !UtilityFunctions.IsFilePresent(Application.streamingAssetsPath + "/Test", "Hey.txt")){
