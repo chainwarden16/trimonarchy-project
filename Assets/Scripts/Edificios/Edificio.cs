@@ -22,12 +22,24 @@ public class Edificio : MonoBehaviour
     #endregion
 
     #region Variables públicas
+
+    [Header("--Datos referidos al edificio--")]
+    [Tooltip("El orden de los costes es: oro, madera, piedra, fruta, cebada, agua, metal")]
     public List<int> coste;
+    [Tooltip("Nombre del edificio")]
     public string nombre;
+    [Tooltip("Beneficio que ofrece (tipo y cantidad)")]
     public Tuple<Beneficio, int> beneficio;
+    [Tooltip("Cómo de construido está el edificio. El coste se tomará en el primer estado y el beneficio se concederá en el último")]
     public EstadoEdificio estado;
-    public SpriteRenderer sprite;
+    [Header("--Control de sprites y apariencia--")]
+    [Tooltip("Sprite que se muestra ahora teniendo en cuenta el estado de construccion del edificio")]
+    public SpriteRenderer spriteActual;
+    [Tooltip("Tiempo en segundos que tardará en estar listo")]
     public float tiempoConstruccion;
+    public Sprite noIniciado;
+    public Sprite enConstruccion;
+    public Sprite terminado;
 
     #endregion
 
@@ -74,6 +86,9 @@ public class Edificio : MonoBehaviour
 
     public IEnumerator ProcesoConstruccion()
     {
+
+
+
         yield return null;
     }
 
