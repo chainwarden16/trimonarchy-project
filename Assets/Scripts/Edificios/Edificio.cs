@@ -7,11 +7,6 @@ using UnityEngine.UI;
 public class Edificio : MonoBehaviour
 {
     #region Enums
-    public enum Beneficio
-    {
-        Habitantes,
-        Soldados
-    }
 
     public enum EstadoEdificio
     {
@@ -30,10 +25,12 @@ public class Edificio : MonoBehaviour
     [Tooltip("Nombre del edificio")]
     public string nombre;
     [Tooltip("Beneficio que ofrece (tipo y cantidad)")]
-    [SerializeField]
     public List<int> beneficio; //índice 0 = civiles, índice 1 = soldados
     [Tooltip("Cómo de construido está el edificio. El coste se tomará en el primer estado y el beneficio se concederá en el último")]
     public EstadoEdificio estado;
+    [Tooltip("Ancho y largo en metros del edificio")]
+    public int ancho;
+    public int largo;
     [Header("--Control de sprites y apariencia--")]
     [Tooltip("Sprite que se muestra ahora teniendo en cuenta el estado de construccion del edificio")]
     public SpriteRenderer spriteActual;

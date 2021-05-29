@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Recursos : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Recursos : MonoBehaviour
     public static List<int> recursos = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0 }; //representan, en orden: oro, madera, piedra, fruta, cebada, agua, metal, carne
     public static float habitantes = 0;
     public static float soldados = 0;
+    public static List<Sprite> iconosRecursos;
 
     private const float ratioHabitantesSoldados = 0.3f; 
 

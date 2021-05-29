@@ -5,7 +5,9 @@ using TMPro;
 
 public class FuenteRecursos : MonoBehaviour
 {
-    public List<int> recursosProporcionados = new List<int>() { };
+    [Tooltip("El orden de los costes es: oro, madera, piedra, fruta, cebada, agua, metal, carne")]
+    public int indiceRecurso;
+    public int cantidad;
     public SpriteRenderer spriteRendererEdificio;
     public TextMeshProUGUI textoSumaRecurso;
 
@@ -13,7 +15,7 @@ public class FuenteRecursos : MonoBehaviour
     {
         for(int i = 0; i < Recursos.recursos.Count; i++)
         {
-            Recursos.SumarRecurso(i,recursosProporcionados[i]);
+            Recursos.SumarRecurso(i,cantidad);
         }
     }
 }

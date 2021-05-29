@@ -8,6 +8,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: ancho
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: largo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: nombre
       value: Mercado
       objectReference: {fileID: 0}
