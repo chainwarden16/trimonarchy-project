@@ -17,6 +17,13 @@ public class GameManager : MonoBehaviour
     float tiempoRestante;
     float numeroSoldadosNecesario;
     List<GameObject> textoContador = new List<GameObject>() { };
+
+    [Header("Manipulación de elementos del mapa")]
+    GameObject textoMenuAcciones;
+    int accionElegida;
+    public List<Edificio> tiposEdificio;
+    public GameObject cursorMapa;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         bool estaVacia = true;
 
-        if(gridCiudad[fila][columna] != 0)
+        if (gridCiudad[fila][columna] != 0)
         {
             estaVacia = false;
         }
@@ -71,5 +78,76 @@ public class GameManager : MonoBehaviour
         return estaVacia;
     }
 
+    private void AbrirMenuAcciones(int x, int y)
+    {
+        //TODO: Colocar un texto con opciones según el valor de la celda en la cuadrícula.
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            if (accionElegida == 0)
+            {
+
+                int valorCelda = gridCiudad[x][y];
+
+                switch (valorCelda)
+                {
+                    case 0: //vacío
+                        textoMenuAcciones.GetComponent<TextMeshProUGUI>().text = "Construir";
+                        accionElegida = 1;
+                        break;
+                    case 1: //una mina de recursos
+                        textoMenuAcciones.GetComponent<TextMeshProUGUI>().text = "Recolectar";
+                        accionElegida = 2;
+                        break;
+                    case 2: //un edificio de entrenamiento de soldados
+                        accionElegida = 3;
+                        textoMenuAcciones.GetComponent<TextMeshProUGUI>().text = "Entrenar";
+                        break;
+                }
+
+            }
+            else
+            {
+                switch (accionElegida)
+                {
+                    case 1:
+                        if (Input.GetKeyDown(KeyCode.Alpha1))
+                        {
+                            bool sePuedeConstruir = tiposEdificio[0].ComprobarConstruirEdificio();
+                            if (sePuedeConstruir)
+                            {
+                                tiposEdificio[0].ConstruirEdificio();
+                                Instantiate(tiposEdificio[0], cursorMapa.transform.position, Quaternion.identity);
+                                tiposEdificio[0].ProcesoConstruccion();
+                                for (int i = 0; i < tiposEdificio[0].ancho; i++)
+                                {
+                                    for (int j = 0; j < tiposEdificio[0].largo; j++)
+                                    {
+                                        gridCiudad[x+i][y+j] = 3;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                //TODO: poner mensaje que diga que no se puede construir 
+                            }
+
+                            accionElegida = 0;
+
+                        }
+
+
+                        break;
+                    case 2: // se recolectan recursos
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+
+        }
+
+    }
 
 }

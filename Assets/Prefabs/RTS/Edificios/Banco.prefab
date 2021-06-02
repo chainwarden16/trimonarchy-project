@@ -28,6 +28,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: bb4cbdcf285e6d14098c7e98a635f348, type: 2}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: temporizadorFondo
+      value: 
+      objectReference: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: tiempoConstruccion
       value: 20
       objectReference: {fileID: 0}
@@ -51,6 +55,10 @@ PrefabInstance:
       propertyPath: coste.Array.data[7]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: temporizadorRelleno
+      value: 
+      objectReference: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: beneficio.Array.size
       value: 2

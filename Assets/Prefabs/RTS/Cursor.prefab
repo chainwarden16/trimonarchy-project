@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8159463711120182377}
   - component: {fileID: 7026344653873754867}
   - component: {fileID: 6582233673784927392}
+  - component: {fileID: -7192550609432848144}
   m_Layer: 0
   m_Name: Cursor
   m_TagString: Untagged
@@ -96,3 +97,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &-7192550609432848144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240405539900271446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a290c10b1e5635a459e9f0c7b3baa9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
