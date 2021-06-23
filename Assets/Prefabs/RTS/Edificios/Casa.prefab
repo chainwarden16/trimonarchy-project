@@ -7,69 +7,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: ancho
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: largo
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: nombre
-      value: Casa
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.size
-      value: 8
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: materialTerminado
-      value: 
-      objectReference: {fileID: 2100000, guid: 16f465e77bcd28647a1364de4fc90ba3, type: 2}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: temporizadorFondo
-      value: 
-      objectReference: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: tiempoConstruccion
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[0]
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[1]
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[2]
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[6]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[7]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: temporizadorRelleno
-      value: 
-      objectReference: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: beneficio.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: materialEnConstruccion
-      value: 
-      objectReference: {fileID: 2100000, guid: 1d6de575e66a09a46ace8f23b3c68ddf, type: 2}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: beneficio.Array.data[0]
-      value: 10
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005013, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Name
@@ -118,6 +82,14 @@ PrefabInstance:
     - target: {fileID: 2874265409024005022, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
+    - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}

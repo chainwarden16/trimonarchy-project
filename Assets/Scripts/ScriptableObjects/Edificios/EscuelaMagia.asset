@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4162733ef4e664baaae51a82d7fc11, type: 3}
+  m_Name: EscuelaMagia
+  m_EditorClassIdentifier: 
+  coste: 0000000000000000000000000000000000000000000000000000000000000000
+  nombre: 
+  beneficio: 0000000000000000
+  estado: 1
+  ancho: 1
+  largo: 1
+  spriteActual: {fileID: 0}
+  tiempoConstruccion: 7
+  enConstruccion: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
+  terminado: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
+  temporizadorFondo: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
+  temporizadorRelleno: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
