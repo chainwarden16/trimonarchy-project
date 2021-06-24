@@ -20,6 +20,9 @@ public class BuildController : MonoBehaviour
     [Header("Game Manager")]
     GameManager manager;
 
+    [Header("Comprobador de si el controlador de unidades está desactivado durante la construcción de un edificio")]
+    UnidadController unidadCon;
+
     private void Start()
     {
         manager = GameManager.manager;
@@ -30,6 +33,9 @@ public class BuildController : MonoBehaviour
         cajaMensaje = GameObject.Find("Panel-Error");
         textoError = GameObject.Find("Texto-Error").GetComponent<TextMeshProUGUI>();
         cajaMensaje.SetActive(false);
+
+        unidadCon = GameObject.FindObjectOfType<UnidadController>();
+        gameObject.GetComponent<BuildController>().enabled = false;
 
         /*Edificio ed = edificioAConstruir.GetComponent<Edificio>();
         EdificioScriptable edSc = ed.edificioData;
@@ -42,6 +48,8 @@ public class BuildController : MonoBehaviour
         if (edificioAConstruir != null)
 
         {
+            unidadCon.unidadesSeleccionadas.Clear();
+            unidadCon.enabled = false;
             edificioRenderer.sprite = edificioAConstruir.GetComponent<Edificio>().edificioData.terminado;
             edificioRenderer.color = new Color(0, 1, 0, 1);
             //se activa el componente y se pone el color, el nuevo gráfico y el tipo de edificio desde el botón que se pulse
@@ -72,7 +80,7 @@ public class BuildController : MonoBehaviour
                     //nuevoEdificio.GetComponent<Edificio>().ProcesoConstruccion();
                     
                     edificioAConstruir = null;
-                    gameObject.GetComponent<BuildController>().enabled = false;
+                    
 
                 }
                 else
@@ -94,8 +102,9 @@ public class BuildController : MonoBehaviour
                     }
                     edificioAConstruir = null;
                     Time.timeScale = 0;
-                    gameObject.GetComponent<BuildController>().enabled = false;
                 }
+                    unidadCon.enabled = true;
+                    gameObject.GetComponent<BuildController>().enabled = false;
 
             }
 
