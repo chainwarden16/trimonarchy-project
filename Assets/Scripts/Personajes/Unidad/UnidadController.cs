@@ -15,6 +15,7 @@ public class UnidadController : MonoBehaviour
     Color colArea;
     bool estaPresionandoBotonIzquierdo = false;
     Tilemap tileSuelo;
+    int unidadesYaEnCamino = 0;
 
     public List<Unidad> unidadesSeleccionadas = new List<Unidad>();
 
@@ -71,7 +72,8 @@ public class UnidadController : MonoBehaviour
             }
             unidadesSeleccionadas.Clear();
             //se añaden las unidades que sean aliados
-            List<Collider2D> colliderUnidades = Physics2D.OverlapAreaAll(inicioArrastreRaton, finArrastreRaton).Where(col => col.gameObject.GetComponent<Unidad>() != null).ToList();
+            List<Collider2D> colliderUnidades = Physics2D.OverlapAreaAll(inicioArrastreRaton, finArrastreRaton).Where(col => col.gameObject.GetComponent<Unidad>() != null
+            && col.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.Jugador).ToList();
             foreach (Collider2D colli in colliderUnidades)
             {
                 unidadesSeleccionadas.Add(colli.gameObject.GetComponent<Unidad>());
@@ -131,11 +133,14 @@ public class UnidadController : MonoBehaviour
 
             {
                 Debug.Log("Alola");
-                List<Collider2D> colliders = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
-
+                List<Collider2D> collidersEdificios = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
+                List<Collider2D> collidersEnemigos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Unidad>() != null
+                && collid.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.IA).ToList();
                 int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
+                
                 List<Unidad> aux = new List<Unidad>(unidadesSeleccionadas);
-                int unidadesYaEnCamino = 0;
+
+                
                 foreach (Unidad unidad in aux)
                 {
                     if (unidad.objetivoActual != null)
@@ -144,9 +149,9 @@ public class UnidadController : MonoBehaviour
                         {
                             unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().QuitarUnidad(unidad);
                         }
-                        else if (false)
-                        { //sustituir por componente del enemigo
-
+                        else if (unidad.objetivoActual.GetComponent<Unidad>() != null)
+                        {
+                            unidad.objetivoActual.GetComponent<Unidad>().QuitarUnidad(unidad);
                         }
                         unidad.LiberarUnidad();
                     }
@@ -154,74 +159,23 @@ public class UnidadController : MonoBehaviour
                     switch (valorCelda)
                     {
                         case 0: //Terreno vacío
-                            Debug.Log("Tereno vacío");
-                            unidad.posicionObjetivo = posicionActual;
+                            Debug.Log("Terreno vacío");
+
+                            if (collidersEnemigos.Count == 0)
+                                unidad.posicionObjetivo = posicionActual;
+                            else
+                            {
+                                EnviarUnidadesSegunNumero(collidersEnemigos, unidad,  1);
+                            }
                             break;
                         case 1: //Recurso
 
-                            if (colliders.Count > 0)
+                            if (collidersEdificios.Count > 0)
                             //si hay algún recurso en este punto, se tomará el primero y se asignará una serie de unidades para trabajar en ella. 
                             //Estas unidades serán apartadas de la lista de unidades seleccionadas y, en caso de haber más de las que acepta el recurso, el resto deberán seguir estando seleccionadas
                             {
-                                int unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().unidadesAsignadas.Count;
 
-                                int unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().fuente.limiteUnidadesAsignadas;
-
-                                int numeroUnidadesSeleccionadas = unidadesSeleccionadas.Count;
-
-                                Debug.Log("La suma total de unidades asignadas a este recurso es:" + (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas));
-
-                                if (unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
-                                                                                             //son civiles y luego contar cuántos civiles tienes
-                                {
-
-                                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
-                                    {
-
-                                        unidad.objetivoActual = colliders[0].gameObject;
-                                        unidadesSeleccionadas.Remove(unidad);
-                                        unidad.MostrarSelectorUnidad(false);
-                                        unidadesYaEnCamino++;
-
-                                    }
-                                    else
-                                    {
-                                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
-                                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
-                                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
-                                        if (diferencia > unidadesYaEnCamino)
-                                        {
-                                            unidad.objetivoActual = colliders[0].gameObject;
-                                            unidadesSeleccionadas.Remove(unidad);
-                                            unidad.MostrarSelectorUnidad(false);
-                                            unidadesYaEnCamino++;
-                                        }
-                                        /*for(int i=numeroUnidadesSeleccionadas-1;unidadesSeleccionadas.Count==diferencia; i--)
-                                        {
-                                            unidadesSeleccionadas.Remove(unidadesSeleccionadas[i]);
-                                            unidad.MostrarSelectorUnidad(false);
-                                        }
-
-                                        Debug.Log("El tamaño de la lista de unidades seleccionadas es de " + unidadesSeleccionadas.Count);
-
-                                        if(unidadesSeleccionadas.Count > 0)
-                                        {
-                                            List<Unidad> aux2 = new List<Unidad>(unidadesSeleccionadas);
-                                            foreach (Unidad un in aux2)
-                                            {
-                                                unidad.objetivoActual = colliders[0].gameObject;
-                                                unidadesSeleccionadas.Remove(unidad);
-                                                unidad.MostrarSelectorUnidad(false);
-                                            }
-                                        }*/
-
-                                    }
-
-
-
-                                }
-
-
+                                EnviarUnidadesSegunNumero(collidersEdificios, unidad, 0);
 
                             }
                             break;
@@ -239,12 +193,103 @@ public class UnidadController : MonoBehaviour
                 FinSeleccionarUnidades();
             }
 
+            unidadesYaEnCamino = 0;
 
         }
 
 
 
     }
+
+
+    private void EnviarUnidadesSegunNumero(List<Collider2D> colliders, Unidad unidad, int tipoCollider)
+    {
+        int unidadesAsignadasRecurso;
+        int unidadesMaximasRecurso;
+        int numeroUnidadesSeleccionadas = unidadesSeleccionadas.Count;
+
+        switch (tipoCollider)
+        {
+            case 0: //recurso
+                unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().unidadesAsignadas.Count;
+
+                unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().fuente.limiteUnidadesAsignadas;
+
+                if (unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
+                                                                             //son civiles y luego contar cuántos civiles tienes
+                {
+
+                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                    {
+
+                        unidad.objetivoActual = colliders[0].gameObject;
+                        unidadesSeleccionadas.Remove(unidad);
+                        unidad.MostrarSelectorUnidad(false);
+                        unidadesYaEnCamino++;
+
+                    }
+                    else
+                    {
+                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
+                        if (diferencia > unidadesYaEnCamino)
+                        {
+                            unidad.objetivoActual = colliders[0].gameObject;
+                            unidadesSeleccionadas.Remove(unidad);
+                            unidad.MostrarSelectorUnidad(false);
+                            unidadesYaEnCamino++;
+                        }
+
+                    }
+
+                }
+
+                break;
+            case 1: //enemigo
+                unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<Unidad>().unidadesAsignadas.Count;
+
+                unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<Unidad>().unidad.limiteUnidadesAsignadas;
+
+                Debug.Log("La suma total de unidades asignadas a este enemigo es:" + (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas));
+
+                //Nota: cambiar esto a != Civil
+                if (unidad.unidad.tipo != UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
+                                                                             //son civiles y luego contar cuántos civiles tienes
+                {
+
+                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                    {
+
+                        unidad.objetivoActual = colliders[0].gameObject;
+                        unidadesSeleccionadas.Remove(unidad);
+                        unidad.MostrarSelectorUnidad(false);
+                        unidadesYaEnCamino++;
+
+                    }
+                    else
+                    {
+                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
+                        if (diferencia > unidadesYaEnCamino)
+                        {
+                            unidad.objetivoActual = colliders[0].gameObject;
+                            unidadesSeleccionadas.Remove(unidad);
+                            unidad.MostrarSelectorUnidad(false);
+                            unidadesYaEnCamino++;
+                        }
+
+                    }
+
+                }
+                break;
+
+        }
+
+        
+    }
+
 
     void OnEnable()
     {

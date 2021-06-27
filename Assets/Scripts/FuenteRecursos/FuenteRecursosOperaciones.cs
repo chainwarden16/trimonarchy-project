@@ -10,10 +10,14 @@ public class FuenteRecursosOperaciones : MonoBehaviour
     int cantidadExtraida = 0;
     public List<Unidad> unidadesAsignadas = new List<Unidad>();
     Tilemap tileSuelo;
+    SpriteRenderer rendererRecurso;
 
     private void Start()
     {
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        rendererRecurso = gameObject.GetComponent<SpriteRenderer>();
+        rendererRecurso.sprite = fuente.spriteRecurso;
+        gameObject.AddComponent<BoxCollider2D>();
     }
 
     private void Update()

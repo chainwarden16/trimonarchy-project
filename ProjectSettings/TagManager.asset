@@ -8,6 +8,7 @@ TagManager:
   - Aliado
   - Recurso
   - Edificio
+  - Enemigo
   layers:
   - Default
   - TransparentFX

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 56dfe8c1f722ca847a2e1385d5d2a361, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.27753592, b: 0.042452812, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -114,12 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a7de30587d62a468aa942b21b316aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unidad: {fileID: 11400000, guid: c2f4255c865db9e40a37ce3480258609, type: 2}
+  unidad: {fileID: 11400000, guid: da7bc0619da62dc40be17ec253af9272, type: 2}
   vidaActual: 0
   objetivoActual: {fileID: 0}
   posicionObjetivo: {x: 0, y: 0, z: 0}
   unidadesAsignadas: []
---- !u!61 &3363979905256995552
+--- !u!61 &8916404079127262338
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,7 +217,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c5c4b9d8c3d6c04dab10532eed79131, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -236,11 +236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8994494844543269777, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
       propertyPath: m_Name
-      value: Civil
+      value: Civil-Enemigo
       objectReference: {fileID: 0}
     - target: {fileID: 8994494844543269777, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
       propertyPath: m_TagString
-      value: Aliado
+      value: Enemigo
       objectReference: {fileID: 0}
     - target: {fileID: 8994494844543269780, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
       propertyPath: m_Sprite

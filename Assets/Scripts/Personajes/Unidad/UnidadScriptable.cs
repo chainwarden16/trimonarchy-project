@@ -10,6 +10,8 @@ public class UnidadScriptable : ScriptableObject
     public int rangoAtaque;
     public TipoUnidad tipo;
     public Bando bando;
+    public float tiempoEnfriamientoAtaque;
+    public int limiteUnidadesAsignadas;
 
     public enum TipoUnidad
     {

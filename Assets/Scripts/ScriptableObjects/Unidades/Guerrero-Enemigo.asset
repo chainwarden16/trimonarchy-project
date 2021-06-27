@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e17f42f34f61300409aa200dde736d0a, type: 3}
-  m_Name: Madera
+  m_Script: {fileID: 11500000, guid: 11533066ceff3ed4abfa28775ed7b018, type: 3}
+  m_Name: Guerrero-Enemigo
   m_EditorClassIdentifier: 
-  indiceRecurso: 1
-  cantidad: 5
-  cantidadMaxima: 50
-  spriteRecurso: {fileID: 21300000, guid: 276ea828646a03a48a47e9b0b4f2270b, type: 3}
-  tiempoEnfriamiento: 5
-  limiteUnidadesAsignadas: 2
+  vida: 140
+  fuerza: 12
+  rangoAtaque: 5
+  tipo: 1
+  bando: 1
+  tiempoEnfriamientoAtaque: 0.6
+  limiteUnidadesAsignadas: 4

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     GameObject textoMenuAcciones;
     int accionElegida;
     public List<GameObject> tiposEdificio;
+    Tilemap suelo;
+    public GameObject recurso1, recurso2;
+    public float probabilidadGeneracionRecurso;
+
 
     [Header("Game manager")]
     public static GameManager manager; //sólo debe haber uno en el juego activo en cada momento
@@ -41,19 +46,43 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridCiudad = new int[anchoGrid, largoGrid];
-        for (int i = 0; i < anchoGrid - 1; i++)
-        {
-            for (int j = 0; j < largoGrid - 1; j++) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
-            {
-                if (i == 0 && j == 0) //borrar tras pruebas
-                {
-                    gridCiudad[i, j] = 1;
-                }
-                else
-                {
-                    gridCiudad[i, j] = 0;
+        suelo = suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
 
+        gridCiudad = new int[anchoGrid, largoGrid];
+        for (int i = anchoGrid - 1; i >= 0; i--)
+        {
+            for (int j = largoGrid - 1; j >= 0; j--) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
+            {
+
+                int contenido = Random.Range(0, 2);
+                float generacion = Random.Range(0f, 1.1f);
+
+                switch (contenido)
+                {
+                    case 0: //nada
+                        gridCiudad[i, j] = contenido;
+                        break;
+                    case 1: //madera
+
+                        if (generacion <= probabilidadGeneracionRecurso)
+
+                        {
+
+                            Vector2 centroCasilla = suelo.GetCellCenterLocal(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                            Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+                            gridCiudad[i, j] = contenido;
+                        }
+                        else
+                        {
+                            gridCiudad[i, j] = 0;
+                        }
+
+                        break;
+                    case 2: //piedra
+
+                        //TODO: lo mismo que con la madera, pero con recurso 2
+
+                        break;
                 }
 
             }
@@ -90,7 +119,7 @@ public class GameManager : MonoBehaviour
     public bool ComprobarCasillaVacia(int fila, int columna)
     {
         bool estaVacia = true;
-        if (anchoGrid >= fila && largoGrid >= columna && fila>= 0 && columna>=0)
+        if (anchoGrid >= fila && largoGrid >= columna && fila >= 0 && columna >= 0)
         {
             if (gridCiudad[fila, columna] != 0)
             {

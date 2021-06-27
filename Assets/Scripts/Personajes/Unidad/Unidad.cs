@@ -7,6 +7,8 @@ public class Unidad : MonoBehaviour
 {
     [Header("Estadísticas de la unidad")]
     public UnidadScriptable unidad;
+    public int vidaActual;
+    float enfriamientoAtaqueRestante;
 
     [Header("Propiedades visuales")]
     SpriteRenderer renderer;
@@ -18,11 +20,15 @@ public class Unidad : MonoBehaviour
     public Vector3 posicionObjetivo; //indica si el personaje se desplaza a una zona en concreto
     bool ejecutandoAccion = false; //sirve para determinar si el personaje está ejecutando una acción
 
+    public List<Unidad> unidadesAsignadas = new List<Unidad>(); //indica el número de enemigos que lo están atacando
+
     private void Awake()
     {
         selector = transform.Find("Selector").gameObject;
         MostrarSelectorUnidad(false);
         posicionObjetivo = gameObject.transform.position;
+        vidaActual = unidad.vida;
+        enfriamientoAtaqueRestante = 0f;
     }
     void Start()
     {
@@ -34,6 +40,8 @@ public class Unidad : MonoBehaviour
     private void Update()
     {
         Desplazarse();
+        AtacarUnidad();
+        Morir();
     }
 
     public void MostrarSelectorUnidad(bool debeMostrarse)
@@ -81,6 +89,10 @@ public class Unidad : MonoBehaviour
                 {
                     objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(this);
                 
+                }else if(objetivoActual.GetComponent<Unidad>() != null && !objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Contains(this))
+                {
+                    objetivoActual.GetComponent<Unidad>().AddUnidad(this);
+
                 }
             }
         }
@@ -88,11 +100,62 @@ public class Unidad : MonoBehaviour
 
     }
 
+    public void Morir()
+    {
+        if (vidaActual <= 0)
+        {
+            foreach(Unidad uni in unidadesAsignadas)
+            {
+                uni.LiberarUnidad();
+            }
+            Debug.Log("Me morí, ta luego");
+            Destroy(gameObject);
+        }
+    }
+
+    public void AtacarUnidad()
+    {
+        if (objetivoActual != null && objetivoActual.GetComponent<Unidad>() != null && objetivoActual.GetComponent<Unidad>().unidad.bando != unidad.bando && ejecutandoAccion)
+        { //si el objetivo no es nulo, tiene componente unidad Y no es el del mismo bando, atácalo
+            Unidad unidadEnemiga = objetivoActual.GetComponent<Unidad>();
+
+            Debug.Log(gameObject.name + " va a atacar a un enemigo que tiene todavía " + unidadEnemiga.vidaActual+" puntos de vida");
+
+            if (enfriamientoAtaqueRestante <= 0) //claro que para eso debe haber pasado el tiempo de enfriamiento
+            {
+                if (unidadEnemiga.vidaActual - unidad.fuerza < 0)
+                {
+                    unidadEnemiga.vidaActual = 0;
+                }
+                else
+                {
+                    unidadEnemiga.vidaActual -= unidad.fuerza;
+                    enfriamientoAtaqueRestante = unidad.tiempoEnfriamientoAtaque;
+                }
+            }
+            else
+            {
+                enfriamientoAtaqueRestante -= Time.deltaTime;
+            }
+
+        }
+    }
+
     public void LiberarUnidad()
     {
 
         ejecutandoAccion = false;
         objetivoActual = null;
+    }
+
+    public void AddUnidad(Unidad unidad)
+    {
+        unidadesAsignadas.Add(unidad);
+    }
+
+    public void QuitarUnidad(Unidad unidad)
+    {
+        unidadesAsignadas.Remove(unidad);
     }
 
 }

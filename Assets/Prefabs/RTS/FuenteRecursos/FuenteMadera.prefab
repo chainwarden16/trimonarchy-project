@@ -67,9 +67,15 @@ PrefabInstance:
       propertyPath: recursosProporcionados.Array.data[2]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3901076855902152675, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
+      propertyPath: fuente
+      value: 
+      objectReference: {fileID: 11400000, guid: a90e3d939b48cad4d9bdb55cd56c12b9, type: 2}
     - target: {fileID: 6036863898622918337, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
       propertyPath: m_Name
       value: FuenteMadera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6057238129620925636, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
+    - {fileID: 5391250283665879681, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}

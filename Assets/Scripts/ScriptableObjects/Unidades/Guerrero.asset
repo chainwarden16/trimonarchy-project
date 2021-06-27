@@ -15,5 +15,7 @@ MonoBehaviour:
   vida: 140
   fuerza: 12
   rangoAtaque: 5
-  marcadorSeleccion: {fileID: 0}
   tipo: 1
+  bando: 0
+  tiempoEnfriamientoAtaque: 0.6
+  limiteUnidadesAsignadas: 4
