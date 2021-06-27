@@ -48,7 +48,7 @@ public class BuildController : MonoBehaviour
         if (edificioAConstruir != null)
 
         {
-            unidadCon.unidadesSeleccionadas.Clear();
+            //unidadCon.unidadesSeleccionadas.Clear();
             unidadCon.enabled = false;
             edificioRenderer.sprite = edificioAConstruir.GetComponent<Edificio>().edificioData.terminado;
             edificioRenderer.color = new Color(0, 1, 0, 1);
@@ -69,14 +69,14 @@ public class BuildController : MonoBehaviour
                 bool condicion2 = tileSuelo.HasTile(tpos); //mira si está dentro del Tilemap donde se permite construir
                 bool condicion3 = manager.ComprobarCasillaVacia(tpos.x, tpos.y); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
 
-                if (condicion2) //condicion1 && condicion2 && condicion3
+                if (condicion1 && condicion2 && condicion3) //condicion1 && condicion2 && condicion3
                 {
 
                     edificioAConstruir.GetComponent<Edificio>().ConstruirEdificio();
                     GameManager.manager.ActualizarContadorRecursos();
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
-                    GameObject nuevoEdificio = Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y+tileSuelo.layoutGrid.cellSize.y/2), Quaternion.identity);
+                    Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y+tileSuelo.layoutGrid.cellSize.y/2), Quaternion.identity);
                     //nuevoEdificio.GetComponent<Edificio>().ProcesoConstruccion();
                     
                     edificioAConstruir = null;

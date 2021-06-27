@@ -46,7 +46,16 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < largoGrid - 1; j++) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
             {
-                gridCiudad[i, j] = 0;
+                if (i == 0 && j == 0) //borrar tras pruebas
+                {
+                    gridCiudad[i, j] = 1;
+                }
+                else
+                {
+                    gridCiudad[i, j] = 0;
+
+                }
+
             }
         }
 
@@ -81,7 +90,7 @@ public class GameManager : MonoBehaviour
     public bool ComprobarCasillaVacia(int fila, int columna)
     {
         bool estaVacia = true;
-        if (anchoGrid >= fila && largoGrid >= columna)
+        if (anchoGrid >= fila && largoGrid >= columna && fila>= 0 && columna>=0)
         {
             if (gridCiudad[fila, columna] != 0)
             {

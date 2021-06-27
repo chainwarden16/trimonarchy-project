@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Tilemaps;
 
 public class UnidadController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class UnidadController : MonoBehaviour
     GameObject areaSeleccion;
     Color colArea;
     bool estaPresionandoBotonIzquierdo = false;
+    Tilemap tileSuelo;
 
     public List<Unidad> unidadesSeleccionadas = new List<Unidad>();
 
@@ -30,6 +32,7 @@ public class UnidadController : MonoBehaviour
         areaSeleccion = GameObject.Find("--area seleccion--");
         colArea = areaSeleccion.GetComponentInChildren<SpriteRenderer>().color;
         areaSeleccion.GetComponentInChildren<SpriteRenderer>().color = new Color(colArea.r, colArea.g, colArea.b, 0); //se deja la imagen con opacidad 0 para que no se vea
+        tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
     }
 
     void Start()
@@ -116,12 +119,129 @@ public class UnidadController : MonoBehaviour
 
         En cualquier caso, deben colocarse en torno al punto indicado sin solaparse entre sí Y esquivar los obstáculos que se encuentren por el camino
         */
-        Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
 
-        foreach(Unidad unidad in unidadesSeleccionadas)
+        if (unidadesSeleccionadas.Count > 0) //debes pulsar el botón derecho del ratón y tener al menos 1 unidad seleccionada
+
         {
-            //usar las mismas condicionales que a la hora de crear la casa para comprobar que están dentro de la cuadrícula, y luego hacer que se muevan y hagan las acciones mencionadas antes segñun el contenido de la casilla
+
+            Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
+            Vector3Int tpos = tileSuelo.WorldToCell(posicionActual);
+
+            if (tileSuelo.HasTile(tpos))
+
+            {
+                Debug.Log("Alola");
+                List<Collider2D> colliders = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
+
+                int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
+                List<Unidad> aux = new List<Unidad>(unidadesSeleccionadas);
+                int unidadesYaEnCamino = 0;
+                foreach (Unidad unidad in aux)
+                {
+                    if (unidad.objetivoActual != null)
+                    {
+                        if (unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>() != null)
+                        {
+                            unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().QuitarUnidad(unidad);
+                        }
+                        else if (false)
+                        { //sustituir por componente del enemigo
+
+                        }
+                        unidad.LiberarUnidad();
+                    }
+                    //usar las mismas condicionales que a la hora de crear la casa para comprobar que están dentro de la cuadrícula, y luego hacer que se muevan y hagan las acciones mencionadas antes segñun el contenido de la casilla
+                    switch (valorCelda)
+                    {
+                        case 0: //Terreno vacío
+                            Debug.Log("Tereno vacío");
+                            unidad.posicionObjetivo = posicionActual;
+                            break;
+                        case 1: //Recurso
+
+                            if (colliders.Count > 0)
+                            //si hay algún recurso en este punto, se tomará el primero y se asignará una serie de unidades para trabajar en ella. 
+                            //Estas unidades serán apartadas de la lista de unidades seleccionadas y, en caso de haber más de las que acepta el recurso, el resto deberán seguir estando seleccionadas
+                            {
+                                int unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().unidadesAsignadas.Count;
+
+                                int unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<FuenteRecursosOperaciones>().fuente.limiteUnidadesAsignadas;
+
+                                int numeroUnidadesSeleccionadas = unidadesSeleccionadas.Count;
+
+                                Debug.Log("La suma total de unidades asignadas a este recurso es:" + (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas));
+
+                                if (unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
+                                                                                             //son civiles y luego contar cuántos civiles tienes
+                                {
+
+                                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                                    {
+
+                                        unidad.objetivoActual = colliders[0].gameObject;
+                                        unidadesSeleccionadas.Remove(unidad);
+                                        unidad.MostrarSelectorUnidad(false);
+                                        unidadesYaEnCamino++;
+
+                                    }
+                                    else
+                                    {
+                                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+                                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
+                                        if (diferencia > unidadesYaEnCamino)
+                                        {
+                                            unidad.objetivoActual = colliders[0].gameObject;
+                                            unidadesSeleccionadas.Remove(unidad);
+                                            unidad.MostrarSelectorUnidad(false);
+                                            unidadesYaEnCamino++;
+                                        }
+                                        /*for(int i=numeroUnidadesSeleccionadas-1;unidadesSeleccionadas.Count==diferencia; i--)
+                                        {
+                                            unidadesSeleccionadas.Remove(unidadesSeleccionadas[i]);
+                                            unidad.MostrarSelectorUnidad(false);
+                                        }
+
+                                        Debug.Log("El tamaño de la lista de unidades seleccionadas es de " + unidadesSeleccionadas.Count);
+
+                                        if(unidadesSeleccionadas.Count > 0)
+                                        {
+                                            List<Unidad> aux2 = new List<Unidad>(unidadesSeleccionadas);
+                                            foreach (Unidad un in aux2)
+                                            {
+                                                unidad.objetivoActual = colliders[0].gameObject;
+                                                unidadesSeleccionadas.Remove(unidad);
+                                                unidad.MostrarSelectorUnidad(false);
+                                            }
+                                        }*/
+
+                                    }
+
+
+
+                                }
+
+
+
+                            }
+                            break;
+                        case 2: //Edificio por construir
+                            break;
+                        default: // en los demás casos, se mira si hay un enemigo en la zona cercana al ratón
+                            FinSeleccionarUnidades();
+                            break;
+                    }
+                }
+
+            }
+            else
+            {
+                FinSeleccionarUnidades();
+            }
+
+
         }
+
 
 
     }
