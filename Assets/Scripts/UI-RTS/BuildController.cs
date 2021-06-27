@@ -74,6 +74,7 @@ public class BuildController : MonoBehaviour
 
                     edificioAConstruir.GetComponent<Edificio>().ConstruirEdificio();
                     GameManager.manager.ActualizarContadorRecursos();
+                    GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 3);
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
                     Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y+tileSuelo.layoutGrid.cellSize.y/2), Quaternion.identity);

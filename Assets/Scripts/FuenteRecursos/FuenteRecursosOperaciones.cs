@@ -46,9 +46,8 @@ public class FuenteRecursosOperaciones : MonoBehaviour
                         un.LiberarUnidad();
                     }
                     Vector3Int tpos = tileSuelo.WorldToCell(gameObject.transform.position);
-                    GameManager.manager.gridCiudad[tpos.x, tpos.y] = 0;
-                    Debug.Log("Me he agotado, ta luego");
-                    Debug.Log("Y el valor de 0,0 es: "+ GameManager.manager.gridCiudad[0, 0]);
+                    GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 0);
+                    Debug.Log("Me he agotado, me borro");
                     Destroy(gameObject);
                 }
 

@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
     public bool ComprobarCasillaVacia(int fila, int columna)
     {
         bool estaVacia = true;
-        if (anchoGrid >= fila && largoGrid >= columna && fila >= 0 && columna >= 0)
+        if (fila < anchoGrid && columna < largoGrid && fila >= 0 && columna >= 0)
         {
             if (gridCiudad[fila, columna] != 0)
             {
@@ -131,10 +131,13 @@ public class GameManager : MonoBehaviour
         return estaVacia;
     }
 
-    private void AbrirMenuAcciones(int x, int y)
+    public void RellenarCasillaGrid(int x, int y, int numero) 
+    
     {
-
-
+        if (x < anchoGrid && y < largoGrid && x >= 0 && y >= 0)
+        {
+            gridCiudad[x, y] = numero; 
+        }
     }
 
 }

@@ -133,7 +133,7 @@ public class UnidadController : MonoBehaviour
 
             {
                 Debug.Log("Alola");
-                List<Collider2D> collidersEdificios = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
+                List<Collider2D> collidersRecursos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
                 List<Collider2D> collidersEnemigos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Unidad>() != null
                 && collid.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.IA).ToList();
                 int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
@@ -168,18 +168,29 @@ public class UnidadController : MonoBehaviour
                                 EnviarUnidadesSegunNumero(collidersEnemigos, unidad,  1);
                             }
                             break;
-                        case 1: //Recurso
+                        case 1: //Madera
 
-                            if (collidersEdificios.Count > 0)
+                            if (collidersRecursos.Count > 0)
                             //si hay algún recurso en este punto, se tomará el primero y se asignará una serie de unidades para trabajar en ella. 
                             //Estas unidades serán apartadas de la lista de unidades seleccionadas y, en caso de haber más de las que acepta el recurso, el resto deberán seguir estando seleccionadas
                             {
 
-                                EnviarUnidadesSegunNumero(collidersEdificios, unidad, 0);
+                                EnviarUnidadesSegunNumero(collidersRecursos, unidad, 0);
 
                             }
                             break;
-                        case 2: //Edificio por construir
+                        case 2: //Piedra
+                            if (collidersRecursos.Count > 0)
+                            //si hay algún recurso en este punto, se tomará el primero y se asignará una serie de unidades para trabajar en ella. 
+                            //Estas unidades serán apartadas de la lista de unidades seleccionadas y, en caso de haber más de las que acepta el recurso, el resto deberán seguir estando seleccionadas
+                            {
+
+                                EnviarUnidadesSegunNumero(collidersRecursos, unidad, 0);
+
+                            }
+
+                            break;
+                        case 3: //Edificio por construir (si varía, cámbialo también en BuildController
                             break;
                         default: // en los demás casos, se mira si hay un enemigo en la zona cercana al ratón
                             FinSeleccionarUnidades();

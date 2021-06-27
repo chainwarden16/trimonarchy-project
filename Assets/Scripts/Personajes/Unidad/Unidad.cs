@@ -108,7 +108,7 @@ public class Unidad : MonoBehaviour
             {
                 uni.LiberarUnidad();
             }
-            Debug.Log("Me morí, ta luego");
+            Debug.Log("Me he morío");
             Destroy(gameObject);
         }
     }
