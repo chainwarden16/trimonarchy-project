@@ -61,7 +61,7 @@ public class Unidad : MonoBehaviour
 
         {
             Debug.Log("Mi posición ya no es donde estoy");
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posicionObjetivo, 0.5f * Time.deltaTime * 60);
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posicionObjetivo, 0.2f * Time.deltaTime * 60);
 
 
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, posicionObjetivo)) <= 1f)
@@ -77,7 +77,7 @@ public class Unidad : MonoBehaviour
         else if (objetivoActual != null)
         {
             Debug.Log("Tengo un objetivo");
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, objetivoActual.transform.position, 0.5f * Time.deltaTime * 60);
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, objetivoActual.transform.position, 0.2f * Time.deltaTime * 60);
 
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) <= 1f)
             {

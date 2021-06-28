@@ -18,6 +18,7 @@ public class FuenteRecursosOperaciones : MonoBehaviour
         rendererRecurso = gameObject.GetComponent<SpriteRenderer>();
         rendererRecurso.sprite = fuente.spriteRecurso;
         gameObject.AddComponent<BoxCollider2D>();
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
     private void Update()

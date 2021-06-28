@@ -49,6 +49,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MoverCamara"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8c62898-d5bc-4118-99cd-007020b9f552"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +106,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ecf6132f-92f6-4c4a-b665-1ee1cc81491e"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SaltarContenido"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2156e519-4a72-449d-82f4-ec8f02fb562a"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -106,6 +125,61 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""PosicionCursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""3254b24c-3f7d-4457-b553-5cd26df115f1"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoverCamara"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8f04e964-687d-4fde-8591-ab93a862960a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoverCamara"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""5fcd04cc-411c-4896-8490-5d67c99eb1a5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoverCamara"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a2819262-3105-47c9-8196-7658b4bbba6a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoverCamara"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""371ebe1b-761b-4bcc-babd-4e3b1cb15101"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoverCamara"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -454,6 +528,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_RTS_BorrarEdificioCancelar = m_RTS.FindAction("Borrar Edificio/Cancelar", throwIfNotFound: true);
         m_RTS_SaltarContenido = m_RTS.FindAction("SaltarContenido", throwIfNotFound: true);
         m_RTS_PosicionCursor = m_RTS.FindAction("PosicionCursor", throwIfNotFound: true);
+        m_RTS_MoverCamara = m_RTS.FindAction("MoverCamara", throwIfNotFound: true);
         // Castillo
         m_Castillo = asset.FindActionMap("Castillo", throwIfNotFound: true);
         m_Castillo_Caminar = m_Castillo.FindAction("Caminar", throwIfNotFound: true);
@@ -518,6 +593,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_RTS_BorrarEdificioCancelar;
     private readonly InputAction m_RTS_SaltarContenido;
     private readonly InputAction m_RTS_PosicionCursor;
+    private readonly InputAction m_RTS_MoverCamara;
     public struct RTSActions
     {
         private @PlayerControls m_Wrapper;
@@ -526,6 +602,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @BorrarEdificioCancelar => m_Wrapper.m_RTS_BorrarEdificioCancelar;
         public InputAction @SaltarContenido => m_Wrapper.m_RTS_SaltarContenido;
         public InputAction @PosicionCursor => m_Wrapper.m_RTS_PosicionCursor;
+        public InputAction @MoverCamara => m_Wrapper.m_RTS_MoverCamara;
         public InputActionMap Get() { return m_Wrapper.m_RTS; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -547,6 +624,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PosicionCursor.started -= m_Wrapper.m_RTSActionsCallbackInterface.OnPosicionCursor;
                 @PosicionCursor.performed -= m_Wrapper.m_RTSActionsCallbackInterface.OnPosicionCursor;
                 @PosicionCursor.canceled -= m_Wrapper.m_RTSActionsCallbackInterface.OnPosicionCursor;
+                @MoverCamara.started -= m_Wrapper.m_RTSActionsCallbackInterface.OnMoverCamara;
+                @MoverCamara.performed -= m_Wrapper.m_RTSActionsCallbackInterface.OnMoverCamara;
+                @MoverCamara.canceled -= m_Wrapper.m_RTSActionsCallbackInterface.OnMoverCamara;
             }
             m_Wrapper.m_RTSActionsCallbackInterface = instance;
             if (instance != null)
@@ -563,6 +643,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PosicionCursor.started += instance.OnPosicionCursor;
                 @PosicionCursor.performed += instance.OnPosicionCursor;
                 @PosicionCursor.canceled += instance.OnPosicionCursor;
+                @MoverCamara.started += instance.OnMoverCamara;
+                @MoverCamara.performed += instance.OnMoverCamara;
+                @MoverCamara.canceled += instance.OnMoverCamara;
             }
         }
     }
@@ -679,6 +762,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnBorrarEdificioCancelar(InputAction.CallbackContext context);
         void OnSaltarContenido(InputAction.CallbackContext context);
         void OnPosicionCursor(InputAction.CallbackContext context);
+        void OnMoverCamara(InputAction.CallbackContext context);
     }
     public interface ICastilloActions
     {
