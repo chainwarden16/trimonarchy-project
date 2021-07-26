@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4162733ef4e664baaae51a82d7fc11, type: 3}
   m_Name: CampoEntrenamiento
   m_EditorClassIdentifier: 
-  coste: 0000000000000000000000000000000000000000000000000000000000000000
-  nombre: 
-  beneficio: 0000000000000000
+  coste: be000000c8000000c8000000b20000009b00000095000000ba000000c0000000
+  nombre: Campo de entrenamiento
+  beneficio: 0000000004000000
+  materiales: 0000000000000000000000000000000000000000000000000000000000000000
   estado: 1
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 4
-  enConstruccion: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
-  terminado: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
-  temporizadorFondo: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
-  temporizadorRelleno: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
+  tiempoConstruccion: 8
+  enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
+  terminado: {fileID: 21300000, guid: 376c3e7156fb4674c928acaec79e2d40, type: 3}
+  limiteCiviles: 4
+  indiceEdificio: 7

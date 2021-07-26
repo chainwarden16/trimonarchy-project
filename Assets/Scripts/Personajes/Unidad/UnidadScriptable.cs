@@ -7,7 +7,7 @@ public class UnidadScriptable : ScriptableObject
 {
     public int vida;
     public int fuerza;
-    public int rangoAtaque;
+    public float rangoAtaque;
     public TipoUnidad tipo;
     public Bando bando;
     public float tiempoEnfriamientoAtaque;

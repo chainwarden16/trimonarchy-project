@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4162733ef4e664baaae51a82d7fc11, type: 3}
   m_Name: Mercado
   m_EditorClassIdentifier: 
-  coste: 0000000000000000000000000000000000000000000000000000000000000000
-  nombre: 
+  coste: 00000000140000001000000000000000000000000f0000000000000000000000
+  nombre: Mercado
   beneficio: 0000000000000000
+  materiales: 000000000000000000000000070000000a000000000000000800000000000000
   estado: 1
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
   tiempoConstruccion: 3
-  enConstruccion: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
-  terminado: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
-  temporizadorFondo: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
-  temporizadorRelleno: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
+  enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
+  terminado: {fileID: 21300000, guid: 30e7ea36d4713c04cab9619aa6fd9726, type: 3}
+  limiteCiviles: 2
+  indiceEdificio: 2

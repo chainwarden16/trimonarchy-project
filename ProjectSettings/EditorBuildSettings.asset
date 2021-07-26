@@ -12,21 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Opciones.unity
     guid: 33f09af3792f1124f803b65d64321f9c
   - enabled: 1
-    path: Assets/Scenes/Pasillo.unity
-    guid: 2b587a92eada860479a14012a5f21719
-  - enabled: 1
-    path: Assets/Scenes/SalaTrono.unity
-    guid: ade64ae14d4aa2448aad3d4f1a8f38a6
+    path: Assets/Scenes/Tutorial.unity
+    guid: 5cc0f09d3e3a18e46a3eb1c054fc35f6
   - enabled: 1
     path: Assets/Scenes/MapaCiudad.unity
     guid: 07c7d2ab78f9e5e4d9d929ead05158d0
   - enabled: 1
-    path: Assets/Scenes/LaberintoN1.unity
-    guid: e72aa086e7d96814f9875b288185b27c
-  - enabled: 1
     path: Assets/Scenes/Victoria.unity
     guid: 671c6db8ff1d4a347b136561e3519236
   - enabled: 1
-    path: Assets/Scenes/Game Over.unity
+    path: Assets/Scenes/FinPartida.unity
     guid: 3bde6f6a53a4a81408069c46010acccf
   m_configObjects: {}

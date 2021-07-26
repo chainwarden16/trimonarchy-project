@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f42f34f61300409aa200dde736d0a, type: 3}
   m_Name: Piedra
   m_EditorClassIdentifier: 
-  indiceRecurso: 0
-  cantidad: 0
-  cantidadMaxima: 0
-  spriteRendererRecurso: {fileID: 0}
-  tiempoEnfriamiento: 0
-  limiteUnidadesAsignadas: 0
+  indiceRecurso: 2
+  cantidad: 10
+  cantidadMaxima: 50
+  spriteRecurso: {fileID: 21300000, guid: 84739fd248359224d948a95aa1ebd7ce, type: 3}
+  tiempoEnfriamiento: 3
+  limiteUnidadesAsignadas: 2

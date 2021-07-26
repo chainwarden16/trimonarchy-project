@@ -16,5 +16,5 @@ MonoBehaviour:
   cantidad: 5
   cantidadMaxima: 50
   spriteRecurso: {fileID: 21300000, guid: 276ea828646a03a48a47e9b0b4f2270b, type: 3}
-  tiempoEnfriamiento: 5
+  tiempoEnfriamiento: 3
   limiteUnidadesAsignadas: 2

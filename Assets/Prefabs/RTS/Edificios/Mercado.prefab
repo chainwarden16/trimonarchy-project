@@ -8,6 +8,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -62,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: temporizadorFondo
       value: 
-      objectReference: {fileID: 5877319843211156264, guid: 5501597e8de47f34982d5e5ce0d75e37, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: tiempoConstruccion
       value: 19
@@ -102,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: temporizadorRelleno
       value: 
-      objectReference: {fileID: 4007782316961586742, guid: e7e72f5f228a065429bbce5f94348a9c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: beneficio.Array.size
       value: 2
@@ -174,18 +182,18 @@ PrefabInstance:
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 03cd18abc8f330e419ffd6685c265621, type: 3}
+      objectReference: {fileID: 21300000, guid: 30e7ea36d4713c04cab9619aa6fd9726, type: 3}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Color.g
-      value: 0.20446561
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Color.r
-      value: 0.6320754
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_WasSpriteAssigned

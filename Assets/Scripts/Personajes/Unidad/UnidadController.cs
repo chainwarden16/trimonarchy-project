@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class UnidadController : MonoBehaviour
 {
+    #region variables
 
     PlayerControls controles;
+    [Header("Posiciones del área bajo el ratón")]
     Vector2 inicioArrastreRaton = Vector2.zero;
     Vector2 finArrastreRaton = Vector2.zero;
-    BuildController buildCon;
     GameObject areaSeleccion;
     Color colArea;
+
+    [Header("Controlador de construcción de edificios")]
+    BuildController buildCon;
+
+    [Header("Determina si se ha levantado el botón del ratón para realizar la selección")]
     bool estaPresionandoBotonIzquierdo = false;
     Tilemap tileSuelo;
     int unidadesYaEnCamino = 0;
 
+    [Header("Panel de unidad seleccionada")]
+    public GameObject panelUnidad;
+    public Text vidaMaxima;
+    public Text vidaActual;
+    public Image iconoPersonaje;
+    public Image barraVida;
+    public Text tipoUnidad;
+
+
     public List<Unidad> unidadesSeleccionadas = new List<Unidad>();
+
+    #endregion
 
     private void Awake()
     {
@@ -38,13 +56,29 @@ public class UnidadController : MonoBehaviour
 
     void Start()
     {
-
+        panelUnidad.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         EscalarAreaSeleccion();
+    }
+
+    void ActivarPanel()
+    {
+        vidaMaxima.text = "/" + unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida.ToString();
+        vidaActual.text = unidadesSeleccionadas[0].vidaActual.ToString();
+        iconoPersonaje.sprite = unidadesSeleccionadas[0].GetComponentInChildren<SpriteRenderer>().sprite;
+        tipoUnidad.text = unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.tipo.ToString();
+        barraVida.fillAmount = unidadesSeleccionadas[0].vidaActual / unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida;
+        panelUnidad.SetActive(true);
+    }
+
+    public void CerrarPanel()
+    {
+        //Hacer que se cierre si la unidad muere
+        panelUnidad.SetActive(false);
     }
 
     private void InicioSeleccionarUnidades()
@@ -80,6 +114,15 @@ public class UnidadController : MonoBehaviour
                 colli.gameObject.GetComponent<Unidad>().MostrarSelectorUnidad(true);
             }
 
+            if (unidadesSeleccionadas.Count > 0)
+            {
+                ActivarPanel();
+
+            }
+            else
+            {
+                CerrarPanel();
+            }
 
         }
 
@@ -129,18 +172,24 @@ public class UnidadController : MonoBehaviour
             Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
             Vector3Int tpos = tileSuelo.WorldToCell(posicionActual);
 
+
             if (tileSuelo.HasTile(tpos))
 
             {
                 Debug.Log("Alola");
                 List<Collider2D> collidersRecursos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
-                List<Collider2D> collidersEnemigos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Unidad>() != null
-                && collid.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.IA).ToList();
+
+                List<Collider2D> collidersEnemigos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<UnidadEnemiga>() != null).ToList();
+
+                List<Collider2D> collidersEdificiosCons = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Edificio>() != null).ToList();
+
+                Debug.Log(collidersEdificiosCons.Count);
+
                 int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
-                
+
                 List<Unidad> aux = new List<Unidad>(unidadesSeleccionadas);
 
-                
+
                 foreach (Unidad unidad in aux)
                 {
                     if (unidad.objetivoActual != null)
@@ -149,9 +198,13 @@ public class UnidadController : MonoBehaviour
                         {
                             unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().QuitarUnidad(unidad);
                         }
-                        else if (unidad.objetivoActual.GetComponent<Unidad>() != null)
+                        else if (unidad.objetivoActual.GetComponent<UnidadEnemiga>() != null)
                         {
-                            unidad.objetivoActual.GetComponent<Unidad>().QuitarUnidad(unidad);
+                            unidad.objetivoActual.GetComponent<UnidadEnemiga>().QuitarUnidad(unidad);
+                        }
+                        else if (unidad.objetivoActual.GetComponent<Edificio>() != null)
+                        {
+                            unidad.objetivoActual.GetComponent<Edificio>().QuitarUnidad(unidad);
                         }
                         unidad.LiberarUnidad();
                     }
@@ -165,7 +218,7 @@ public class UnidadController : MonoBehaviour
                                 unidad.posicionObjetivo = posicionActual;
                             else
                             {
-                                EnviarUnidadesSegunNumero(collidersEnemigos, unidad,  1);
+                                EnviarUnidadesSegunNumero(collidersEnemigos, unidad, 1);
                             }
                             break;
                         case 1: //Madera
@@ -190,7 +243,12 @@ public class UnidadController : MonoBehaviour
                             }
 
                             break;
-                        case 3: //Edificio por construir (si varía, cámbialo también en BuildController
+                        case 3: //Edificio por construir (si varía, cámbialo también en BuildController)
+                            if (collidersEdificiosCons.Count > 0)
+                            {
+                                Debug.Log("Voy a ver si necesito llevar gente a este edificio");
+                                EnviarUnidadesSegunNumero(collidersEdificiosCons, unidad, 2);
+                            }
                             break;
                         default: // en los demás casos, se mira si hay un enemigo en la zona cercana al ratón
                             FinSeleccionarUnidades();
@@ -258,9 +316,9 @@ public class UnidadController : MonoBehaviour
 
                 break;
             case 1: //enemigo
-                unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<Unidad>().unidadesAsignadas.Count;
+                unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<UnidadEnemiga>().unidadesAsignadas.Count;
 
-                unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<Unidad>().unidad.limiteUnidadesAsignadas;
+                unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<UnidadEnemiga>().unidad.limiteUnidadesAsignadas;
 
                 Debug.Log("La suma total de unidades asignadas a este enemigo es:" + (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas));
 
@@ -296,9 +354,47 @@ public class UnidadController : MonoBehaviour
                 }
                 break;
 
+
+            case 2: //edificio en construccion
+                unidadesAsignadasRecurso = colliders[0].gameObject.GetComponent<Edificio>().unidadesAsignadas.Count;
+
+                unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<Edificio>().edificioData.limiteCiviles;
+
+                if (unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
+                                                                             //son civiles y luego contar cuántos civiles tienes
+                {
+
+                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                    {
+                        Debug.Log("Pues resulta que sí");
+                        unidad.objetivoActual = colliders[0].gameObject;
+                        unidadesSeleccionadas.Remove(unidad);
+                        unidad.MostrarSelectorUnidad(false);
+                        unidadesYaEnCamino++;
+
+                    }
+                    else
+                    {
+                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
+                        if (diferencia > unidadesYaEnCamino)
+                        {
+                            unidad.objetivoActual = colliders[0].gameObject;
+                            unidadesSeleccionadas.Remove(unidad);
+                            unidad.MostrarSelectorUnidad(false);
+                            unidadesYaEnCamino++;
+                        }
+
+                    }
+
+                }
+
+                break;
+
         }
 
-        
+
     }
 
 

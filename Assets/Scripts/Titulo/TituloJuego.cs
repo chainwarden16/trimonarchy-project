@@ -5,42 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class TituloJuego : MonoBehaviour
 {
-    int opcion = 0;
-    bool inputAbajo;
-    bool inputArriba;
-    // Start is called before the first frame update
-    void Start()
+    public void EmpezarPartida()
     {
-        inputAbajo = Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) ;
-        inputArriba = Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) ;
+        SceneManager.LoadScene("Tutorial");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MenuOpciones()
     {
-        if (inputAbajo && opcion > 0)
-        {
-            opcion++;
-        }
-        else if (inputArriba && opcion < 2)
-        {
-            opcion--;
-        }
-        else if (Input.GetButtonDown("Submit"))
-        {
-            switch (opcion)
-            {
-                case 0:
-                    SceneManager.LoadScene(2);
-                    break;
-                case 1:
-                    SceneManager.LoadScene(1);
-                    break;
-                case 2:
-                    Application.Quit();
-                    break;
+        SceneManager.LoadScene("Opciones");
+    }
 
-            }
-        }
+    public void CerrarJuego()
+    {
+        Application.Quit();
     }
 }

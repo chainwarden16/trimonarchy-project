@@ -26,6 +26,8 @@ public class EdificioScriptable : ScriptableObject
     public string nombre;
     [Tooltip("Beneficio que ofrece (tipo y cantidad). El primer índice representa a los civiles; el segundo, a los soldados")]
     public List<int> beneficio;
+    [Tooltip("Materiales que da una vez construido, de tener alguno")]
+    public List<int> materiales;
     [Tooltip("Cómo de construido está el edificio. El coste se tomará en el primer estado y el beneficio se concederá en el último")]
     public EstadoEdificio estado;
     [Tooltip("Ancho y largo en metros del edificio")]
@@ -38,8 +40,8 @@ public class EdificioScriptable : ScriptableObject
     public float tiempoConstruccion;
     public Sprite enConstruccion;
     public Sprite terminado;
-
-
+    public int limiteCiviles;
+    public int indiceEdificio;
     #endregion
 
 

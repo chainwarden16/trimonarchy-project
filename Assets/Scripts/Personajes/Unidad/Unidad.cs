@@ -19,8 +19,8 @@ public class Unidad : MonoBehaviour
     public GameObject objetivoActual; //determina si la unidad ya tiene un objetivo asignado
     public Vector3 posicionObjetivo; //indica si el personaje se desplaza a una zona en concreto
     bool ejecutandoAccion = false; //sirve para determinar si el personaje está ejecutando una acción
-
-    public List<Unidad> unidadesAsignadas = new List<Unidad>(); //indica el número de enemigos que lo están atacando
+    UnidadController controlUnidades;
+    public List<UnidadEnemiga> unidadesAsignadas = new List<UnidadEnemiga>(); //indica el número de enemigos que lo están atacando
 
     private void Awake()
     {
@@ -29,6 +29,7 @@ public class Unidad : MonoBehaviour
         posicionObjetivo = gameObject.transform.position;
         vidaActual = unidad.vida;
         enfriamientoAtaqueRestante = 0f;
+        controlUnidades = FindObjectOfType<UnidadController>();
     }
     void Start()
     {
@@ -46,9 +47,7 @@ public class Unidad : MonoBehaviour
 
     public void MostrarSelectorUnidad(bool debeMostrarse)
     {
-
         selector.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * Convert.ToInt32(debeMostrarse)); //si es verdadero, tendrá opacidad 1 (100%); si no, opacidad 0 (0%). Los booleanos valen siempre 0 o 1
-
     }
 
     public void Desplazarse()
@@ -56,14 +55,14 @@ public class Unidad : MonoBehaviour
         //Las unidades se desplazan hacia el punto que el jugador indique
         //si tiene un objetivo al que dirigirse O un punto nuevo al que caminar Y a su vez no está haciendo ya algo
 
-        Debug.Log("Debería moverme");
-        if (posicionObjetivo != gameObject.transform.position)
+
+        if (posicionObjetivo != gameObject.transform.position && objetivoActual == null)
 
         {
             Debug.Log("Mi posición ya no es donde estoy");
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posicionObjetivo, 0.2f * Time.deltaTime * 60);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posicionObjetivo, Time.deltaTime*5);
 
-
+            
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, posicionObjetivo)) <= 1f)
             {
                 Debug.Log("He llegado al punto indicado");
@@ -77,21 +76,34 @@ public class Unidad : MonoBehaviour
         else if (objetivoActual != null)
         {
             Debug.Log("Tengo un objetivo");
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, objetivoActual.transform.position, 0.2f * Time.deltaTime * 60);
 
-            if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) <= 1f)
+            if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) > unidad.rangoAtaque)
             {
-                Debug.Log("He llegado a mi objetivo");
+
+                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 5);
+
+            }
+
+            else
+            {
+                Debug.Log("He llegado a mi objetivo y la distancia entre nosotros es: " + Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)));
                 ejecutandoAccion = true;
                 posicionObjetivo = gameObject.transform.position;
                 if (objetivoActual.GetComponent<FuenteRecursosOperaciones>() != null && !objetivoActual.GetComponent<FuenteRecursosOperaciones>().unidadesAsignadas.Contains(this))
 
                 {
                     objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(this);
-                
-                }else if(objetivoActual.GetComponent<Unidad>() != null && !objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Contains(this))
+
+                }
+                else if (objetivoActual.GetComponent<UnidadEnemiga>() != null && !objetivoActual.GetComponent<UnidadEnemiga>().unidadesAsignadas.Contains(this))
                 {
-                    objetivoActual.GetComponent<Unidad>().AddUnidad(this);
+                    objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(this);
+
+                }
+                else if (objetivoActual.GetComponent<Edificio>() != null && !objetivoActual.GetComponent<Edificio>().unidadesAsignadas.Contains(this))
+
+                {
+                    objetivoActual.GetComponent<Edificio>().AsignarUnidad(this);
 
                 }
             }
@@ -104,22 +116,31 @@ public class Unidad : MonoBehaviour
     {
         if (vidaActual <= 0)
         {
-            foreach(Unidad uni in unidadesAsignadas)
+            foreach (UnidadEnemiga uni in unidadesAsignadas)
             {
                 uni.LiberarUnidad();
             }
             Debug.Log("Me he morío");
+            if (unidad.tipo != UnidadScriptable.TipoUnidad.Civil)
+            {
+                Recursos.soldados--;
+            }
+            if (controlUnidades.unidadesSeleccionadas[0] == this)
+            {
+                controlUnidades.CerrarPanel();
+            }
+            controlUnidades.unidadesSeleccionadas.Remove(this);
             Destroy(gameObject);
         }
     }
 
     public void AtacarUnidad()
     {
-        if (objetivoActual != null && objetivoActual.GetComponent<Unidad>() != null && objetivoActual.GetComponent<Unidad>().unidad.bando != unidad.bando && ejecutandoAccion)
+        if (objetivoActual != null && objetivoActual.GetComponent<UnidadEnemiga>() != null && objetivoActual.GetComponent<UnidadEnemiga>().unidad.bando != unidad.bando && ejecutandoAccion)
         { //si el objetivo no es nulo, tiene componente unidad Y no es el del mismo bando, atácalo
-            Unidad unidadEnemiga = objetivoActual.GetComponent<Unidad>();
+            UnidadEnemiga unidadEnemiga = objetivoActual.GetComponent<UnidadEnemiga>();
 
-            Debug.Log(gameObject.name + " va a atacar a un enemigo que tiene todavía " + unidadEnemiga.vidaActual+" puntos de vida");
+            Debug.Log(gameObject.name + " va a atacar a un enemigo que tiene todavía " + unidadEnemiga.vidaActual + " puntos de vida");
 
             if (enfriamientoAtaqueRestante <= 0) //claro que para eso debe haber pasado el tiempo de enfriamiento
             {
@@ -148,12 +169,12 @@ public class Unidad : MonoBehaviour
         objetivoActual = null;
     }
 
-    public void AddUnidad(Unidad unidad)
+    public void AddUnidad(UnidadEnemiga unidad)
     {
         unidadesAsignadas.Add(unidad);
     }
 
-    public void QuitarUnidad(Unidad unidad)
+    public void QuitarUnidad(UnidadEnemiga unidad)
     {
         unidadesAsignadas.Remove(unidad);
     }

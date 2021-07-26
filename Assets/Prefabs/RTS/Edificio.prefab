@@ -46,8 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edificioData: {fileID: 11400000, guid: 8b5a5577176454a4bad31cc4bde8474b, type: 2}
-  temporizadorRelleno: {fileID: 0}
-  temporizadorFondo: {fileID: 0}
+  haFinalizadoConstruccion: 0
+  ciudadano: {fileID: 8220106476665350385, guid: 0dd2c81558c8bbf45a6d441afbabcba8, type: 3}
+  mago: {fileID: 2851702429193932149, guid: 7dfac1b5f814b4d40a55787d69f624d0, type: 3}
+  guerrero: {fileID: 4157586480609448795, guid: 14544b1cca46b0e4486fe99e5e471cbe, type: 3}
+  unidadesAsignadas: []
 --- !u!61 &-4687317426838901559
 BoxCollider2D:
   m_ObjectHideFlags: 0
