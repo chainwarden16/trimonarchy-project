@@ -51,12 +51,14 @@ public class HoverButtonController : MonoBehaviour
         if (prefabEdificio.GetComponent<Edificio>().edificioData.beneficio[0] != 0)
         {
             iconosBeneficio[indiceBeneficio].sprite = spritesIconos[8];
+            iconosBeneficio[indiceBeneficio].color = new Color(1, 1, 1, 1);
             textosBeneficio[indiceBeneficio].text = prefabEdificio.GetComponent<Edificio>().edificioData.beneficio[0].ToString();
             indiceBeneficio++;
         }
         else if(prefabEdificio.GetComponent<Edificio>().edificioData.beneficio[1] != 0)
         {
             iconosBeneficio[indiceBeneficio].sprite = spritesIconos[9];
+            iconosBeneficio[indiceBeneficio].color = new Color(1, 1, 1, 1);
             textosBeneficio[indiceBeneficio].text = prefabEdificio.GetComponent<Edificio>().edificioData.beneficio[1].ToString();
             indiceBeneficio++;
         }

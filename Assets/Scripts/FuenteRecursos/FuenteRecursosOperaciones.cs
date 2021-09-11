@@ -28,10 +28,19 @@ public class FuenteRecursosOperaciones : MonoBehaviour
 
     public void ProporcionarRecurso()
     {
+
         if (unidadesAsignadas.Count > 0) //tiene que haber alguien trabajando en esta fuente
         {
-            
-            if (tiempoEnfriamientoActual >= fuente.tiempoEnfriamiento)
+            bool trabajando = false;
+            foreach(Unidad uni in unidadesAsignadas) //si al menos una de las unidades está ya ejecutando la acción (es decir, ha llegado al objetivo), entonces empieza a proporcionar recursos
+            {
+                if (uni.GetEjecutandoAccion())
+                {
+                    trabajando = true;
+                }
+            }
+
+            if (tiempoEnfriamientoActual >= fuente.tiempoEnfriamiento && trabajando)
             { //tiene que haber pasado el tiempo de enfriamiento para proporcionar el recurso
                 Debug.Log("Ahora voy a dar recursos");
                 int cantidadAObtener = fuente.cantidad * unidadesAsignadas.Count;

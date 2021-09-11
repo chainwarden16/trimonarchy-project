@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int[,] gridCiudad; //se debe comprobar en la clase del cursor que no se salga de estas medidas
 
     [Header("Control del estado del juego")]
-    float tiempoRestante = 360; //en segundos
+    float tiempoRestante = 2000; //en segundos
     int numeroSoldadosNecesario = 1; //los magos también entran aquí
     public List<TextMeshProUGUI> textoContador;
     public TextMeshProUGUI contadorCiviles;
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemigos presentes")]
     public List<UnidadEnemiga> unidadesEnemigas = new List<UnidadEnemiga>();
-    int numeroEnemigosACrear = 6;
+    int numeroEnemigosACrear = 1;
     public GameObject mago;
     public GameObject guerrero;
 
@@ -92,8 +92,9 @@ public class GameManager : MonoBehaviour
                         {
 
                             Vector2 centroCasilla = suelo.GetCellCenterLocal(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+                            GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
                             gridCiudad[i, j] = contenido;
+                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
                         }
                         else
                         {
@@ -106,8 +107,9 @@ public class GameManager : MonoBehaviour
 
                         {
                             Vector2 centroCasilla = suelo.GetCellCenterLocal(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+                            GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
                             gridCiudad[i, j] = contenido;
+                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
                         }
 
                         break;

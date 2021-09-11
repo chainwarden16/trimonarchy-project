@@ -114,14 +114,11 @@ public class Edificio : MonoBehaviour
     {
         if (unidadesAsignadas.Count > 0 && !haFinalizadoConstruccion)
         {
-            Debug.Log("Ya tengo una unidad y me pongo a contar");
-            Debug.Log("Iniciando temporizador. Tengo a " + unidadesAsignadas.Count + " civiles asignados");
+
 
             if (duracionRestante > 0f)
             {
                 duracionRestante -= Time.deltaTime * unidadesAsignadas.Count;
-
-                Debug.Log("El tiempo restante es: " + duracionRestante);
 
             }
             else

@@ -12,6 +12,8 @@ public class BuildController : MonoBehaviour
 
     [Header("Tilemap donde se edificará")]
     Tilemap tileSuelo;
+    int x = 2;
+    int y = 2;
 
     [Header("Mensaje de error")]
     GameObject cajaMensaje;
@@ -51,9 +53,23 @@ public class BuildController : MonoBehaviour
             //unidadCon.unidadesSeleccionadas.Clear();
             unidadCon.enabled = false;
             edificioRenderer.sprite = edificioAConstruir.GetComponent<Edificio>().edificioData.terminado;
-            edificioRenderer.color = new Color(0, 1, 0, 1);
-            //se activa el componente y se pone el color, el nuevo gráfico y el tipo de edificio desde el botón que se pulse
-            gameObject.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+
+            List<bool> condiciones = ComprobarCondicionesConstruccion();
+
+            if (condiciones[0] && condiciones[1] && condiciones[2]) //condicion1 && condicion2 && condicion3
+            {
+
+                edificioRenderer.color = new Color(0, 1, 0, 1);
+
+            }
+            else
+            {
+
+                edificioRenderer.color = new Color(1, 0, 0, 1);
+
+            }
+
+
 
             if (Input.GetMouseButtonDown(0)) //TODO: comprobar que está dentro de la grid del tilemap, que se tengan materiales suficientes Y que no haya algo ya construido en esa zona de la grid del GameManager
                                              //Si no se puede contruir, aparecerá en rojo; si se puede, en verde
@@ -64,10 +80,12 @@ public class BuildController : MonoBehaviour
 
                 gameObject.transform.position = tpos;
 
+
+
                 // Try to get a tile from cell position
-                bool condicion1 = edificioAConstruir.GetComponent<Edificio>().ComprobarConstruirEdificio(); //comprueba si se puede construir el edificio con los materiales actuales
-                bool condicion2 = tileSuelo.HasTile(tpos); //mira si está dentro del Tilemap donde se permite construir
-                bool condicion3 = manager.ComprobarCasillaVacia(tpos.x, tpos.y); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
+                bool condicion1 = condiciones[0]; //comprueba si se puede construir el edificio con los materiales actuales
+                bool condicion2 = condiciones[1]; //mira si está dentro del Tilemap donde se permite construir
+                bool condicion3 = condiciones[2]; //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos cerca (en el recinto designaod por x e y más arriba)
 
                 if (condicion1 && condicion2 && condicion3) //condicion1 && condicion2 && condicion3
                 {
@@ -77,11 +95,11 @@ public class BuildController : MonoBehaviour
                     GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 3);
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
-                    Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y+tileSuelo.layoutGrid.cellSize.y/2), Quaternion.identity);
+                    Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
                     //nuevoEdificio.GetComponent<Edificio>().ProcesoConstruccion();
-                    
+
                     edificioAConstruir = null;
-                    
+
 
                 }
                 else
@@ -104,8 +122,8 @@ public class BuildController : MonoBehaviour
                     edificioAConstruir = null;
                     Time.timeScale = 0;
                 }
-                    unidadCon.enabled = true;
-                    gameObject.GetComponent<BuildController>().enabled = false;
+                unidadCon.enabled = true;
+                gameObject.GetComponent<BuildController>().enabled = false;
 
             }
 
@@ -117,5 +135,42 @@ public class BuildController : MonoBehaviour
         }
     }
 
- 
+
+    private List<bool> ComprobarCondicionesConstruccion()
+    {
+
+        List<bool> condiciones = new List<bool>();
+
+        gameObject.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+
+        Vector3Int tposCursor = tileSuelo.WorldToCell(gameObject.transform.position);
+
+        bool condicion1Cursor = edificioAConstruir.GetComponent<Edificio>().ComprobarConstruirEdificio(); //comprueba si se puede construir el edificio con los materiales actuales
+        bool condicion2Cursor = tileSuelo.HasTile(tposCursor); //mira si está dentro del Tilemap donde se permite construir
+        bool condicion3Cursor = true;
+
+
+        for (int indice = -1; indice < x; indice++)
+        {
+            for (int indice2 = -1; indice2 < y; indice2++)
+            {
+
+                bool condicion3Aux = manager.ComprobarCasillaVacia(tposCursor.x + indice, tposCursor.y + indice2); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
+
+                if (!condicion3Aux)
+                {
+                    condicion3Cursor = false;
+                    break;
+                }
+            }
+        }
+
+        condiciones.Add(condicion1Cursor);
+        condiciones.Add(condicion2Cursor);
+        condiciones.Add(condicion3Cursor);
+
+        return condiciones;
+
+    }
+
 }

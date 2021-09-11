@@ -114,6 +114,8 @@ public class UnidadController : MonoBehaviour
                 colli.gameObject.GetComponent<Unidad>().MostrarSelectorUnidad(true);
             }
 
+            areaSeleccion.transform.localScale = new Vector3(1f, 1f);
+
             if (unidadesSeleccionadas.Count > 0)
             {
                 ActivarPanel();
@@ -176,14 +178,14 @@ public class UnidadController : MonoBehaviour
             if (tileSuelo.HasTile(tpos))
 
             {
-                Debug.Log("Alola");
+
                 List<Collider2D> collidersRecursos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<FuenteRecursosOperaciones>() != null).ToList();
 
                 List<Collider2D> collidersEnemigos = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<UnidadEnemiga>() != null).ToList();
 
                 List<Collider2D> collidersEdificiosCons = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Edificio>() != null).ToList();
 
-                Debug.Log(collidersEdificiosCons.Count);
+
 
                 int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
 
@@ -267,7 +269,6 @@ public class UnidadController : MonoBehaviour
         }
 
 
-
     }
 
 
@@ -288,29 +289,31 @@ public class UnidadController : MonoBehaviour
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
 
-                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                    /*if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
                     {
 
                         unidad.objetivoActual = colliders[0].gameObject;
+                        unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
-                        unidadesYaEnCamino++;
 
                     }
                     else
+                    {*/
+                    //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                    int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+
+                    if (diferencia > 0)
                     {
-                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
-                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
-                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
-                        if (diferencia > unidadesYaEnCamino)
-                        {
-                            unidad.objetivoActual = colliders[0].gameObject;
-                            unidadesSeleccionadas.Remove(unidad);
-                            unidad.MostrarSelectorUnidad(false);
-                            unidadesYaEnCamino++;
-                        }
+
+                        unidad.objetivoActual = colliders[0].gameObject;
+                        unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
+                        unidadesSeleccionadas.Remove(unidad);
+                        unidad.MostrarSelectorUnidad(false);
 
                     }
+
+                    //}
 
                 }
 
@@ -320,38 +323,40 @@ public class UnidadController : MonoBehaviour
 
                 unidadesMaximasRecurso = colliders[0].gameObject.GetComponent<UnidadEnemiga>().unidad.limiteUnidadesAsignadas;
 
-                Debug.Log("La suma total de unidades asignadas a este enemigo es:" + (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas));
 
-                //Nota: cambiar esto a != Civil
+
+
                 if (unidad.unidad.tipo != UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
+                    /*
+                                        if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                                        {
 
-                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                                            unidad.objetivoActual = colliders[0].gameObject;
+                                            unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
+                                            unidadesSeleccionadas.Remove(unidad);
+                                            unidad.MostrarSelectorUnidad(false);
+                                            unidadesYaEnCamino++;
+
+                                        }
+                                        /*else
+                                        {*/
+                    //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                    int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
+
+                    if (diferencia > 0)
                     {
-
                         unidad.objetivoActual = colliders[0].gameObject;
+                        unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
                         unidadesYaEnCamino++;
-
-                    }
-                    else
-                    {
-                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
-                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
-                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
-                        if (diferencia > unidadesYaEnCamino)
-                        {
-                            unidad.objetivoActual = colliders[0].gameObject;
-                            unidadesSeleccionadas.Remove(unidad);
-                            unidad.MostrarSelectorUnidad(false);
-                            unidadesYaEnCamino++;
-                        }
-
                     }
 
                 }
+
+                //}
                 break;
 
 
@@ -364,29 +369,31 @@ public class UnidadController : MonoBehaviour
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
 
-                    if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
+                    /*if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
                     {
                         Debug.Log("Pues resulta que sí");
                         unidad.objetivoActual = colliders[0].gameObject;
+                        unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
                         unidadesYaEnCamino++;
 
-                    }
-                    else
-                    {
-                        //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
-                        int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
-                        Debug.Log("La diferencia entre el maximo de unidades posible y las asignadas es: " + diferencia);
-                        if (diferencia > unidadesYaEnCamino)
-                        {
-                            unidad.objetivoActual = colliders[0].gameObject;
-                            unidadesSeleccionadas.Remove(unidad);
-                            unidad.MostrarSelectorUnidad(false);
-                            unidadesYaEnCamino++;
-                        }
+                    }*/
+                    //else
+                    //{
+                    //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
+                    int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
 
+                    if (diferencia > 0)
+                    {
+                        unidad.objetivoActual = colliders[0].gameObject;
+                        unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
+                        unidadesSeleccionadas.Remove(unidad);
+                        unidad.MostrarSelectorUnidad(false);
+                        unidadesYaEnCamino++;
                     }
+
+                    //}
 
                 }
 

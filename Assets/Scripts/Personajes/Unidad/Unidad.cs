@@ -59,13 +59,13 @@ public class Unidad : MonoBehaviour
         if (posicionObjetivo != gameObject.transform.position && objetivoActual == null)
 
         {
-            Debug.Log("Mi posición ya no es donde estoy");
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posicionObjetivo, Time.deltaTime*5);
+
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posicionObjetivo, Time.deltaTime*3);
 
             
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, posicionObjetivo)) <= 1f)
             {
-                Debug.Log("He llegado al punto indicado");
+
                 posicionObjetivo = gameObject.transform.position;
 
             }
@@ -80,32 +80,16 @@ public class Unidad : MonoBehaviour
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) > unidad.rangoAtaque)
             {
 
-                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 5);
+                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 3);
 
             }
 
             else
             {
-                Debug.Log("He llegado a mi objetivo y la distancia entre nosotros es: " + Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)));
+
                 ejecutandoAccion = true;
                 posicionObjetivo = gameObject.transform.position;
-                if (objetivoActual.GetComponent<FuenteRecursosOperaciones>() != null && !objetivoActual.GetComponent<FuenteRecursosOperaciones>().unidadesAsignadas.Contains(this))
-
-                {
-                    objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(this);
-
-                }
-                else if (objetivoActual.GetComponent<UnidadEnemiga>() != null && !objetivoActual.GetComponent<UnidadEnemiga>().unidadesAsignadas.Contains(this))
-                {
-                    objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(this);
-
-                }
-                else if (objetivoActual.GetComponent<Edificio>() != null && !objetivoActual.GetComponent<Edificio>().unidadesAsignadas.Contains(this))
-
-                {
-                    objetivoActual.GetComponent<Edificio>().AsignarUnidad(this);
-
-                }
+               
             }
         }
 
@@ -125,10 +109,10 @@ public class Unidad : MonoBehaviour
             {
                 Recursos.soldados--;
             }
-            if (controlUnidades.unidadesSeleccionadas[0] == this)
+            /*if (controlUnidades.unidadesSeleccionadas[0] == this)
             {
                 controlUnidades.CerrarPanel();
-            }
+            }*/
             controlUnidades.unidadesSeleccionadas.Remove(this);
             Destroy(gameObject);
         }
@@ -177,6 +161,11 @@ public class Unidad : MonoBehaviour
     public void QuitarUnidad(UnidadEnemiga unidad)
     {
         unidadesAsignadas.Remove(unidad);
+    }
+
+    public bool GetEjecutandoAccion()
+    {
+        return ejecutandoAccion;
     }
 
 }
