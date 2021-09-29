@@ -91,8 +91,19 @@ public class BuildController : MonoBehaviour
                 {
 
                     edificioAConstruir.GetComponent<Edificio>().ConstruirEdificio();
-                    GameManager.manager.ActualizarContadorRecursos();
-                    GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 3);
+                    if (GameManager.manager != null)
+                    {
+
+                        GameManager.manager.ActualizarContadorRecursos();
+                        GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 3);
+                    }
+
+                    else
+                    {
+                        FindObjectOfType<GameManagerTutorial>().ActualizarContadorRecursos();
+                        FindObjectOfType<GameManagerTutorial>().RellenarCasillaGrid(tpos.x, tpos.y, 3);
+                    }
+
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
                     Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
@@ -154,8 +165,18 @@ public class BuildController : MonoBehaviour
         {
             for (int indice2 = -1; indice2 < y; indice2++)
             {
+                bool condicion3Aux;
 
-                bool condicion3Aux = manager.ComprobarCasillaVacia(tposCursor.x + indice, tposCursor.y + indice2); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
+                if (manager != null)
+                {
+                    condicion3Aux = manager.ComprobarCasillaVacia(tposCursor.x + indice, tposCursor.y + indice2); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
+
+                }
+                else
+                {
+                    condicion3Aux = FindObjectOfType<GameManagerTutorial>().ComprobarCasillaVacia(tposCursor.x + indice, tposCursor.y + indice2); //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos
+
+                }
 
                 if (!condicion3Aux)
                 {

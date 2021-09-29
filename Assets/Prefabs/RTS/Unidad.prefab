@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8994494844543269782}
   - component: {fileID: 8994494844543269781}
+  - component: {fileID: 3947067483276357567}
+  - component: {fileID: 8086377813848961462}
+  - component: {fileID: 1189066221329116226}
   m_Layer: 0
   m_Name: Unidad
   m_TagString: Aliado
@@ -43,5 +46,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f952e4b0c6e141c419a455f1ed66503e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unidad: {fileID: 0}
-  marcadorSeleccion: {fileID: 0}
+  panelUnidad: {fileID: 0}
+  vidaMaxima: {fileID: 0}
+  vidaActual: {fileID: 0}
+  iconoPersonaje: {fileID: 0}
+  barraVida: {fileID: 0}
+  tipoUnidad: {fileID: 0}
+  seguirRaton: {fileID: 0}
+  unidadesSeleccionadas: []
+--- !u!114 &3947067483276357567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994494844543269777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &8086377813848961462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994494844543269777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 0.4
+  height: 2
+  repathRate: 0.5
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 2
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 1
+  enableRotation: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 1
+  constrainInsideGraph: 1
+--- !u!114 &1189066221329116226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994494844543269777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}

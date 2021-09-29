@@ -44,7 +44,7 @@ public class Edificio : MonoBehaviour
         if (!haFinalizadoConstruccion)
         {
             ProcesoConstruccion();
-            
+
         }
         else
         {
@@ -74,7 +74,7 @@ public class Edificio : MonoBehaviour
         if (edificioData.beneficio[0] != 0)
         {
             Recursos.habitantes += edificioData.beneficio[0];
-            for(int i = 0; i < edificioData.beneficio[0]; i++)
+            for (int i = 0; i < edificioData.beneficio[0]; i++)
             {
                 Instantiate(ciudadano, new Vector2(0, i), Quaternion.identity);
             }
@@ -87,14 +87,14 @@ public class Edificio : MonoBehaviour
             {
                 for (int i = 0; i < edificioData.beneficio[1]; i++)
                 {
-                    Instantiate(guerrero, new Vector2(1, i+1), Quaternion.identity);
+                    Instantiate(guerrero, new Vector2(1, i + 1), Quaternion.identity);
                 }
             }
             else
             {
                 for (int i = 0; i < edificioData.beneficio[1]; i++) //Escuela de magia
                 {
-                    Instantiate(mago, new Vector2(2, i+6), Quaternion.identity);
+                    Instantiate(mago, new Vector2(2, i + 6), Quaternion.identity);
                 }
             }
         }
@@ -105,14 +105,30 @@ public class Edificio : MonoBehaviour
     {
         for (int i = 0; i < edificioData.coste.Count; i++)
             Recursos.RestarRecurso(i, edificioData.coste[i]);
+        if (GameManager.manager != null)
+        {
+            GameManager.manager.ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
 
-        GameManager.manager.ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
-
+        }
+        else
+        {
+            FindObjectOfType<GameManagerTutorial>().ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
+        }
     }
 
     public void ProcesoConstruccion()
     {
-        if (unidadesAsignadas.Count > 0 && !haFinalizadoConstruccion)
+
+        bool trabajando = false;
+        foreach (Unidad uni in unidadesAsignadas) //si al menos una de las unidades está ya ejecutando la acción (es decir, ha llegado al objetivo), entonces empieza a proporcionar recursos
+        {
+            if (uni.GetEjecutandoAccion())
+            {
+                trabajando = true;
+            }
+        }
+
+        if (unidadesAsignadas.Count > 0 && !haFinalizadoConstruccion && trabajando)
         {
 
 
@@ -130,12 +146,23 @@ public class Edificio : MonoBehaviour
                 spriteEdificio.sprite = edificioData.terminado;
                 SumarBeneficio();
                 //Actualizar contador de civiles y soldados
-                GameManager.manager.ActualizarContadorRecursos();
+
+                if (GameManager.manager != null)
+                {
+                    GameManager.manager.ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
+
+                }
+                else
+                {
+                    FindObjectOfType<GameManagerTutorial>().ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
+                }
 
                 foreach (Unidad uni in unidadesAsignadas)
                 {
                     uni.LiberarUnidad();
                 }
+                gameObject.layer = 10;
+                FindObjectOfType<AstarPath>().Scan();
             }
 
         }
@@ -154,7 +181,15 @@ public class Edificio : MonoBehaviour
                 Recursos.recursos[i] += edificioData.materiales[i];
             }
             progresoRecurso = 4f;
-            GameManager.manager.ActualizarContadorRecursos();
+            if (GameManager.manager != null)
+            {
+                GameManager.manager.ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
+
+            }
+            else
+            {
+                FindObjectOfType<GameManagerTutorial>().ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos
+            }
 
         }
         else

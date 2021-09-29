@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12808e24009f7054dbba65290f4c221d, type: 3}
+  m_Name: Tuto7
+  m_EditorClassIdentifier: 
+  personaje: {fileID: 0}
+  nombrePersonaje: Ellhan
+  texto: "La madera y la piedra son los \xFAnicos recursos que deber\xE1 recolectar
+    manualmente; el resto se obtendr\xE1 de manera pasiva gracias a los edificios
+    que construya."
+  posibilidadesDialogo:
+  - {fileID: 11400000, guid: 50e953335836b594dbddea60f6e51898, type: 2}

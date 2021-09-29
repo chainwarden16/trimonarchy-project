@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Granja
       objectReference: {fileID: 0}
+    - target: {fileID: 2874265409024005013, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005022, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_RootOrder
       value: 0

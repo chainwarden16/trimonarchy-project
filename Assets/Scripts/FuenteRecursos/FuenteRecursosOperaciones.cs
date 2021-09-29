@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Pathfinding;
 
 public class FuenteRecursosOperaciones : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class FuenteRecursosOperaciones : MonoBehaviour
         if (unidadesAsignadas.Count > 0) //tiene que haber alguien trabajando en esta fuente
         {
             bool trabajando = false;
-            foreach(Unidad uni in unidadesAsignadas) //si al menos una de las unidades está ya ejecutando la acción (es decir, ha llegado al objetivo), entonces empieza a proporcionar recursos
+            foreach (Unidad uni in unidadesAsignadas) //si al menos una de las unidades está ya ejecutando la acción (es decir, ha llegado al objetivo), entonces empieza a proporcionar recursos
             {
                 if (uni.GetEjecutandoAccion())
                 {
@@ -46,18 +47,28 @@ public class FuenteRecursosOperaciones : MonoBehaviour
                 int cantidadAObtener = fuente.cantidad * unidadesAsignadas.Count;
                 Recursos.SumarRecurso(fuente.indiceRecurso, cantidadAObtener); //cuantos más trabajen en este recurso, más rápido extraerán material
                 cantidadExtraida += cantidadAObtener;
-                GameManager.manager.ActualizarContadorRecursos();
+
+                if (GameManager.manager != null)
+                    GameManager.manager.ActualizarContadorRecursos();
+                else
+                    FindObjectOfType<GameManagerTutorial>().ActualizarContadorRecursos();
+
                 tiempoEnfriamientoActual = 0f;
-                if(cantidadExtraida >= fuente.cantidadMaxima)
+                if (cantidadExtraida >= fuente.cantidadMaxima)
                 {
                     //TODO: liberar unidades que están trabajando en esta fuente y hacer que pasen a idle
-                    foreach (Unidad un in unidadesAsignadas) 
+                    foreach (Unidad un in unidadesAsignadas)
                     {
                         un.LiberarUnidad();
                     }
                     Vector3Int tpos = tileSuelo.WorldToCell(gameObject.transform.position);
-                    GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 0);
+                    if (GameManager.manager != null)
+                        GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 0);
+                    else
+                        FindObjectOfType<GameManagerTutorial>().RellenarCasillaGrid(tpos.x, tpos.y, 0);
                     Debug.Log("Me he agotado, me borro");
+                    gameObject.layer = 0;
+                    FindObjectOfType<AstarPath>().Scan();
                     Destroy(gameObject);
                 }
 

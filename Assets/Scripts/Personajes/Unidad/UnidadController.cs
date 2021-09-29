@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using Pathfinding;
 
 public class UnidadController : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class UnidadController : MonoBehaviour
     public Image barraVida;
     public Text tipoUnidad;
 
-
+    public GameObject seguirRaton;
     public List<Unidad> unidadesSeleccionadas = new List<Unidad>();
 
     #endregion
@@ -172,6 +173,7 @@ public class UnidadController : MonoBehaviour
         {
 
             Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
+            
             Vector3Int tpos = tileSuelo.WorldToCell(posicionActual);
 
 
@@ -185,15 +187,27 @@ public class UnidadController : MonoBehaviour
 
                 List<Collider2D> collidersEdificiosCons = Physics2D.OverlapPointAll(posicionActual).Where(collid => collid.gameObject.GetComponent<Edificio>() != null).ToList();
 
+                int valorCelda;
 
+                if (GameManager.manager != null)
+                {
 
-                int valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
+                    valorCelda = GameManager.manager.gridCiudad[tpos.x, tpos.y];
+                }
+                else
+                {
+                    valorCelda = FindObjectOfType<GameManagerTutorial>().gridCiudad[tpos.x, tpos.y];
+                }
+
 
                 List<Unidad> aux = new List<Unidad>(unidadesSeleccionadas);
 
 
                 foreach (Unidad unidad in aux)
                 {
+                    
+                    
+
                     if (unidad.objetivoActual != null)
                     {
                         if (unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>() != null)
@@ -217,7 +231,11 @@ public class UnidadController : MonoBehaviour
                             Debug.Log("Terreno vacío");
 
                             if (collidersEnemigos.Count == 0)
+                            {
                                 unidad.posicionObjetivo = posicionActual;
+                                seguirRaton.transform.position = posicionActual;
+                                unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                            }
                             else
                             {
                                 EnviarUnidadesSegunNumero(collidersEnemigos, unidad, 1);
@@ -307,6 +325,8 @@ public class UnidadController : MonoBehaviour
                     {
 
                         unidad.objetivoActual = colliders[0].gameObject;
+                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
                         unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
@@ -348,6 +368,8 @@ public class UnidadController : MonoBehaviour
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
+                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
                         unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
@@ -387,6 +409,8 @@ public class UnidadController : MonoBehaviour
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
+                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
                         unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);

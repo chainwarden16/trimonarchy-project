@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Recursos : MonoBehaviour
 {
     
-    public static List<int> recursos = new List<int>() { 900, 900, 900, 900, 900, 900, 900, 900 }; //representan, en orden: oro, madera, piedra, fruta, cebada, agua, metal, carne
+    public static List<int> recursos = new List<int>() { 0, 5, 10, 0, 0, 0, 0, 0 }; //representan, en orden: oro, madera, piedra, fruta, cebada, agua, metal, carne
     public static float habitantes = 1;
     public static float soldados = 0; //cambiar a 0
     public static List<Sprite> iconosRecursos;

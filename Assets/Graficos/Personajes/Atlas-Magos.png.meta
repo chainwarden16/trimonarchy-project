@@ -1,0 +1,1284 @@
+fileFormatVersion: 2
+guid: c91ec1d003216834b99a082dbbc0f82f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3257073778271851107
+    second: Atlas-Magos_0
+  - first:
+      213: -567186762993866802
+    second: Atlas-Magos_1
+  - first:
+      213: 5856759771201749036
+    second: Atlas-Magos_2
+  - first:
+      213: 6490162665343743987
+    second: Atlas-Magos_3
+  - first:
+      213: -7989480152393578967
+    second: Atlas-Magos_4
+  - first:
+      213: 6227886734958502420
+    second: Atlas-Magos_5
+  - first:
+      213: 9017926275558829234
+    second: Atlas-Magos_6
+  - first:
+      213: -7463659752015258746
+    second: Atlas-Magos_7
+  - first:
+      213: -7113954589592801520
+    second: Atlas-Magos_8
+  - first:
+      213: -3896232473551089196
+    second: Atlas-Magos_9
+  - first:
+      213: 2858025196608309110
+    second: Atlas-Magos_10
+  - first:
+      213: 8509703190830839325
+    second: Atlas-Magos_11
+  - first:
+      213: -3314082780331366527
+    second: Atlas-Magos_12
+  - first:
+      213: 3398759272329705170
+    second: Atlas-Magos_13
+  - first:
+      213: 3501629109131843975
+    second: Atlas-Magos_14
+  - first:
+      213: 8541641439783830752
+    second: Atlas-Magos_15
+  - first:
+      213: 6734876185193411613
+    second: Atlas-Magos_16
+  - first:
+      213: 4485421785056930080
+    second: Atlas-Magos_17
+  - first:
+      213: -8045760617508851201
+    second: Atlas-Magos_18
+  - first:
+      213: -6561044100299567435
+    second: Atlas-Magos_19
+  - first:
+      213: -7105647121506886009
+    second: Atlas-Magos_20
+  - first:
+      213: 1119012760097754315
+    second: Atlas-Magos_21
+  - first:
+      213: 2519020701276502569
+    second: Atlas-Magos_22
+  - first:
+      213: 433030340504692465
+    second: Atlas-Magos_23
+  - first:
+      213: -8476529352301474345
+    second: Atlas-Magos_24
+  - first:
+      213: -7936037534874131934
+    second: Atlas-Magos_25
+  - first:
+      213: 8824984714358759263
+    second: Atlas-Magos_26
+  - first:
+      213: 7237040964420353120
+    second: Atlas-Magos_27
+  - first:
+      213: -4498177829961023410
+    second: Atlas-Magos_28
+  - first:
+      213: 5398410359320113262
+    second: Atlas-Magos_29
+  - first:
+      213: 3323812671164388299
+    second: Atlas-Magos_30
+  - first:
+      213: 6975313451813500395
+    second: Atlas-Magos_31
+  - first:
+      213: 8110224318782035974
+    second: Atlas-Magos_32
+  - first:
+      213: -7417323548547691495
+    second: Atlas-Magos_33
+  - first:
+      213: 976413738320400901
+    second: Atlas-Magos_34
+  - first:
+      213: 2258028431642978109
+    second: Atlas-Magos_35
+  - first:
+      213: -1519737486253116062
+    second: Atlas-Magos_36
+  - first:
+      213: -8528292497118009703
+    second: Atlas-Magos_37
+  - first:
+      213: -8310080156666581835
+    second: Atlas-Magos_38
+  - first:
+      213: -2190671798599000827
+    second: Atlas-Magos_39
+  - first:
+      213: -5870822050611571619
+    second: Atlas-Magos_40
+  - first:
+      213: 4287381842907119373
+    second: Atlas-Magos_41
+  - first:
+      213: -7236063744011452501
+    second: Atlas-Magos_42
+  - first:
+      213: 8374415917331874940
+    second: Atlas-Magos_43
+  - first:
+      213: 6596884055654320155
+    second: Atlas-Magos_44
+  - first:
+      213: 4016004089803933377
+    second: Atlas-Magos_45
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 48
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Atlas-Magos_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 352
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36212293853733d20800000000000000
+      internalID: 3257073778271851107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 352
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec76276e4a2f028f0800000000000000
+      internalID: -567186762993866802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 352
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2047414bf3674150800000000000000
+      internalID: 5856759771201749036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 352
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7f05ace80b11a50800000000000000
+      internalID: 6490162665343743987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_4
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 352
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9260c88a12aaf1190800000000000000
+      internalID: -7989480152393578967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_5
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 352
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 412a19a1df5ed6650800000000000000
+      internalID: 6227886734958502420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_6
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 352
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc68592b2c162d70800000000000000
+      internalID: 9017926275558829234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_7
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 352
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b10cceff0cb6890800000000000000
+      internalID: -7463659752015258746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 296
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01faf0bfdf7264d90800000000000000
+      internalID: -7113954589592801520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_9
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 296
+        width: 31
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d155ab553dcde9c0800000000000000
+      internalID: -3896232473551089196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_10
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 296
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67744fa16ceb9a720800000000000000
+      internalID: 2858025196608309110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_11
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 296
+        width: 30
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16fa7937f9881670800000000000000
+      internalID: 8509703190830839325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_12
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 295
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1872c1225430202d0800000000000000
+      internalID: -3314082780331366527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_13
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 295
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d6f6400d81da2f20800000000000000
+      internalID: 3398759272329705170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_14
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 295
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78998f05f19489030800000000000000
+      internalID: 3501629109131843975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_15
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 295
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e4421942a10a8670800000000000000
+      internalID: 8541641439783830752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_16
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 240
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14f0b02536177d50800000000000000
+      internalID: 6734876185193411613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_17
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 240
+        width: 31
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029ed16495b6f3e30800000000000000
+      internalID: 4485421785056930080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_18
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 240
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff1be8db857b75090800000000000000
+      internalID: -8045760617508851201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_19
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 240
+        width: 30
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bec8f5172d72f4a0800000000000000
+      internalID: -6561044100299567435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_20
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 238
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78e1e4f179ba36d90800000000000000
+      internalID: -7105647121506886009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_21
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 238
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc81c03d28878f00800000000000000
+      internalID: 1119012760097754315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_22
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 238
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92af0714bfb55f220800000000000000
+      internalID: 2519020701276502569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_23
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 238
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6afb6ecce620600800000000000000
+      internalID: 433030340504692465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_24
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 184
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dd06e3f6715d5a80800000000000000
+      internalID: -8476529352301474345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_25
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 184
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22229a1b8e78dd190800000000000000
+      internalID: -7936037534874131934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_26
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 184
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5f1b9747d4a87a70800000000000000
+      internalID: 8824984714358759263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_27
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 184
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06cb935e9622f6460800000000000000
+      internalID: 7237040964420353120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_28
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 180
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40c2a498134391c0800000000000000
+      internalID: -4498177829961023410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_29
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 180
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e60701bae910bea40800000000000000
+      internalID: 5398410359320113262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_30
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 180
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc312bc930e802e20800000000000000
+      internalID: 3323812671164388299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_31
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 180
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be5f85ca0aa4dc060800000000000000
+      internalID: 6975313451813500395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_32
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 124
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 608dcb15c0e4d8070800000000000000
+      internalID: 8110224318782035974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_33
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 124
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ccca0088f501990800000000000000
+      internalID: -7417323548547691495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_34
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 124
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 502166a2f1bec8d00800000000000000
+      internalID: 976413738320400901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_35
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 125
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d37efc025e0265f10800000000000000
+      internalID: 2258028431642978109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_36
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 125
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 265b904eecec8eae0800000000000000
+      internalID: -1519737486253116062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_37
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 124
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 996e6a0a82b65a980800000000000000
+      internalID: -8528292497118009703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_38
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 67
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bcadde402aacac80800000000000000
+      internalID: -8310080156666581835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_39
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 67
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50d5a091b9b2991e0800000000000000
+      internalID: -2190671798599000827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_40
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 68
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5454cd2376a68ea0800000000000000
+      internalID: -5870822050611571619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_41
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 68
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0f30f21217df7b30800000000000000
+      internalID: 4287381842907119373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_42
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 10
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf3d16fc56549b90800000000000000
+      internalID: -7236063744011452501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_43
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 10
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7481f148e6e73470800000000000000
+      internalID: 8374415917331874940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_44
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 11
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b18c6b9c817dc8b50800000000000000
+      internalID: 6596884055654320155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas-Magos_45
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 11
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c687452176bbb730800000000000000
+      internalID: 4016004089803933377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

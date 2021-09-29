@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Pathfinding;
 
 public class Unidad : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class Unidad : MonoBehaviour
         //si tiene un objetivo al que dirigirse O un punto nuevo al que caminar Y a su vez no está haciendo ya algo
 
 
-        if (posicionObjetivo != gameObject.transform.position && objetivoActual == null)
+        /*if (posicionObjetivo != gameObject.transform.position && objetivoActual == null)
 
         {
 
@@ -71,25 +72,25 @@ public class Unidad : MonoBehaviour
             }
 
 
-        }
+        }*/
 
-        else if (objetivoActual != null)
+        if (objetivoActual != null)
         {
             Debug.Log("Tengo un objetivo");
 
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) > unidad.rangoAtaque)
             {
 
-                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 3);
+                //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 3);
 
             }
 
             else
             {
-
+                GetComponent<AIDestinationSetter>().target = null;
                 ejecutandoAccion = true;
                 posicionObjetivo = gameObject.transform.position;
-               
+
             }
         }
 

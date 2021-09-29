@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogoFunciones : MonoBehaviour
 {
     public DialogoScriptable dialogoOriginal;
     DialogoScriptable dialogoActual;
-    public TextMeshProUGUI texto;
-    public TextMeshProUGUI nombrePersonaje;
+    public Text texto;
+    public Text nombrePersonaje;
     public GameObject panelDialogo;
     GameObject jugador;
     bool puedeIniciarConversacion = false;
@@ -45,7 +46,7 @@ public class DialogoFunciones : MonoBehaviour
 
     public void MostrarDialogoSinEleccion()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButtonDown(0))
         {
             if (dialogoActual.posibilidadesDialogo.Count == 0)//si no hay otro diálogo, es que se debe cerrar la ventana porque la conversación ha concluido
             {
@@ -72,7 +73,7 @@ public class DialogoFunciones : MonoBehaviour
 
     public void MostrarDialogoConEleccion(int eleccion)
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButtonDown(0))
         {
 
             if (dialogoActual.posibilidadesDialogo.Count == 0)//si no hay otro diálogo, es que se debe cerrar la ventana porque la conversación ha concluido
@@ -111,23 +112,31 @@ public class DialogoFunciones : MonoBehaviour
         }
     }
 
-    void CerrarDialogo()
+    public void CerrarDialogo()
     {
         panelDialogo.SetActive(false);
         haIniciadoConversacion = false;
-        if (jugador.GetComponent<MainCharacterController>() == null)
-            jugador.AddComponent<MainCharacterController>();
+       
     }
 
-    void AbrirDialogo()
+    public void AbrirDialogo()
     {
         panelDialogo.SetActive(true);
         haIniciadoConversacion = true;
-        jugador.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        if (jugador.GetComponent<MainCharacterController>() != null)
-            Destroy(jugador.GetComponent<MainCharacterController>());
+
+        
         texto.text = dialogoOriginal.texto;
         nombrePersonaje.text = dialogoOriginal.nombrePersonaje;
+    }
+
+    public void AbrirDialogoDondeEstaba()
+    {
+        panelDialogo.SetActive(true);
+    }
+
+    public void CerrarDialogoDondeEstaba()
+    {
+        panelDialogo.SetActive(false);
     }
 }
 

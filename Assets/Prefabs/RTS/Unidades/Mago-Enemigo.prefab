@@ -80,7 +80,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &941781877
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 941781875}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2daef196419771a458e297f7f88c3f68, type: 2}
+  m_Controller: {fileID: 9100000, guid: 69c3d7725d81cba4c8762b0c4939b0c8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -237,6 +237,10 @@ PrefabInstance:
     - target: {fileID: 8994494844543269777, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
       propertyPath: m_Name
       value: Mago-Enemigo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8994494844543269777, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8994494844543269777, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
       propertyPath: m_TagString

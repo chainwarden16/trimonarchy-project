@@ -67,5 +67,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuenteMetal
       objectReference: {fileID: 0}
+    - target: {fileID: 6036863898622918337, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
