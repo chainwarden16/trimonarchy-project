@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int[,] gridCiudad; //se debe comprobar en la clase del cursor que no se salga de estas medidas
 
     [Header("Control del estado del juego")]
+    float tiempoInicial = 2000; //en segundos
     float tiempoRestante = 2000; //en segundos
     int numeroSoldadosNecesario = 1; //los magos también entran aquí
     public List<TextMeshProUGUI> textoContador;
@@ -261,6 +262,27 @@ public class GameManager : MonoBehaviour
             case 2:
                 tituloFinPartida.text = "¡Victoria!";
                 textoFinPartida.text = "Tus soldados han resistido el ataque y el reino enemigo se ha rendido. ¡Has ganado!";
+                float tiempoGastado = tiempoInicial - tiempoRestante;
+
+                if (PlayerPrefs.GetFloat("TiempoGastado", 2000f) > tiempoGastado)
+                {
+
+                    PlayerPrefs.SetFloat("TiempoGastado", tiempoGastado);
+                    float minutes = Mathf.Floor(tiempoRestante / 60);
+                    float seconds = Mathf.RoundToInt(tiempoRestante % 60);
+
+                    if (seconds == 60)
+                    {
+                        seconds = 0;
+                        minutes = Mathf.Floor(tiempoRestante / 60 + 1);
+                    }
+
+                    string tiempoAGuardar = minutes.ToString() + ":" + seconds.ToString("00");
+
+                    PlayerPrefs.SetString("TiempoGastado", tiempoAGuardar);
+
+                }
+
                 break;
         }
         if (panelFinPartida != null)

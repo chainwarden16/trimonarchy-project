@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
+using System.Linq;
 
 public class Edificio : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class Edificio : MonoBehaviour
     public GameObject mago;
     public GameObject guerrero;
     float duracionRestante;
+    Tilemap tileSuelo;
+
 
     [Header("Contador de tiempo para dar recurso")]
     float progresoRecurso = 4f; //cada 30 segundos dará uno o más materiales definidos en su Scriptable Object
@@ -34,7 +38,7 @@ public class Edificio : MonoBehaviour
         edificioData.estado = EdificioScriptable.EstadoEdificio.EnConstruccion;
         spriteEdificio.sprite = edificioData.enConstruccion;
         spriteEdificio.color = new Color(1, 1, 1, 1);
-
+        tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         duracionRestante = edificioData.tiempoConstruccion;
 
     }
@@ -71,12 +75,46 @@ public class Edificio : MonoBehaviour
 
     public void SumarBeneficio()
     {
+
+        GameManagerTutorial tuto = FindObjectOfType<GameManagerTutorial>();
+
         if (edificioData.beneficio[0] != 0)
         {
             Recursos.habitantes += edificioData.beneficio[0];
             for (int i = 0; i < edificioData.beneficio[0]; i++)
             {
-                Instantiate(ciudadano, new Vector2(0, i), Quaternion.identity);
+                Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+                List<Vector3> posiciones = new List<Vector3>();
+
+                foreach (Unidad un in unidadesAliadas)
+                {
+
+                    Vector3 transTile = tileSuelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, (int)0f));
+
+                    posiciones.Add(transTile);
+
+                }
+
+                for (int k = 7; k < 50; k++)
+                {
+                    for (int j = 7; j < 50; j++)
+                    {
+                        Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                        if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                        {
+                            Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                            break;
+                        }else if (tuto != null && tuto.gridCiudad[k,j] == 0 && !posiciones.Contains(lugarSpawn))
+                        {
+                            Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                            break;
+
+                        }
+                    }
+                }
+
             }
         }
         else
@@ -87,14 +125,76 @@ public class Edificio : MonoBehaviour
             {
                 for (int i = 0; i < edificioData.beneficio[1]; i++)
                 {
-                    Instantiate(guerrero, new Vector2(1, i + 1), Quaternion.identity);
+                    Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+                    List<Vector3> posiciones = new List<Vector3>();
+
+                    foreach (Unidad un in unidadesAliadas)
+                    {
+
+                        Vector3 transTile = tileSuelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, (int)0f));
+
+                        posiciones.Add(transTile);
+
+                    }
+
+                    for (int k = 7; k < 50; k++)
+                    {
+                        for (int j = 7; j < 50; j++)
+                        {
+                            Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                            if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                                break;
+                            }
+                            else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                                break;
+
+                            }
+                        }
+                    }
                 }
             }
             else
             {
                 for (int i = 0; i < edificioData.beneficio[1]; i++) //Escuela de magia
                 {
-                    Instantiate(mago, new Vector2(2, i + 6), Quaternion.identity);
+                    Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+                    List<Vector3> posiciones = new List<Vector3>();
+
+                    foreach (Unidad un in unidadesAliadas)
+                    {
+
+                        Vector3 transTile = tileSuelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, (int)0f));
+
+                        posiciones.Add(transTile);
+
+                    }
+
+                    for (int k = 7; k < 50; k++)
+                    {
+                        for (int j = 7; j < 50; j++)
+                        {
+                            Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                            if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                Instantiate(mago, lugarSpawn, Quaternion.identity);
+                                break;
+                            }
+                            else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                Instantiate(mago, lugarSpawn, Quaternion.identity);
+                                break;
+
+                            }
+                        }
+                    }
                 }
             }
         }

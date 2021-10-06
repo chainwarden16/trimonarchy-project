@@ -7,7 +7,7 @@ public class TituloJuego : MonoBehaviour
 {
     public void EmpezarPartida()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("Introduccion");
     }
 
     public void MenuOpciones()

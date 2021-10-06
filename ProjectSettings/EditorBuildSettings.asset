@@ -10,13 +10,16 @@ EditorBuildSettings:
     guid: e2f8368022bde2c4582e28f19be404c1
   - enabled: 1
     path: Assets/Scenes/Opciones.unity
-    guid: 33f09af3792f1124f803b65d64321f9c
+    guid: 83218aad7d7a75b45a807ba60943be54
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 5cc0f09d3e3a18e46a3eb1c054fc35f6
+    path: Assets/Scenes/Introduccion.unity
+    guid: a36d6007a3f54ed47a52246735e4a1b4
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 07c7d2ab78f9e5e4d9d929ead05158d0
+  - enabled: 1
+    path: Assets/Scenes/MapaCiudad.unity
+    guid: 32ba0942452d00747a4a46f8bb003d0c
   - enabled: 1
     path: Assets/Scenes/Victoria.unity
     guid: 671c6db8ff1d4a347b136561e3519236

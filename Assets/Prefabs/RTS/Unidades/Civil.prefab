@@ -118,7 +118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4171747466103531430
 Transform:
   m_ObjectHideFlags: 0
@@ -210,23 +210,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3487851881089525366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8220106476665350385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a7de30587d62a468aa942b21b316aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unidad: {fileID: 11400000, guid: c2f4255c865db9e40a37ce3480258609, type: 2}
-  vidaActual: 0
-  objetivoActual: {fileID: 0}
-  posicionObjetivo: {x: 0, y: 0, z: 0}
-  unidadesAsignadas: []
 --- !u!114 &154470852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +232,23 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
+--- !u!114 &3487851881089525366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220106476665350385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a7de30587d62a468aa942b21b316aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unidad: {fileID: 11400000, guid: c2f4255c865db9e40a37ce3480258609, type: 2}
+  vidaActual: 0
+  objetivoActual: {fileID: 0}
+  posicionObjetivo: {x: 0, y: 0, z: 0}
+  unidadesAsignadas: []
 --- !u!1 &8353799712667395068
 GameObject:
   m_ObjectHideFlags: 0

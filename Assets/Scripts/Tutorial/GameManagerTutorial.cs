@@ -24,7 +24,6 @@ public class GameManagerTutorial : MonoBehaviour
     public TextMeshProUGUI contadorCiviles;
     public TextMeshProUGUI contadorSoldados;
     public TextMeshProUGUI contadorTiempoRestante;
-    bool seHanCreadoEnemigos = false;
     bool haGanado = false;
 
     [Header("Manipulación de elementos del mapa")]
@@ -39,7 +38,7 @@ public class GameManagerTutorial : MonoBehaviour
 
     [Header("Enemigos presentes")]
     public List<UnidadEnemiga> unidadesEnemigas = new List<UnidadEnemiga>();
-    int numeroEnemigosACrear = 1;
+
     public GameObject mago;
     public GameObject guerrero;
 
@@ -56,44 +55,51 @@ public class GameManagerTutorial : MonoBehaviour
             for (int j = largoGrid - 1; j >= 0; j--) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
             {
 
-                int contenido = Random.Range(0, 3);
-                float generacion = Random.Range(0f, 1.1f);
-
-                switch (contenido)
+                if ((i < 6 || i > 11 || j < 6 || j > 13)) //no crea nada en la zona de spawn de unidades nuevas
+                
                 {
-                    case 0: //nada
-                        gridCiudad[i, j] = contenido;
-                        break;
-                    case 1: //madera
 
-                        if (generacion <= probabilidadGeneracionRecurso)
+                    int contenido = Random.Range(0, 3);
+                    float generacion = Random.Range(0f, 1.1f);
 
-                        {
-
-                            Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
-                            
+                    switch (contenido)
+                    {
+                        case 0: //nada
                             gridCiudad[i, j] = contenido;
-                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
-                        }
-                        else
-                        {
-                            gridCiudad[i, j] = 0;
-                        }
+                            break;
+                        case 1: //madera
 
-                        break;
-                    case 2: //piedra
-                        if (generacion <= probabilidadGeneracionRecurso)
+                            if (generacion <= probabilidadGeneracionRecurso)
 
-                        {
-                            Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
-                            gridCiudad[i, j] = contenido;
-                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
-                        }
+                            {
 
-                        break;
+                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                                GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
+
+                                gridCiudad[i, j] = contenido;
+                                recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                            }
+                            else
+                            {
+                                gridCiudad[i, j] = 0;
+                            }
+
+                            break;
+                        case 2: //piedra
+                            if (generacion <= probabilidadGeneracionRecurso)
+
+                            {
+                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                                GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+                                gridCiudad[i, j] = contenido;
+                                recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                            }
+
+                            break;
+                    }
+
                 }
+
 
             }
         }
