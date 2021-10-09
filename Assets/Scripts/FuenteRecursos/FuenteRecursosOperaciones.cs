@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Pathfinding;
+using UnityEngine.AI;
 
 public class FuenteRecursosOperaciones : MonoBehaviour
 {
@@ -10,12 +10,16 @@ public class FuenteRecursosOperaciones : MonoBehaviour
     float tiempoEnfriamientoActual = 0;
     int cantidadExtraida = 0;
     public List<Unidad> unidadesAsignadas = new List<Unidad>();
+    public Tile obstaculoInvisible;
+    
     Tilemap tileSuelo;
+    Tilemap tileObstaculos;
     SpriteRenderer rendererRecurso;
 
     private void Start()
     {
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        tileObstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
         rendererRecurso = gameObject.GetComponent<SpriteRenderer>();
         rendererRecurso.sprite = fuente.spriteRecurso;
         gameObject.AddComponent<BoxCollider2D>();
@@ -68,8 +72,14 @@ public class FuenteRecursosOperaciones : MonoBehaviour
                         FindObjectOfType<GameManagerTutorial>().RellenarCasillaGrid(tpos.x, tpos.y, 0);
                     Debug.Log("Me he agotado, me borro");
                     gameObject.layer = 0;
-                    FindObjectOfType<AstarPath>().Scan();
+                    
+                    Vector2 centroCasillaObstaculo = tileObstaculos.GetCellCenterWorld(new Vector3Int(tpos.x, tpos.y, 0));
+                    tileObstaculos.SetTile(tileObstaculos.WorldToCell(centroCasillaObstaculo), null);
+
+                    NavMeshSurface2d nav = FindObjectOfType<NavMeshSurface2d>();
+                    nav.BuildNavMesh();
                     Destroy(gameObject);
+                    
                 }
 
             }

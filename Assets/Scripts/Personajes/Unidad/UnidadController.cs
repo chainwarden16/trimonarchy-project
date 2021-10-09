@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using Pathfinding;
+using UnityEngine.AI;
 
 public class UnidadController : MonoBehaviour
 {
@@ -233,8 +233,8 @@ public class UnidadController : MonoBehaviour
                             if (collidersEnemigos.Count == 0)
                             {
                                 unidad.posicionObjetivo = posicionActual;
-                                seguirRaton.transform.position = posicionActual;
-                                unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                                //seguirRaton.transform.position = posicionActual;
+                                unidad.GetComponent<NavMeshAgent>().SetDestination(posicionActual);
                             }
                             else
                             {
@@ -325,8 +325,10 @@ public class UnidadController : MonoBehaviour
                     {
 
                         unidad.objetivoActual = colliders[0].gameObject;
-                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0;
+                        unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
@@ -368,8 +370,10 @@ public class UnidadController : MonoBehaviour
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
-                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        unidad.GetComponent<NavMeshAgent>().stoppingDistance = 1f;
+                        unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);
@@ -409,8 +413,10 @@ public class UnidadController : MonoBehaviour
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
-                        seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
+                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        unidad.GetComponent<NavMeshAgent>().stoppingDistance = 1f;
+                        unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
                         unidad.MostrarSelectorUnidad(false);

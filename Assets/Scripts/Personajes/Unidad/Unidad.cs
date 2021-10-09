@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Pathfinding;
+using UnityEngine.AI;
 
 public class Unidad : MonoBehaviour
 {
@@ -36,6 +36,11 @@ public class Unidad : MonoBehaviour
     {
         renderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+
+            var agent = GetComponent<NavMeshAgent>();
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+        
         //el selector empieza apagado, pues no se tienen unidades escogidas
     }
 
@@ -81,13 +86,13 @@ public class Unidad : MonoBehaviour
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) > unidad.rangoAtaque)
             {
 
-                //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, objetivoActual.transform.position, Time.deltaTime * 3);
+                //Se deja por si es necesario añadir algo
 
             }
 
             else
             {
-                GetComponent<AIDestinationSetter>().target = null;
+                //GetComponent<AIDestinationSetter>().target = null;
                 ejecutandoAccion = true;
                 posicionObjetivo = gameObject.transform.position;
 

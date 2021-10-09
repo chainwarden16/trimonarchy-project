@@ -14,6 +14,7 @@ public class DialogoFunciones : MonoBehaviour
     GameObject jugador;
     bool puedeIniciarConversacion = false;
     bool haIniciadoConversacion = false;
+    public Image portrait;
 
     private void Start()
     {
@@ -53,6 +54,15 @@ public class DialogoFunciones : MonoBehaviour
                 texto.text = "";
                 nombrePersonaje.text = "";
                 dialogoActual = dialogoOriginal; //se reinicia la conversación desde el principio
+                
+                if (portrait != null)
+                {
+
+                    portrait.sprite = null;
+                    portrait.color = new Color(1, 1, 1, 0);
+
+                }
+
                 CerrarDialogo();
             }
 
@@ -63,7 +73,21 @@ public class DialogoFunciones : MonoBehaviour
                 texto.text = dialogoActual.posibilidadesDialogo[0].texto;
                 dialogoActual = dialogoActual.posibilidadesDialogo[0];
 
+                if (portrait != null)
+                {
 
+                    if (dialogoActual.personaje != null)
+                    {
+                        portrait.sprite = dialogoActual.personaje;
+                        portrait.color = new Color(1, 1, 1, 1);
+                    }
+                    else
+                    {
+                        portrait.sprite = null;
+                        portrait.color = new Color(1, 1, 1, 0);
+                    }
+
+                }
 
             }
 
@@ -116,7 +140,7 @@ public class DialogoFunciones : MonoBehaviour
     {
         panelDialogo.SetActive(false);
         haIniciadoConversacion = false;
-       
+
     }
 
     public void AbrirDialogo()
@@ -124,7 +148,7 @@ public class DialogoFunciones : MonoBehaviour
         panelDialogo.SetActive(true);
         haIniciadoConversacion = true;
 
-        
+
         texto.text = dialogoOriginal.texto;
         nombrePersonaje.text = dialogoOriginal.nombrePersonaje;
     }

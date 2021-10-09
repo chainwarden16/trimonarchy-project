@@ -158,13 +158,17 @@ PrefabInstance:
       propertyPath: fuente
       value: 
       objectReference: {fileID: 11400000, guid: a90e3d939b48cad4d9bdb55cd56c12b9, type: 2}
+    - target: {fileID: 3901076855902152675, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
+      propertyPath: obstaculoInvisible
+      value: 
+      objectReference: {fileID: 11400000, guid: bb606979df5bea04986212f970a6f105, type: 2}
     - target: {fileID: 6036863898622918337, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
       propertyPath: m_Name
       value: FuenteMadera
       objectReference: {fileID: 0}
     - target: {fileID: 6036863898622918337, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7988125629128636119, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
       propertyPath: m_Size.x

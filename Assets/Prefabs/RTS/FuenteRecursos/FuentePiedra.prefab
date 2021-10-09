@@ -93,6 +93,10 @@ PrefabInstance:
       propertyPath: fuente
       value: 
       objectReference: {fileID: 11400000, guid: 49148f13bb6f12945b8aa055d07a65f3, type: 2}
+    - target: {fileID: 3901076855902152675, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
+      propertyPath: obstaculoInvisible
+      value: 
+      objectReference: {fileID: 11400000, guid: bb606979df5bea04986212f970a6f105, type: 2}
     - target: {fileID: 6036863898622918337, guid: 76a4549d9ad083e4580aa761964a6c2f, type: 3}
       propertyPath: m_Name
       value: FuentePiedra

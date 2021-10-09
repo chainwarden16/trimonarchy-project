@@ -56,7 +56,7 @@ public class BuildController : MonoBehaviour
 
             List<bool> condiciones = ComprobarCondicionesConstruccion();
 
-            if (condiciones[0] && condiciones[1] && condiciones[2]) //condicion1 && condicion2 && condicion3
+            if (condiciones[0] && condiciones[1] && condiciones[2] && condiciones[3]) //condicion1 && condicion2 && condicion3
             {
 
                 edificioRenderer.color = new Color(0, 1, 0, 1);
@@ -68,7 +68,6 @@ public class BuildController : MonoBehaviour
                 edificioRenderer.color = new Color(1, 0, 0, 1);
 
             }
-
 
 
             if (Input.GetMouseButtonDown(0)) //TODO: comprobar que está dentro de la grid del tilemap, que se tengan materiales suficientes Y que no haya algo ya construido en esa zona de la grid del GameManager
@@ -86,8 +85,9 @@ public class BuildController : MonoBehaviour
                 bool condicion1 = condiciones[0]; //comprueba si se puede construir el edificio con los materiales actuales
                 bool condicion2 = condiciones[1]; //mira si está dentro del Tilemap donde se permite construir
                 bool condicion3 = condiciones[2]; //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos cerca (en el recinto designaod por x e y más arriba)
+                bool condicion4 = condiciones[3];
 
-                if (condicion1 && condicion2 && condicion3) //condicion1 && condicion2 && condicion3
+                if (condicion1 && condicion2 && condicion3 && condicion4) //condicion1 && condicion2 && condicion3
                 {
 
                     edificioAConstruir.GetComponent<Edificio>().ConstruirEdificio();
@@ -126,10 +126,11 @@ public class BuildController : MonoBehaviour
                     {
                         textoError.text += "-Este lugar está fuera del límite.\n";
                     }
-                    if (!condicion3)
+                    if (!condicion3 || !condicion4)
                     {
                         textoError.text += "-Ese punto ya está ocupado.";
                     }
+
                     edificioAConstruir = null;
                     Time.timeScale = 0;
                 }
@@ -159,6 +160,7 @@ public class BuildController : MonoBehaviour
         bool condicion1Cursor = edificioAConstruir.GetComponent<Edificio>().ComprobarConstruirEdificio(); //comprueba si se puede construir el edificio con los materiales actuales
         bool condicion2Cursor = tileSuelo.HasTile(tposCursor); //mira si está dentro del Tilemap donde se permite construir
         bool condicion3Cursor = true;
+        bool condicion4Cursor = tposCursor.x < 6 || tposCursor.x > 11 || tposCursor.y < 6 || tposCursor.y > 13;
 
 
         for (int indice = -1; indice < x; indice++)
@@ -189,6 +191,7 @@ public class BuildController : MonoBehaviour
         condiciones.Add(condicion1Cursor);
         condiciones.Add(condicion2Cursor);
         condiciones.Add(condicion3Cursor);
+        condiciones.Add(condicion4Cursor);
 
         return condiciones;
 

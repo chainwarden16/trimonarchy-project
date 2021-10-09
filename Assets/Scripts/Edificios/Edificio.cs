@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
-using System.Linq;
+using UnityEngine.AI;
 
 public class Edificio : MonoBehaviour
 {
@@ -19,7 +19,11 @@ public class Edificio : MonoBehaviour
     public GameObject mago;
     public GameObject guerrero;
     float duracionRestante;
+
+    [Header("Manipulación del mapa al construir")]
+    public Tile obstaculoInvisible; //se añade un tile especial al tilemap de obstáculos para editar la NavMesh
     Tilemap tileSuelo;
+    Tilemap tileObstaculos;
 
 
     [Header("Contador de tiempo para dar recurso")]
@@ -39,6 +43,7 @@ public class Edificio : MonoBehaviour
         spriteEdificio.sprite = edificioData.enConstruccion;
         spriteEdificio.color = new Color(1, 1, 1, 1);
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        tileObstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
         duracionRestante = edificioData.tiempoConstruccion;
 
     }
@@ -80,9 +85,72 @@ public class Edificio : MonoBehaviour
 
         if (edificioData.beneficio[0] != 0)
         {
+            int contadorCiudadanos = 0;
+            int k = 7;
+            int j = 8;
+
             Recursos.habitantes += edificioData.beneficio[0];
-            for (int i = 0; i < edificioData.beneficio[0]; i++)
+            //for (int i = 0; i < edificioData.beneficio[0]; i++)
+            //{
+            Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+            List<Vector3> posiciones = new List<Vector3>();
+
+            foreach (Unidad un in unidadesAliadas)
             {
+
+                Vector3 transTile = tileSuelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, (int)0f));
+
+                posiciones.Add(transTile);
+
+            }
+
+            while (contadorCiudadanos < 5)
+            {
+                Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                {
+                    Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                    contadorCiudadanos++;
+                    if (contadorCiudadanos == edificioData.beneficio[0])
+                    {
+                        break;
+
+                    }
+
+                }
+                else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                {
+                    Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                    contadorCiudadanos++;
+                    if (contadorCiudadanos == edificioData.beneficio[0])
+                    {
+                        break;
+
+                    }
+
+                }
+                k++;
+                if (k >= 20)
+                {
+                    j++;
+                    k = 7;
+                }
+            }
+
+
+        }
+        else
+        {
+            Recursos.soldados += edificioData.beneficio[1];
+            int contadorSoldados = 0;
+            int k = 7;
+            int j = 9;
+
+            if (edificioData.indiceEdificio == 7) //Campo de entrenamiento
+            {
+
                 Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
 
                 List<Vector3> posiciones = new List<Vector3>();
@@ -96,68 +164,40 @@ public class Edificio : MonoBehaviour
 
                 }
 
-                for (int k = 7; k < 50; k++)
+                while (contadorSoldados < 5)
                 {
-                    for (int j = 7; j < 50; j++)
-                    {
-                        Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+                    Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
 
-                        if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                    if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                    {
+                        Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        contadorSoldados++;
+                        if (contadorSoldados == edificioData.beneficio[1])
                         {
-                            Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
-                            break;
-                        }else if (tuto != null && tuto.gridCiudad[k,j] == 0 && !posiciones.Contains(lugarSpawn))
-                        {
-                            Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
                             break;
 
                         }
-                    }
-                }
-
-            }
-        }
-        else
-        {
-            Recursos.soldados += edificioData.beneficio[1];
-
-            if (edificioData.indiceEdificio == 7) //Campo de entrenamiento
-            {
-                for (int i = 0; i < edificioData.beneficio[1]; i++)
-                {
-                    Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
-
-                    List<Vector3> posiciones = new List<Vector3>();
-
-                    foreach (Unidad un in unidadesAliadas)
-                    {
-
-                        Vector3 transTile = tileSuelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, (int)0f));
-
-                        posiciones.Add(transTile);
 
                     }
-
-                    for (int k = 7; k < 50; k++)
+                    else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                     {
-                        for (int j = 7; j < 50; j++)
+                        Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        contadorSoldados++;
+                        if (contadorSoldados == edificioData.beneficio[1])
                         {
-                            Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+                            break;
 
-                            if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
-                            {
-                                Instantiate(guerrero, lugarSpawn, Quaternion.identity);
-                                break;
-                            }
-                            else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
-                            {
-                                Instantiate(guerrero, lugarSpawn, Quaternion.identity);
-                                break;
-
-                            }
                         }
+
+                    }
+                    k++;
+                    if (k >= 20)
+                    {
+                        j++;
+                        k = 7;
                     }
                 }
+
             }
             else
             {
@@ -176,25 +216,40 @@ public class Edificio : MonoBehaviour
 
                     }
 
-                    for (int k = 7; k < 50; k++)
+                    while (contadorSoldados < 5)
                     {
-                        for (int j = 7; j < 50; j++)
+                        Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                        if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                         {
-                            Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
-
-                            if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            contadorSoldados++;
+                            if (contadorSoldados == edificioData.beneficio[1])
                             {
-                                Instantiate(mago, lugarSpawn, Quaternion.identity);
-                                break;
-                            }
-                            else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
-                            {
-                                Instantiate(mago, lugarSpawn, Quaternion.identity);
                                 break;
 
                             }
+
+                        }
+                        else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                        {
+                            Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            contadorSoldados++;
+                            if (contadorSoldados == edificioData.beneficio[1])
+                            {
+                                break;
+
+                            }
+
+                        }
+                        k++;
+                        if (k >= 20)
+                        {
+                            j++;
+                            k = 7;
                         }
                     }
+
                 }
             }
         }
@@ -262,7 +317,10 @@ public class Edificio : MonoBehaviour
                     uni.LiberarUnidad();
                 }
                 gameObject.layer = 10;
-                FindObjectOfType<AstarPath>().Scan();
+                Vector2 centroCasillaObstaculo = gameObject.transform.position;
+                tileObstaculos.SetTile(tileObstaculos.WorldToCell(new Vector2(centroCasillaObstaculo.x, centroCasillaObstaculo.y - 0.5f)), obstaculoInvisible);
+
+                FindObjectOfType<NavMeshSurface2d>().BuildNavMesh();
             }
 
         }

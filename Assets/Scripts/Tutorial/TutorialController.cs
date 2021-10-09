@@ -32,7 +32,7 @@ public class TutorialController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && dialogo.panelDialogo.activeSelf)
         {
-            Debug.Log(contador);
+
             if (contador < 5 || (contador >= 5 && contador < 8) || (contador >= 8 && contador < 15) || (contador > 15))
             {
                 contador++;

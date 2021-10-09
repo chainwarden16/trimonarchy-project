@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SaludoInicial
   m_EditorClassIdentifier: 
   personaje: {fileID: 0}
-  nombrePersonaje: Ellhan
-  texto: "Buenos d\xEDas, Su Majestad. \xBFHa pasado una buena noche?"
+  nombrePersonaje: Lhorenth
+  texto: "Hace casi un a\xF1o que mi padre falleci\xF3 y todav\xEDa no me acostumbro
+    a su ausencia. Menos a\xFAn a ocupar su trono..."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 224e5eff9add236428ac21bcd8a77225, type: 2}

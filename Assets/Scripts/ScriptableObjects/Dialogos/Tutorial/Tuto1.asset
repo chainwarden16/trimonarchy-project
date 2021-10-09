@@ -15,6 +15,7 @@ MonoBehaviour:
   personaje: {fileID: 0}
   nombrePersonaje: Ellhan
   texto: "Si va a salvar al reino, ser\xE1 mejor que se ponga manos a la obra cuanto
-    antes. Yo le ayudar\xE9 a prepararse, Su Majestad."
+    antes. Puede observar el mapa pulsando las teclas WASD y seleccionar unidades
+    con un clic o arrastrando el rat\xF3n."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: d49a2767788280a4c80755096b2d92a3, type: 2}

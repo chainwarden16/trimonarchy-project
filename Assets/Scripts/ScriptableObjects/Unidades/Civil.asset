@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 50
   fuerza: 0
-  rangoAtaque: 0.5
+  rangoAtaque: 1.2
   tipo: 0
   bando: 0
   tiempoEnfriamientoAtaque: 999999

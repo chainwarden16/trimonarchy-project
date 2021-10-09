@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
-using Pathfinding;
 
 public class GameManagerTutorial : MonoBehaviour
 {
@@ -31,6 +30,8 @@ public class GameManagerTutorial : MonoBehaviour
     int accionElegida;
     public List<GameObject> tiposEdificio;
     Tilemap suelo;
+    Tilemap obstaculos;
+    public Tile obstaculoInvisible;
     public GameObject recurso1, recurso2;
     public float probabilidadGeneracionRecurso;
 
@@ -47,7 +48,8 @@ public class GameManagerTutorial : MonoBehaviour
     #region Start y Update
     void Start()
     {
-        suelo = suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        obstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
 
         gridCiudad = new int[anchoGrid, largoGrid];
         for (int i = anchoGrid - 1; i >= 0; i--)
@@ -73,10 +75,14 @@ public class GameManagerTutorial : MonoBehaviour
 
                             {
 
-                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
+                                Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+
                                 GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
 
                                 gridCiudad[i, j] = contenido;
+                                obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
                                 recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
                             }
                             else
@@ -90,8 +96,13 @@ public class GameManagerTutorial : MonoBehaviour
 
                             {
                                 Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                                Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+                                
                                 GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+
                                 gridCiudad[i, j] = contenido;
+                                obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
                                 recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
                             }
 
@@ -105,7 +116,7 @@ public class GameManagerTutorial : MonoBehaviour
         }
 
         ActualizarContadorRecursos();
-        FindObjectOfType<AstarPath>().Scan();
+        FindObjectOfType<NavMeshSurface2d>().BuildNavMesh();
     }
 
 

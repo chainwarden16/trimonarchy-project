@@ -72,6 +72,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: obstaculoInvisible
+      value: 
+      objectReference: {fileID: 11400000, guid: bb606979df5bea04986212f970a6f105, type: 2}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: tiempoConstruccion
       value: 19
       objectReference: {fileID: 0}
@@ -197,6 +201,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
