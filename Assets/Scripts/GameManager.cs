@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Control del estado del juego")]
     float tiempoInicial = 2000; //en segundos
-    float tiempoRestante = 2000; //en segundos
+    float tiempoRestante = 60; //en segundos
     int numeroSoldadosNecesario = 1; //los magos también entran aquí
     public List<TextMeshProUGUI> textoContador;
     public TextMeshProUGUI contadorCiviles;
@@ -35,12 +36,14 @@ public class GameManager : MonoBehaviour
     int accionElegida;
     public List<GameObject> tiposEdificio;
     Tilemap suelo;
+    Tilemap obstaculos;
+    public Tile obstaculoInvisible;
     public GameObject recurso1, recurso2;
     public float probabilidadGeneracionRecurso;
 
     [Header("Enemigos presentes")]
     public List<UnidadEnemiga> unidadesEnemigas = new List<UnidadEnemiga>();
-    int numeroEnemigosACrear = 1;
+    int numeroEnemigosACrear = 4; //16
     public GameObject mago;
     public GameObject guerrero;
 
@@ -69,57 +72,75 @@ public class GameManager : MonoBehaviour
     #region Start y Update
     void Start()
     {
-        suelo = suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
-        panelFinPartida.SetActive(false);
-
+        suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+        obstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
+        Recursos.SetRecursos(new List<int>() { 800, 800, 800, 800, 800, 800, 800, 800 });
         gridCiudad = new int[anchoGrid, largoGrid];
         for (int i = anchoGrid - 1; i >= 0; i--)
         {
             for (int j = largoGrid - 1; j >= 0; j--) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
             {
 
-                int contenido = Random.Range(0, 3);
-                float generacion = Random.Range(0f, 1.1f);
+                if ((i < 6 || i > 11 || j < 6 || j > 13)) //no crea nada en la zona de spawn de unidades nuevas
 
-                switch (contenido)
                 {
-                    case 0: //nada
-                        gridCiudad[i, j] = contenido;
-                        break;
-                    case 1: //madera
 
-                        if (generacion <= probabilidadGeneracionRecurso)
+                    int contenido = Random.Range(0, 3);
+                    float generacion = Random.Range(0f, 1.1f);
 
-                        {
-
-                            Vector2 centroCasilla = suelo.GetCellCenterLocal(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+                    switch (contenido)
+                    {
+                        case 0: //nada
                             gridCiudad[i, j] = contenido;
-                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
-                        }
-                        else
-                        {
-                            gridCiudad[i, j] = 0;
-                        }
+                            break;
+                        case 1: //madera
 
-                        break;
-                    case 2: //piedra
-                        if (generacion <= probabilidadGeneracionRecurso)
+                            if (generacion <= probabilidadGeneracionRecurso)
 
-                        {
-                            Vector2 centroCasilla = suelo.GetCellCenterLocal(new Vector3Int(i, j, (int)suelo.transform.position.z));
-                            GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
-                            gridCiudad[i, j] = contenido;
-                            recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
-                        }
+                            {
 
-                        break;
+                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
+                                Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+
+                                GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
+
+                                gridCiudad[i, j] = contenido;
+                                obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
+                                recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                            }
+                            else
+                            {
+                                gridCiudad[i, j] = 0;
+                            }
+
+                            break;
+                        case 2: //piedra
+                            if (generacion <= probabilidadGeneracionRecurso)
+
+                            {
+                                Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, (int)suelo.transform.position.z));
+                                Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+
+                                GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
+
+                                gridCiudad[i, j] = contenido;
+                                obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
+                                recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                            }
+
+                            break;
+                    }
+
                 }
+
 
             }
         }
 
         ActualizarContadorRecursos();
+        FindObjectOfType<NavMeshSurface2d>().BuildNavMesh();
     }
 
 
@@ -137,6 +158,7 @@ public class GameManager : MonoBehaviour
 
     private void PruebaABorrarLuego()
     {
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Recursos.soldados--;
@@ -158,7 +180,7 @@ public class GameManager : MonoBehaviour
         if (tiempoRestante <= 0)
         {
             contadorTiempoRestante.text = "0:00";
-            if (Recursos.soldados < numeroSoldadosNecesario && !seHanCreadoEnemigos)
+            if (Recursos.soldados < numeroSoldadosNecesario && !seHanCreadoEnemigos) //
             {
 
                 InvocarPanelFinPartida(0);
@@ -170,6 +192,75 @@ public class GameManager : MonoBehaviour
                 //Si tienes soldados suficientes, se crean varios enemigos una vez
                 if (!seHanCreadoEnemigos)
                 {
+                    int contadorSoldados = 0;
+                    int k = 7;
+                    int j = 10;
+
+                    Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+                    List<Vector3> posiciones = new List<Vector3>();
+
+                    foreach (Unidad un in unidadesAliadas)
+                    {
+
+                        Vector3 transTile = suelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, 0));
+
+                        posiciones.Add(transTile);
+
+                    }
+
+                    while (contadorSoldados < numeroEnemigosACrear)
+                    {
+                        Vector3 lugarSpawn = suelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                        int rand = Random.Range(0, 2);
+
+                        if (rand == 0)
+                        {
+
+                            if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                GameObject enemigo = Instantiate(mago, lugarSpawn, Quaternion.identity);
+                                unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
+
+                                contadorSoldados++;
+                                if (contadorSoldados == numeroEnemigosACrear)
+                                {
+                                    break;
+
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                            {
+                                GameObject enemigo = Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                                unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
+
+                                contadorSoldados++;
+                                if (contadorSoldados == numeroEnemigosACrear)
+                                {
+                                    break;
+
+                                }
+
+                            }
+
+                        }
+
+                        k++;
+                        if (k >= 20)
+                        {
+                            j++;
+                            k = 7;
+                        }
+                    }
+                    seHanCreadoEnemigos = true;
+
+                    /*
                     //se crean enemigos en distintas posiciones
                     for (int i = 0; i < numeroEnemigosACrear; i++)
                     {
@@ -177,6 +268,8 @@ public class GameManager : MonoBehaviour
 
                         if (rand == 0)
                         {
+
+
 
                             GameObject unidad = Instantiate(mago, new Vector2(i, i), Quaternion.identity);
                             unidadesEnemigas.Add(unidad.GetComponent<UnidadEnemiga>());
@@ -188,8 +281,7 @@ public class GameManager : MonoBehaviour
                             unidadesEnemigas.Add(unidad.GetComponent<UnidadEnemiga>());
                         }
 
-                    }
-                    seHanCreadoEnemigos = true;
+                    }*/
                 }
 
                 if (Recursos.soldados <= 0)
@@ -268,13 +360,13 @@ public class GameManager : MonoBehaviour
                 {
 
                     PlayerPrefs.SetFloat("TiempoGastado", tiempoGastado);
-                    float minutes = Mathf.Floor(tiempoRestante / 60);
-                    float seconds = Mathf.RoundToInt(tiempoRestante % 60);
+                    float minutes = Mathf.Floor(tiempoGastado / 60);
+                    float seconds = Mathf.RoundToInt(tiempoGastado % 60);
 
                     if (seconds == 60)
                     {
                         seconds = 0;
-                        minutes = Mathf.Floor(tiempoRestante / 60 + 1);
+                        minutes = Mathf.Floor(tiempoGastado / 60 + 1);
                     }
 
                     string tiempoAGuardar = minutes.ToString() + ":" + seconds.ToString("00");

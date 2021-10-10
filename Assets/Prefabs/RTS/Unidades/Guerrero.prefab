@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 636488032}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0e6090f8db15d304c9d67281a956de87, type: 2}
+  m_Controller: {fileID: 9100000, guid: d1d2ccfdd32b4d9488ef2bae1df6700f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -292,6 +292,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.76486945, y: 1.2047912}
   m_EdgeRadius: 0
+--- !u!195 &1550928790109443885
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157586480609448795}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.15
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.8
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &7692746537616654501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +452,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8994494844543269781, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
+    - {fileID: 3947067483276357567, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
+    - {fileID: 8086377813848961462, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
+    - {fileID: 1189066221329116226, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4a734eb4f4e5d9948b261a585b277dc0, type: 3}
 --- !u!1 &4157586480609448795 stripped
 GameObject:

@@ -74,5 +74,10 @@ public class Recursos : MonoBehaviour
         return haySuficientesHabitantes;
     }
 
+    public static void SetRecursos(List<int> recur)
+    {
+        recursos = recur;
+    }
+
 
 }

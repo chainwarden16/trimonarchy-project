@@ -50,6 +50,7 @@ MonoBehaviour:
   ciudadano: {fileID: 8220106476665350385, guid: 0dd2c81558c8bbf45a6d441afbabcba8, type: 3}
   mago: {fileID: 2851702429193932149, guid: 7dfac1b5f814b4d40a55787d69f624d0, type: 3}
   guerrero: {fileID: 4157586480609448795, guid: 14544b1cca46b0e4486fe99e5e471cbe, type: 3}
+  obstaculoInvisible: {fileID: 0}
   unidadesAsignadas: []
 --- !u!61 &-4687317426838901559
 BoxCollider2D:
@@ -67,10 +68,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.9756098, y: 0.9756098}
+    newSize: {x: 0.9756098, y: 0.9756098}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -122,7 +123,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9756098, y: 0.9756098}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

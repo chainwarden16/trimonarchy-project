@@ -7,7 +7,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7129692293658533618}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -41,6 +41,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9756098
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6430267
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.16629153
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -58,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.8
+      value: 0.9756098
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.8
+      value: 0.9756098
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
@@ -228,8 +240,7 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
 --- !u!1 &7129692293658533618 stripped
 GameObject:

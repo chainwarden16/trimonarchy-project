@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Mago-Enemigo
   m_EditorClassIdentifier: 
   vida: 100
-  fuerza: 7
-  rangoAtaque: 2
+  fuerza: 4
+  rangoAtaque: 1.5
   tipo: 2
   bando: 1
-  tiempoEnfriamientoAtaque: 1
+  tiempoEnfriamientoAtaque: 2
   limiteUnidadesAsignadas: 4

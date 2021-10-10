@@ -325,6 +325,19 @@ public class UnidadController : MonoBehaviour
                     {
 
                         unidad.objetivoActual = colliders[0].gameObject;
+                        
+                        if(unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().fuente.indiceRecurso == 1) //madera
+                        {
+                            unidad.SetTipoAccion(1);
+                            unidad.SetAnimAtaque(0f, 0f, false);
+                            
+                        }
+                        else
+                        {
+                            unidad.SetTipoAccion(2);
+                            unidad.SetAnimAtaque(0f, 0f, false);
+                        }
+
                         //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
                         //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
                         unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0;
@@ -372,7 +385,9 @@ public class UnidadController : MonoBehaviour
                         unidad.objetivoActual = colliders[0].gameObject;
                         //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
                         //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
-                        unidad.GetComponent<NavMeshAgent>().stoppingDistance = 1f;
+
+                        //unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0.1f;
+
                         unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
                         unidadesSeleccionadas.Remove(unidad);
@@ -415,6 +430,7 @@ public class UnidadController : MonoBehaviour
                         unidad.objetivoActual = colliders[0].gameObject;
                         //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
                         //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
+                        unidad.SetTipoAccion(2);
                         unidad.GetComponent<NavMeshAgent>().stoppingDistance = 1f;
                         unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);

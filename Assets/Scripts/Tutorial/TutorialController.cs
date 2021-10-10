@@ -51,6 +51,7 @@ public class TutorialController : MonoBehaviour
 
             if (contador == 11 && !CheckHaConseguidoSoldados())
             {
+
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
@@ -105,7 +106,7 @@ public class TutorialController : MonoBehaviour
                 dialogo.MostrarDialogoSinEleccion();
             }
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             switch (contadorPrueba)
@@ -131,7 +132,7 @@ public class TutorialController : MonoBehaviour
                     contadorPrueba++;
                     break;
                 case 3:
-                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(4, 4, 0));
+                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(7, 8, 0));
                     Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity); 
                     contadorPrueba++;
                     break;
@@ -142,7 +143,7 @@ public class TutorialController : MonoBehaviour
                     break;
             }
         }
-
+        */
     }
 
     bool CheckHaMovidoUnidad()
@@ -172,6 +173,7 @@ public class TutorialController : MonoBehaviour
             {
                 if(edi.edificioData.nombre == "Pozo" && edi.haFinalizadoConstruccion)
                 {
+                    Recursos.SetRecursos(new List<int>() { 200, 200, 200, 200, 200, 200, 200, 200 });
                     haMovido = true;
                 }
             }
@@ -189,6 +191,8 @@ public class TutorialController : MonoBehaviour
         if(unidadesEnCampo.Length != 0)
         {
             tieneSoldados = true;
+            Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(7, 8, 0));
+            Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
         }
 
         return tieneSoldados;

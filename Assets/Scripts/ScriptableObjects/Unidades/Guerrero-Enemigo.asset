@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Guerrero-Enemigo
   m_EditorClassIdentifier: 
   vida: 140
-  fuerza: 12
-  rangoAtaque: 0.5
+  fuerza: 8
+  rangoAtaque: 0.6
   tipo: 1
   bando: 1
-  tiempoEnfriamientoAtaque: 0.6
+  tiempoEnfriamientoAtaque: 1
   limiteUnidadesAsignadas: 4

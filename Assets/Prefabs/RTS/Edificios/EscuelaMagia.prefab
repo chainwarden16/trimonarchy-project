@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!60 &4730716951496636187
+--- !u!60 &798469251423158700
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629325745780476044}
-  m_Enabled: 1
+  m_GameObject: {fileID: 7129692293658533618}
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -33,13 +33,25 @@ PolygonCollider2D:
       - {x: -0.4723144, y: 0.16645016}
       - {x: -0.4826414, y: -0.21220793}
       - {x: -0.015113547, y: -0.4800596}
---- !u!1001 &7636997594675501849
+--- !u!1001 &4977234554726829415
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9756098
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6430267
+      objectReference: {fileID: 0}
+    - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.16629153
+      objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
@@ -58,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.8
+      value: 0.9756098
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.8
+      value: 0.9756098
       objectReference: {fileID: 0}
     - target: {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
@@ -74,11 +86,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: largo
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: nombre
-      value: Escuela de Magia
+      value: Granja
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: edificioData
@@ -91,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: materialTerminado
       value: 
-      objectReference: {fileID: 2100000, guid: 0b5946062371a83428f16ad76de29abd, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ce6fa49185a35a4380622da623f6d98, type: 2}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: temporizadorFondo
       value: 
@@ -102,35 +114,27 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: bb606979df5bea04986212f970a6f105, type: 2}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: tiempoConstruccion
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: coste.Array.data[0]
-      value: 37
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: coste.Array.data[1]
-      value: 21
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: coste.Array.data[2]
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[3]
-      value: 36
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: coste.Array.data[5]
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: coste.Array.data[6]
-      value: 29
-      objectReference: {fileID: 0}
-    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-      propertyPath: coste.Array.data[7]
-      value: 29
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: temporizadorRelleno
@@ -145,8 +149,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 1d6de575e66a09a46ace8f23b3c68ddf, type: 2}
     - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+      propertyPath: beneficio.Array.data[0]
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874265409024005010, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: beneficio.Array.data[1]
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2874265409024005013, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Name
@@ -232,11 +240,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -4687317426838901559, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
---- !u!1 &5629325745780476044 stripped
+--- !u!1 &7129692293658533618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2874265409024005013, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
-  m_PrefabInstance: {fileID: 7636997594675501849}
+  m_PrefabInstance: {fileID: 4977234554726829415}
   m_PrefabAsset: {fileID: 0}
