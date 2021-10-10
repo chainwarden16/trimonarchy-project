@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Control del estado del juego")]
     float tiempoInicial = 2000; //en segundos
-    float tiempoRestante = 60; //en segundos
+    float tiempoRestante = 500; //en segundos
     int numeroSoldadosNecesario = 1; //los magos también entran aquí
     public List<TextMeshProUGUI> textoContador;
     public TextMeshProUGUI contadorCiviles;

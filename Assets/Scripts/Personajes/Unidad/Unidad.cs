@@ -234,9 +234,6 @@ public class Unidad : MonoBehaviour
                 else
                 {
                     //Debug.Log(diferenciaY);
-                    Debug.Log("La posición de la piedra es: " + agente.destination.y);
-                    Debug.Log("La posición del objeto es: " + gameObject.transform.position.y);
-                    Debug.Log("La posición del agente es: " + agente.transform.position.y);
 
                     if (diferenciaY <= 0f) //está debajo
                     {
@@ -244,13 +241,13 @@ public class Unidad : MonoBehaviour
                         {
 
                             SetAnimAtaque(0, 1f, true);
-                            Debug.Log("Se encuentra debajo y se pone a " + anim.GetFloat("atacarZ"));
+
 
                         }
                         else
                         {
                             SetAnimAtaque(0, -1f, true);
-                            Debug.Log("Se encuentra debajo y se pone a " + anim.GetFloat("atacarZ"));
+
                         }
                     }
                     else //está encima
@@ -259,13 +256,13 @@ public class Unidad : MonoBehaviour
                         {
 
                             SetAnimAtaque(0, -1f, true);
-                            Debug.Log("Se encuentra debajo y se pone a " + anim.GetFloat("atacarZ"));
+
 
                         }
                         else
                         {
                             SetAnimAtaque(0, 1f, true);
-                            Debug.Log("Se encuentra debajo y se pone a " + anim.GetFloat("atacarZ"));
+
                         }
                     }
                 }

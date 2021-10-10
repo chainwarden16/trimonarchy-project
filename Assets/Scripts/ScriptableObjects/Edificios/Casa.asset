@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coste: 00000000050000000a0000000000000000000000000000000000000000000000
   nombre: Casa
-  beneficio: 0500000000000000
+  beneficio: 0200000000000000
   materiales: 0000000000000000000000000000000000000000000000000000000000000000
   estado: 1
   ancho: 1
@@ -24,3 +24,4 @@ MonoBehaviour:
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
   terminado: {fileID: 21300000, guid: a4ae462e0d8397049bb5694d3745be87, type: 3}
   limiteCiviles: 2
+  indiceEdificio: 0

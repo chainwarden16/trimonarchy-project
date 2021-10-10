@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-using UnityEngine.Tilemaps;
 using UnityEngine.AI;
+using UnityEngine.Tilemaps;
 
 public class Edificio : MonoBehaviour
 {

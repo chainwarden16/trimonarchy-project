@@ -46,3 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Unidades
+    uniqueID: 1994970521
+    locked: 0
+  - name: Recursos y edificios
+    uniqueID: 715367435
+    locked: 0

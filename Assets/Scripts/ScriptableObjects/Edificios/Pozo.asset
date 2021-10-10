@@ -15,12 +15,12 @@ MonoBehaviour:
   coste: 000000000f0000000f0000000000000000000000000000000000000000000000
   nombre: Pozo
   beneficio: 0000000000000000
-  materiales: 00000000000000000000000000000000000000000a0000000000000000000000
+  materiales: 0000000000000000000000000000000000000000010000000000000000000000
   estado: 1
   ancho: 1
   largo: 2
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 2
+  tiempoConstruccion: 6
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
   terminado: {fileID: 21300000, guid: eb1831e5e5db0124d99ea152dccda4c4, type: 3}
   limiteCiviles: 2

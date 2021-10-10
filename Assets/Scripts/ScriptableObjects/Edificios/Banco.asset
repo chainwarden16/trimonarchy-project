@@ -15,12 +15,12 @@ MonoBehaviour:
   coste: 000000001e000000230000000000000000000000280000001400000000000000
   nombre: Banco
   beneficio: 0000000000000000
-  materiales: 0a00000000000000000000000000000000000000000000000000000000000000
+  materiales: 0100000000000000000000000000000000000000000000000000000000000000
   estado: 1
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 5
+  tiempoConstruccion: 6
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
   terminado: {fileID: 21300000, guid: c9a710180c619684c8652f6e0637ca49, type: 3}
   limiteCiviles: 3

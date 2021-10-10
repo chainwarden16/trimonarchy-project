@@ -234,6 +234,10 @@ public class UnidadController : MonoBehaviour
                             {
                                 unidad.posicionObjetivo = posicionActual;
                                 //seguirRaton.transform.position = posicionActual;
+                                if(unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil)
+                                {
+                                    unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0.5f;
+                                }
                                 unidad.GetComponent<NavMeshAgent>().SetDestination(posicionActual);
                             }
                             else
