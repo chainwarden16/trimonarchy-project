@@ -27,7 +27,7 @@ public class Edificio : MonoBehaviour
 
 
     [Header("Contador de tiempo para dar recurso")]
-    float progresoRecurso = 4f; //cada 30 segundos dará uno o más materiales definidos en su Scriptable Object
+    float progresoRecurso; //cada 30 segundos dará uno o más materiales definidos en su Scriptable Object
 
 
     [Header("Civiles trabajando en la construcción")]
@@ -45,6 +45,8 @@ public class Edificio : MonoBehaviour
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         tileObstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
         duracionRestante = edificioData.tiempoConstruccion;
+
+        progresoRecurso = edificioData.tiempoDarRecurso;
 
     }
 
@@ -338,7 +340,7 @@ public class Edificio : MonoBehaviour
             {
                 Recursos.recursos[i] += edificioData.materiales[i];
             }
-            progresoRecurso = 4f;
+            progresoRecurso = edificioData.tiempoDarRecurso;
             if (GameManager.manager != null)
             {
                 GameManager.manager.ActualizarContadorRecursos(); //se actualiza la UI con la reducción de recursos

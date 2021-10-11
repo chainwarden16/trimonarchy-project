@@ -12,8 +12,8 @@ public class BuildController : MonoBehaviour
 
     [Header("Tilemap donde se edificará")]
     Tilemap tileSuelo;
-    int x = 2;
-    int y = 2;
+    int x = 3;
+    int y = 3;
 
     [Header("Mensaje de error")]
     GameObject cajaMensaje;
@@ -163,9 +163,9 @@ public class BuildController : MonoBehaviour
         bool condicion4Cursor = tposCursor.x < 6 || tposCursor.x > 11 || tposCursor.y < 6 || tposCursor.y > 13;
 
 
-        for (int indice = -1; indice < x; indice++)
+        for (int indice = -2; indice < x; indice++)
         {
-            for (int indice2 = -1; indice2 < y; indice2++)
+            for (int indice2 = -2; indice2 < y; indice2++)
             {
                 bool condicion3Aux;
 

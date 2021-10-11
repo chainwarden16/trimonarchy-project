@@ -72,9 +72,12 @@ public class GameManager : MonoBehaviour
     #region Start y Update
     void Start()
     {
+        List<FuenteRecursosOperaciones> arboles = new List<FuenteRecursosOperaciones>();
+        List<FuenteRecursosOperaciones> rocas = new List<FuenteRecursosOperaciones>();
+
         suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         obstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
-        Recursos.SetRecursos(new List<int>() { 800, 800, 800, 800, 800, 800, 800, 800 });
+        Recursos.SetRecursos(new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0 });
         gridCiudad = new int[anchoGrid, largoGrid];
         for (int i = anchoGrid - 1; i >= 0; i--)
         {
@@ -103,7 +106,7 @@ public class GameManager : MonoBehaviour
                                 Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
 
                                 GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
-
+                                arboles.Add(recurso.GetComponent<FuenteRecursosOperaciones>());
                                 gridCiudad[i, j] = contenido;
                                 obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
 
@@ -123,7 +126,7 @@ public class GameManager : MonoBehaviour
                                 Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
 
                                 GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
-
+                                rocas.Add(recurso.GetComponent<FuenteRecursosOperaciones>());
                                 gridCiudad[i, j] = contenido;
                                 obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
 
@@ -137,6 +140,54 @@ public class GameManager : MonoBehaviour
 
 
             }
+        }
+
+        //se procede a contar cuántas piedras y cuántos árboles se han generado. Si son menos de 45 árboles y menos de 42 rocas, se deberá crear más hasta llegar a esa cantidad
+        //de no hacerse, podría no haber suficiente material para crear 5 copias de cada edificio
+
+        if (arboles.Count < 45 || rocas.Count < 42)
+        {
+            int numeroArboles = arboles.Count;
+            int numeroRocas = rocas.Count;
+            Debug.Log("Hay " + numeroArboles + "árboles y " + numeroRocas);
+
+            for(int i = 0; i < largoGrid; i++)
+            {
+                for(int j = 0; j < anchoGrid; j++)
+                {
+                    if(numeroArboles < 45 && gridCiudad[i,j] == 0 )
+                    {
+                        Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
+                        Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+
+                        GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
+                        
+                        gridCiudad[i, j] = 1;
+                        obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
+                        recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                        numeroArboles++;
+                    }
+
+                    else if(numeroRocas < 42 && gridCiudad[i, j] == 0)
+                    {
+                        Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
+                        Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
+
+                        GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
+                        arboles.Add(recurso.GetComponent<FuenteRecursosOperaciones>());
+                        gridCiudad[i, j] = 2;
+                        obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
+
+                        recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
+                        numeroRocas++;
+                    }else if (numeroArboles >= 45 && numeroRocas >= 42)
+                    {
+                        break;
+                    }
+                }
+            }
+
         }
 
         ActualizarContadorRecursos();

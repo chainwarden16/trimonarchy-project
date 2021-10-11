@@ -42,6 +42,8 @@ public class EdificioScriptable : ScriptableObject
     public Sprite terminado;
     public int limiteCiviles;
     public int indiceEdificio;
+    [Tooltip("Tiempo que este edificio tarda en proporcionar sus recursos")]
+    public float tiempoDarRecurso;
     #endregion
 
 

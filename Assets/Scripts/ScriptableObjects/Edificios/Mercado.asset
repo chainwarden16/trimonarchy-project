@@ -25,3 +25,4 @@ MonoBehaviour:
   terminado: {fileID: 21300000, guid: 30e7ea36d4713c04cab9619aa6fd9726, type: 3}
   limiteCiviles: 2
   indiceEdificio: 2
+  tiempoDarRecurso: 3
