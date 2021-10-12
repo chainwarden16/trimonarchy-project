@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     public int[,] gridCiudad; //se debe comprobar en la clase del cursor que no se salga de estas medidas
 
     [Header("Control del estado del juego")]
-    float tiempoInicial = 2000; //en segundos
-    float tiempoRestante = 500; //en segundos
-    int numeroSoldadosNecesario = 1; //los magos también entran aquí
+    float tiempoInicial = 1200; //en segundos
+    float tiempoRestante = 1200; //en segundos
+    int numeroSoldadosNecesario = 24; // 20 //los magos también entran aquí
     public List<TextMeshProUGUI> textoContador;
     public TextMeshProUGUI contadorCiviles;
     public TextMeshProUGUI contadorSoldados;
@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     public GameObject panelFinPartida;
     public TextMeshProUGUI tituloFinPartida;
     public TextMeshProUGUI textoFinPartida;
+
+    public Button botonConstruirCentro;
+    public Button botonConstruirEscuela;
+    public GameObject panelConstruccion;
+
     bool seHanCreadoEnemigos = false;
     bool haGanado = false;
 
@@ -43,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemigos presentes")]
     public List<UnidadEnemiga> unidadesEnemigas = new List<UnidadEnemiga>();
-    int numeroEnemigosACrear = 4; //16
+    int numeroEnemigosACrear = 20; //16
     public GameObject mago;
     public GameObject guerrero;
 
@@ -78,6 +83,8 @@ public class GameManager : MonoBehaviour
         suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         obstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
         Recursos.SetRecursos(new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0 });
+        Recursos.SetHabitantes(1);
+        Recursos.SetSoldados(0); //0
         gridCiudad = new int[anchoGrid, largoGrid];
         for (int i = anchoGrid - 1; i >= 0; i--)
         {
@@ -151,17 +158,17 @@ public class GameManager : MonoBehaviour
             int numeroRocas = rocas.Count;
             Debug.Log("Hay " + numeroArboles + "árboles y " + numeroRocas);
 
-            for(int i = 0; i < largoGrid; i++)
+            for (int i = 0; i < largoGrid; i++)
             {
-                for(int j = 0; j < anchoGrid; j++)
+                for (int j = 0; j < anchoGrid; j++)
                 {
-                    if(numeroArboles < 45 && gridCiudad[i,j] == 0 )
+                    if (numeroArboles < 45 && gridCiudad[i, j] == 0)
                     {
                         Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
                         Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
 
                         GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
-                        
+
                         gridCiudad[i, j] = 1;
                         obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
 
@@ -169,7 +176,7 @@ public class GameManager : MonoBehaviour
                         numeroArboles++;
                     }
 
-                    else if(numeroRocas < 42 && gridCiudad[i, j] == 0)
+                    else if (numeroRocas < 42 && gridCiudad[i, j] == 0)
                     {
                         Vector2 centroCasilla = suelo.GetCellCenterWorld(new Vector3Int(i, j, 0));
                         Vector2 centroCasillaObstaculo = obstaculos.GetCellCenterWorld(new Vector3Int(i, j, 0));
@@ -181,7 +188,8 @@ public class GameManager : MonoBehaviour
 
                         recurso.GetComponent<SpriteRenderer>().sortingOrder = anchoGrid - j;
                         numeroRocas++;
-                    }else if (numeroArboles >= 45 && numeroRocas >= 42)
+                    }
+                    else if (numeroArboles >= 45 && numeroRocas >= 42)
                     {
                         break;
                     }
@@ -207,166 +215,147 @@ public class GameManager : MonoBehaviour
 
     #region Condicion de Victoria y de Derrota
 
-    private void PruebaABorrarLuego()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Recursos.soldados--;
-            Debug.Log(Recursos.soldados);
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            unidadesEnemigas.Remove(unidadesEnemigas[0]);
-            Debug.Log(unidadesEnemigas.Count);
-        }
-    }
-
 
     private void DeterminarCondicionVictoriaDerrota()
     {
-        tiempoRestante -= Time.deltaTime;
 
-        if (tiempoRestante <= 0)
+        if (contadorTiempoRestante != null)
         {
-            contadorTiempoRestante.text = "0:00";
-            if (Recursos.soldados < numeroSoldadosNecesario && !seHanCreadoEnemigos) //
-            {
 
-                InvocarPanelFinPartida(0);
-                //Aparece el  mensaje de Game Over para hacerle clic. Eso será lo que te lleve a la escena de Fin de Partida
-                Debug.Log("Has perdido, jajaja");
+            if (tiempoRestante <= 0)
+            {
+                contadorTiempoRestante.text = "0:00";
+                if (Recursos.soldados < numeroSoldadosNecesario && !seHanCreadoEnemigos) //
+                {
+
+                    InvocarPanelFinPartida(0);
+                    //Aparece el  mensaje de Game Over para hacerle clic. Eso será lo que te lleve a la escena de Fin de Partida
+
+                }
+                else
+                {
+                    //Si tienes soldados suficientes, se crean varios enemigos una vez
+                    if (!seHanCreadoEnemigos)
+                    {
+                        int contadorSoldados = 0;
+                        int k = 7;
+                        int j = 10;
+
+                        Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
+
+                        List<Vector3> posiciones = new List<Vector3>();
+
+                        foreach (Unidad un in unidadesAliadas)
+                        {
+
+                            Vector3 transTile = suelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, 0));
+
+                            posiciones.Add(transTile);
+
+                        }
+
+                        while (contadorSoldados < numeroEnemigosACrear)
+                        {
+                            Vector3 lugarSpawn = suelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
+
+                            int rand = Random.Range(0, 2);
+
+                            if (rand == 0)
+                            {
+
+                                if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                                {
+                                    GameObject enemigo = Instantiate(mago, lugarSpawn, Quaternion.identity);
+                                    unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
+
+                                    contadorSoldados++;
+                                    if (contadorSoldados == numeroEnemigosACrear)
+                                    {
+                                        break;
+
+                                    }
+
+                                }
+
+                            }
+                            else
+                            {
+                                if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
+                                {
+                                    GameObject enemigo = Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                                    unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
+
+                                    contadorSoldados++;
+                                    if (contadorSoldados == numeroEnemigosACrear)
+                                    {
+                                        break;
+
+                                    }
+
+                                }
+
+                            }
+
+                            k++;
+                            if (k >= 20)
+                            {
+                                j++;
+                                k = 7;
+                            }
+                        }
+                        seHanCreadoEnemigos = true;
+
+                        //Se bloquean los botones para construir nuevas escuelas de magia y campos de entrenamiento
+
+                        botonConstruirCentro.interactable = false;
+                        botonConstruirEscuela.interactable = false;
+
+                        //se evita que se pueda construir cualquier cosa una vez empieza el combate que no se haya seleccionado o cimentado ya
+
+                        panelConstruccion.SetActive(false);
+
+                        
+                    }
+
+                    if (Recursos.soldados <= 0)
+                    {
+                        InvocarPanelFinPartida(1);
+                        //Aparece el  mensaje de Game Over para hacerle clic. Eso será lo que te lleve a la escena de Fin de Partida
+
+                    }
+                    else if (unidadesEnemigas.Count == 0 && seHanCreadoEnemigos)
+                    {
+                        //¡Victoria! Los enemigos han muerto y tú todavía tienes soldados en pie
+                        haGanado = true;
+                        InvocarPanelFinPartida(2);
+                    }
+
+
+                }
+
+
             }
             else
             {
-                //Si tienes soldados suficientes, se crean varios enemigos una vez
-                if (!seHanCreadoEnemigos)
+                tiempoRestante -= Time.deltaTime;
+
+                float minutes = Mathf.Floor(tiempoRestante / 60);
+                float seconds = Mathf.RoundToInt(tiempoRestante % 60);
+
+                if (seconds == 60)
                 {
-                    int contadorSoldados = 0;
-                    int k = 7;
-                    int j = 10;
-
-                    Unidad[] unidadesAliadas = FindObjectsOfType<Unidad>();
-
-                    List<Vector3> posiciones = new List<Vector3>();
-
-                    foreach (Unidad un in unidadesAliadas)
-                    {
-
-                        Vector3 transTile = suelo.GetCellCenterWorld(new Vector3Int((int)un.transform.position.x, (int)un.transform.position.y, 0));
-
-                        posiciones.Add(transTile);
-
-                    }
-
-                    while (contadorSoldados < numeroEnemigosACrear)
-                    {
-                        Vector3 lugarSpawn = suelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
-
-                        int rand = Random.Range(0, 2);
-
-                        if (rand == 0)
-                        {
-
-                            if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
-                            {
-                                GameObject enemigo = Instantiate(mago, lugarSpawn, Quaternion.identity);
-                                unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
-
-                                contadorSoldados++;
-                                if (contadorSoldados == numeroEnemigosACrear)
-                                {
-                                    break;
-
-                                }
-
-                            }
-
-                        }
-                        else
-                        {
-                            if (gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
-                            {
-                                GameObject enemigo = Instantiate(guerrero, lugarSpawn, Quaternion.identity);
-                                unidadesEnemigas.Add(enemigo.GetComponent<UnidadEnemiga>());
-
-                                contadorSoldados++;
-                                if (contadorSoldados == numeroEnemigosACrear)
-                                {
-                                    break;
-
-                                }
-
-                            }
-
-                        }
-
-                        k++;
-                        if (k >= 20)
-                        {
-                            j++;
-                            k = 7;
-                        }
-                    }
-                    seHanCreadoEnemigos = true;
-
-                    /*
-                    //se crean enemigos en distintas posiciones
-                    for (int i = 0; i < numeroEnemigosACrear; i++)
-                    {
-                        int rand = Random.Range(0, 2);
-
-                        if (rand == 0)
-                        {
-
-
-
-                            GameObject unidad = Instantiate(mago, new Vector2(i, i), Quaternion.identity);
-                            unidadesEnemigas.Add(unidad.GetComponent<UnidadEnemiga>());
-
-                        }
-                        else
-                        {
-                            GameObject unidad = Instantiate(guerrero, new Vector2(i, i), Quaternion.identity);
-                            unidadesEnemigas.Add(unidad.GetComponent<UnidadEnemiga>());
-                        }
-
-                    }*/
+                    seconds = 0;
+                    minutes = Mathf.Floor(tiempoRestante / 60 + 1);
                 }
 
-                if (Recursos.soldados <= 0)
-                {
-                    InvocarPanelFinPartida(1);
-                    //Aparece el  mensaje de Game Over para hacerle clic. Eso será lo que te lleve a la escena de Fin de Partida
-                    Debug.Log("Has perdido porque no tienes soldados vivos, jajaja");
-                }
-                else if (unidadesEnemigas.Count == 0 && seHanCreadoEnemigos)
-                {
-                    //¡Victoria! Los enemigos han muerto y tú todavía tienes soldados en pie
-                    haGanado = true;
-                    InvocarPanelFinPartida(2);
-                }
-
+                contadorTiempoRestante.text = minutes + ":" + seconds.ToString("00");
 
             }
 
-
         }
-        else
-        {
-            float minutes = Mathf.Floor(tiempoRestante / 60);
-            float seconds = Mathf.RoundToInt(tiempoRestante % 60);
 
-            if (seconds == 60)
-            {
-                seconds = 0;
-                minutes = Mathf.Floor(tiempoRestante / 60 + 1);
-            }
 
-            contadorTiempoRestante.text = minutes + ":" + seconds.ToString("00");
 
-        }
     }
 
     public void CargarEscena(string escena)
@@ -407,6 +396,8 @@ public class GameManager : MonoBehaviour
                 textoFinPartida.text = "Tus soldados han resistido el ataque y el reino enemigo se ha rendido. ¡Has ganado!";
                 float tiempoGastado = tiempoInicial - tiempoRestante;
 
+                //Si el tiempo gastado es menor que el guardado, se ha roto el récord personal, por lo que debe registrarse
+
                 if (PlayerPrefs.GetFloat("TiempoGastado", 2000f) > tiempoGastado)
                 {
 
@@ -422,7 +413,7 @@ public class GameManager : MonoBehaviour
 
                     string tiempoAGuardar = minutes.ToString() + ":" + seconds.ToString("00");
 
-                    PlayerPrefs.SetString("TiempoGastado", tiempoAGuardar);
+                    PlayerPrefs.SetString("TiempoRecord", tiempoAGuardar);
 
                 }
 
@@ -477,6 +468,11 @@ public class GameManager : MonoBehaviour
         {
             gridCiudad[x, y] = numero;
         }
+    }
+
+    public bool GetSeHanCreadoEnemigos()
+    {
+        return seHanCreadoEnemigos;
     }
 
     #endregion

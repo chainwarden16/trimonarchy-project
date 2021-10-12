@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TutorialController : MonoBehaviour
 {
@@ -19,7 +22,10 @@ public class TutorialController : MonoBehaviour
     public GameObject centroEntrenamiento;
     public GameObject soldadoEnemigo;
     public GameObject soldado;
-
+    public Button botonCasa, botonPozo, botonCentro;
+    public GameObject panelError, aceptarError, aceptarDerrota;
+    public TextMeshProUGUI tituloError, textoError;
+    public Text textoTutorial;
 
     void Start()
     {
@@ -30,33 +36,49 @@ public class TutorialController : MonoBehaviour
 
     void Update()
     {
+        if(contador == 1)
+        {
+            Time.timeScale = 0f;
+        }
+
         if (Input.GetMouseButtonDown(0) && dialogo.panelDialogo.activeSelf)
         {
 
             if (contador < 5 || (contador >= 5 && contador < 8) || (contador >= 8 && contador < 15) || (contador > 15))
             {
                 contador++;
+                Debug.Log("Deteniendo el tiempo");
+
                 dialogo.MostrarDialogoSinEleccion();
             }
 
             if (contador == 5 && !CheckHaMovidoUnidad())
             {
+                textoTutorial.text = "";
+                textoTutorial.enabled = false;
+                Debug.Log("Reanudando el tiempo (Movido Unidad)");
+                Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 8 && !CheckHaConstruidoEdificio())
             {
+                Debug.Log("Reanudando el tiempo (Ha consturido edificio)");
+                Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 11 && !CheckHaConseguidoSoldados())
             {
-
+                Debug.Log("Reanudando el tiempo (Ha conseguido soldados)");
+                Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 12 && !CheckHaMatadoEnemigo())
             {
+                Debug.Log("Reanudando el tiempo (Ha matado enemigo)");
+                Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
@@ -66,7 +88,7 @@ public class TutorialController : MonoBehaviour
         if (contador == 5 && CheckHaMovidoUnidad())
         {
             dialogo.AbrirDialogoDondeEstaba();
-
+            Time.timeScale = 0f;
             if (Input.GetMouseButtonDown(0))
             {
                 dialogo.MostrarDialogoSinEleccion();
@@ -77,7 +99,7 @@ public class TutorialController : MonoBehaviour
         if (contador == 8 && CheckHaConstruidoEdificio())
         {
             dialogo.AbrirDialogoDondeEstaba();
-
+            Time.timeScale = 0f;
             if (Input.GetMouseButtonDown(0))
             {
                 dialogo.MostrarDialogoSinEleccion();
@@ -86,7 +108,7 @@ public class TutorialController : MonoBehaviour
 
         if (contador == 11 && CheckHaConseguidoSoldados())
         {
-
+            Time.timeScale = 0f;
             dialogo.AbrirDialogoDondeEstaba();
             /*Vector2 centroCasill = tileSuelo.GetCellCenterLocal(new Vector3Int(3, 3, 0));
             centroCasill = tileSuelo.GetCellCenterLocal(new Vector3Int(4, 4, 0));
@@ -100,12 +122,28 @@ public class TutorialController : MonoBehaviour
         if (contador == 12 && CheckHaMatadoEnemigo())
         {
             dialogo.AbrirDialogoDondeEstaba();
-
+            Time.timeScale = 0f;
             if (Input.GetMouseButtonDown(0))
             {
                 dialogo.MostrarDialogoSinEleccion();
             }
         }
+
+        if(contador >= 15)
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MapaCiudad");
+        
+        }
+
+        //Se proporciona un botón para saltarse el tutorial e ir directamente a la acción
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MapaCiudad");
+        }
+
         /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -156,7 +194,11 @@ public class TutorialController : MonoBehaviour
         if (build != null)
         {
             haMovido = FindObjectOfType<Edificio>().haFinalizadoConstruccion;
-
+            if (haMovido)
+            {
+                botonCasa.interactable = false;
+                botonPozo.interactable = true;
+            }
         }
 
         return haMovido;
@@ -169,12 +211,14 @@ public class TutorialController : MonoBehaviour
         Edificio[] build = FindObjectsOfType<Edificio>();
         if (build != null)
         {
-            foreach(Edificio edi in build)
+            foreach (Edificio edi in build)
             {
-                if(edi.edificioData.nombre == "Pozo" && edi.haFinalizadoConstruccion)
+                if (edi.edificioData.nombre == "Pozo" && edi.haFinalizadoConstruccion)
                 {
                     Recursos.SetRecursos(new List<int>() { 200, 200, 200, 200, 200, 200, 200, 200 });
                     haMovido = true;
+                    botonPozo.interactable = false;
+                    botonCentro.interactable = true;
                 }
             }
         }
@@ -186,13 +230,21 @@ public class TutorialController : MonoBehaviour
     {
         bool tieneSoldados = false;
 
-        Unidad[] unidadesEnCampo = FindObjectsOfType<Unidad>().Where( sol => sol.GetComponent<Unidad>().unidad.tipo != UnidadScriptable.TipoUnidad.Civil).ToArray();
+        //Unidad[] unidadesEnCampo = FindObjectsOfType<Unidad>().Where( sol => sol.GetComponent<Unidad>().unidad.tipo != UnidadScriptable.TipoUnidad.Civil).ToArray();
+        UnidadEnemiga[] enemigos = FindObjectsOfType<UnidadEnemiga>();
+        int soldadosAliados = (int)Recursos.soldados;
 
-        if(unidadesEnCampo.Length != 0)
+        if (soldadosAliados > 0)
         {
             tieneSoldados = true;
-            Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(7, 8, 0));
-            Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+            Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(7, 10, 0));
+
+            if (enemigos.Length == 0)
+            {
+
+                Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+
+            }
         }
 
         return tieneSoldados;
@@ -208,7 +260,27 @@ public class TutorialController : MonoBehaviour
         {
             haMatado = true;
         }
+        else if (contador > 11 && Recursos.soldados <= 0 && unidadesEnCampo.Length > 0)
+        {
+            //Por alguna razón, el jugador ha perdido, así que se le notifica
+            Time.timeScale = 0f;
+            panelError.SetActive(true);
+            aceptarError.SetActive(false);
+            aceptarDerrota.SetActive(true);
 
-        return haMatado;
+            tituloError.text = "Has fallado el tutorial";
+            textoError.text = "De alguna forma, has perdido en la fase de entrenamiento. Pero no te preocupes, puedes volver a intentarlo.";
+        } else if (contador > 11 && Recursos.soldados <= 0 && unidadesEnCampo.Length <= 0)
+        {
+            Time.timeScale = 0f;
+            panelError.SetActive(true);
+            aceptarError.SetActive(false);
+            aceptarDerrota.SetActive(true);
+
+            tituloError.text = "Has empatado";
+            textoError.text = "Has perdido a todos tus soldados y derrotaste a los oponentes. Aun así, no se considera que hayas ganado. Vuelve a intentarlo.";
+        }
+
+            return haMatado;
     }
 }

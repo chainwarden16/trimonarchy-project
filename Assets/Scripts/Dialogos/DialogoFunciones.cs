@@ -69,7 +69,7 @@ public class DialogoFunciones : MonoBehaviour
             else
             {
 
-                nombrePersonaje.text = dialogoActual.nombrePersonaje;
+                nombrePersonaje.text = dialogoActual.posibilidadesDialogo[0].nombrePersonaje;
                 texto.text = dialogoActual.posibilidadesDialogo[0].texto;
                 dialogoActual = dialogoActual.posibilidadesDialogo[0];
 

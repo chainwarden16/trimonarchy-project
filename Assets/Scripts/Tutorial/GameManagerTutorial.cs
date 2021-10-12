@@ -34,7 +34,7 @@ public class GameManagerTutorial : MonoBehaviour
     public Tile obstaculoInvisible;
     public GameObject recurso1, recurso2;
     public float probabilidadGeneracionRecurso;
-
+    GameManager manager;
 
 
     [Header("Enemigos presentes")]
@@ -48,8 +48,18 @@ public class GameManagerTutorial : MonoBehaviour
     #region Start y Update
     void Start()
     {
+        manager = FindObjectOfType<GameManager>();
+
+        if(manager != null)
+        {
+            Destroy(manager.gameObject);
+        }
+
         suelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         obstaculos = GameObject.Find("Tilemap-Obstaculos").GetComponent<Tilemap>();
+        Recursos.SetRecursos(new List<int> () { 0, 5, 10, 0, 0, 0, 0, 0 });
+        Recursos.SetHabitantes(1);
+        Recursos.SetSoldados(0);
 
         gridCiudad = new int[anchoGrid, largoGrid];
         for (int i = anchoGrid - 1; i >= 0; i--)

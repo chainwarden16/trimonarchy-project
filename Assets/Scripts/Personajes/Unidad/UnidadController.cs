@@ -68,63 +68,83 @@ public class UnidadController : MonoBehaviour
 
     void ActivarPanel()
     {
-        vidaMaxima.text = "/" + unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida.ToString();
-        vidaActual.text = unidadesSeleccionadas[0].vidaActual.ToString();
-        iconoPersonaje.sprite = unidadesSeleccionadas[0].GetComponentInChildren<SpriteRenderer>().sprite;
-        tipoUnidad.text = unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.tipo.ToString();
-        barraVida.fillAmount = unidadesSeleccionadas[0].vidaActual / unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida;
-        panelUnidad.SetActive(true);
+        if (panelUnidad != null)
+        {
+            vidaMaxima.text = "/" + unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida.ToString();
+            vidaActual.text = unidadesSeleccionadas[0].vidaActual.ToString();
+            iconoPersonaje.sprite = unidadesSeleccionadas[0].GetComponentInChildren<SpriteRenderer>().sprite;
+            tipoUnidad.text = unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.tipo.ToString();
+            Debug.Log("Sin aplicar Casting Float: "+unidadesSeleccionadas[0].vidaActual / unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida);
+            Debug.Log("Al aplicar Casting Float: " + (float)unidadesSeleccionadas[0].vidaActual / (float)unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida);
+            barraVida.fillAmount = (float)unidadesSeleccionadas[0].vidaActual / (float)unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida;
+            panelUnidad.SetActive(true);
+        }
+
     }
 
     public void CerrarPanel()
     {
         //Hacer que se cierre si la unidad muere
-        panelUnidad.SetActive(false);
+        if (panelUnidad != null)
+        {
+            panelUnidad.SetActive(false);
+
+        }
     }
 
     private void InicioSeleccionarUnidades()
     {
-        inicioArrastreRaton = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
+        if (Camera.main != null)
+        {
 
-        areaSeleccion.GetComponentInChildren<SpriteRenderer>().color = new Color(colArea.r, colArea.g, colArea.b, 0.6f); //se deja la imagen con opacidad 1 para que se vea lo que se está seleccionando
+            inicioArrastreRaton = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
 
-        estaPresionandoBotonIzquierdo = true;
+            areaSeleccion.GetComponentInChildren<SpriteRenderer>().color = new Color(colArea.r, colArea.g, colArea.b, 0.6f); //se deja la imagen con opacidad 1 para que se vea lo que se está seleccionando
+
+            estaPresionandoBotonIzquierdo = true;
+
+        }
 
     }
 
     private void FinSeleccionarUnidades()
     {
-
-        finArrastreRaton = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
-        estaPresionandoBotonIzquierdo = false;
-
-        areaSeleccion.GetComponentInChildren<SpriteRenderer>().color = new Color(colArea.r, colArea.g, colArea.b, 0); //se deja de nuevo la imagen con opacidad 0 para que no se vea
-        if (!buildCon.enabled)
+        if (Camera.main != null)
         {
-            foreach (Unidad uni in unidadesSeleccionadas)
-            {
-                uni.MostrarSelectorUnidad(false);
-            }
-            unidadesSeleccionadas.Clear();
-            //se añaden las unidades que sean aliados
-            List<Collider2D> colliderUnidades = Physics2D.OverlapAreaAll(inicioArrastreRaton, finArrastreRaton).Where(col => col.gameObject.GetComponent<Unidad>() != null
-            && col.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.Jugador).ToList();
-            foreach (Collider2D colli in colliderUnidades)
-            {
-                unidadesSeleccionadas.Add(colli.gameObject.GetComponent<Unidad>());
-                colli.gameObject.GetComponent<Unidad>().MostrarSelectorUnidad(true);
-            }
 
-            areaSeleccion.transform.localScale = new Vector3(1f, 1f);
+            finArrastreRaton = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
+            estaPresionandoBotonIzquierdo = false;
 
-            if (unidadesSeleccionadas.Count > 0)
-            {
-                ActivarPanel();
+            areaSeleccion.GetComponentInChildren<SpriteRenderer>().color = new Color(colArea.r, colArea.g, colArea.b, 0); //se deja de nuevo la imagen con opacidad 0 para que no se vea
 
-            }
-            else
+            if (!buildCon.enabled)
             {
-                CerrarPanel();
+                foreach (Unidad uni in unidadesSeleccionadas)
+                {
+                    uni.MostrarSelectorUnidad(false);
+                }
+                unidadesSeleccionadas.Clear();
+                //se añaden las unidades que sean aliados
+                List<Collider2D> colliderUnidades = Physics2D.OverlapAreaAll(inicioArrastreRaton, finArrastreRaton).Where(col => col.gameObject.GetComponent<Unidad>() != null
+                && col.gameObject.GetComponent<Unidad>().unidad.bando == UnidadScriptable.Bando.Jugador).ToList();
+                foreach (Collider2D colli in colliderUnidades)
+                {
+                    unidadesSeleccionadas.Add(colli.gameObject.GetComponent<Unidad>());
+                    colli.gameObject.GetComponent<Unidad>().MostrarSelectorUnidad(true);
+                }
+
+                areaSeleccion.transform.localScale = new Vector3(1f, 1f);
+
+                if (unidadesSeleccionadas.Count > 0)
+                {
+                    ActivarPanel();
+
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+
             }
 
         }
@@ -135,22 +155,25 @@ public class UnidadController : MonoBehaviour
     {
         if (estaPresionandoBotonIzquierdo)
         {
+            if (Camera.main != null)
+            {
 
-            //esta función hace que el área de selección de unidades cambie de tamaño a medida que muevas el ratón mientras tengas el botón izquierdo pulsado
-            Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
+                //esta función hace que el área de selección de unidades cambie de tamaño a medida que muevas el ratón mientras tengas el botón izquierdo pulsado
+                Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
 
-            /*El jugador puede arrastrar el ratón de dos maneras en cada eje maneras: de derecha a izquierda o de izquierda a derecha (X) y de arriba abajo o de abajo arriba (Y). Esto resultará en los vértices superior izquierdo e inferior derecho tomando una de varias posibles posiciones entre ambos.
-             * La posicion actual del cursor puede ser mayor, igual o menor que la de inicio, tanto en un eje como en otro. Por eso, para hacer que refleje ese cambio es necesario que las coordenadas de uno de los puntos sean lo más pequeñas que sea posible y las del otro, lo más grandes
-             * Esto formará un rectángulo a partir de dos esquinas opuestas
-             */
+                /*El jugador puede arrastrar el ratón de dos maneras en cada eje maneras: de derecha a izquierda o de izquierda a derecha (X) y de arriba abajo o de abajo arriba (Y). Esto resultará en los vértices superior izquierdo e inferior derecho tomando una de varias posibles posiciones entre ambos.
+                 * La posicion actual del cursor puede ser mayor, igual o menor que la de inicio, tanto en un eje como en otro. Por eso, para hacer que refleje ese cambio es necesario que las coordenadas de uno de los puntos sean lo más pequeñas que sea posible y las del otro, lo más grandes
+                 * Esto formará un rectángulo a partir de dos esquinas opuestas
+                 */
 
-            Vector2 puntoMenor = new Vector2(Mathf.Min(inicioArrastreRaton.x, posicionActual.x), Mathf.Min(inicioArrastreRaton.y, posicionActual.y));
+                Vector2 puntoMenor = new Vector2(Mathf.Min(inicioArrastreRaton.x, posicionActual.x), Mathf.Min(inicioArrastreRaton.y, posicionActual.y));
 
-            Vector2 puntoMayor = new Vector2(Mathf.Max(inicioArrastreRaton.x, posicionActual.x), Mathf.Max(inicioArrastreRaton.y, posicionActual.y));
+                Vector2 puntoMayor = new Vector2(Mathf.Max(inicioArrastreRaton.x, posicionActual.x), Mathf.Max(inicioArrastreRaton.y, posicionActual.y));
 
-            areaSeleccion.transform.position = puntoMenor; //actúa como pivote cuando se arrastre el ratón. inicioArrastreRaton no sirve porque está fijo
-            areaSeleccion.transform.localScale = puntoMayor - puntoMenor; //la resta de dos vectores opuestos determina a cuánto están uno de otro y escalar X e Y acorde. Z es cero en este caso por ser un juego 2D
+                areaSeleccion.transform.position = puntoMenor; //actúa como pivote cuando se arrastre el ratón. inicioArrastreRaton no sirve porque está fijo
+                areaSeleccion.transform.localScale = puntoMayor - puntoMenor; //la resta de dos vectores opuestos determina a cuánto están uno de otro y escalar X e Y acorde. Z es cero en este caso por ser un juego 2D
 
+            }
 
         }
     }
@@ -173,7 +196,7 @@ public class UnidadController : MonoBehaviour
         {
 
             Vector2 posicionActual = Camera.main.ScreenToWorldPoint(controles.RTS.PosicionCursor.ReadValue<Vector2>());
-            
+
             Vector3Int tpos = tileSuelo.WorldToCell(posicionActual);
 
 
@@ -205,8 +228,8 @@ public class UnidadController : MonoBehaviour
 
                 foreach (Unidad unidad in aux)
                 {
-                    
-                    
+
+
 
                     if (unidad.objetivoActual != null)
                     {
@@ -234,7 +257,7 @@ public class UnidadController : MonoBehaviour
                             {
                                 unidad.posicionObjetivo = posicionActual;
                                 //seguirRaton.transform.position = posicionActual;
-                                if(unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil)
+                                if (unidad.unidad.tipo == UnidadScriptable.TipoUnidad.Civil)
                                 {
                                     unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0.5f;
                                 }
@@ -329,12 +352,12 @@ public class UnidadController : MonoBehaviour
                     {
 
                         unidad.objetivoActual = colliders[0].gameObject;
-                        
-                        if(unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().fuente.indiceRecurso == 1) //madera
+
+                        if (unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().fuente.indiceRecurso == 1) //madera
                         {
                             unidad.SetTipoAccion(1);
                             unidad.SetAnimAtaque(0f, 0f, false);
-                            
+
                         }
                         else
                         {

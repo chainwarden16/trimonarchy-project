@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personaje: {fileID: 21300000, guid: 0eed953af3f0d6548a786ebe70946fd5, type: 3}
   nombrePersonaje: Ellhan
-  texto: "Tenemos noticias de que el reino de [nombre] est\xE1 planeando invadir
-    nuestras tierras pronto. Hay que reaccionar cuanto antes."
+  texto: "Tenemos noticias de que el reino de Harowin est\xE1 planeando invadir nuestras
+    tierras pronto. Hay que reaccionar cuanto antes."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 62bab5b16a1abd340b86e43980e7e47b, type: 2}

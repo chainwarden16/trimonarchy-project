@@ -1,19 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!60 &798469251423158700
-PolygonCollider2D:
+--- !u!61 &3822483142714842460
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7129692293658533618}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.10714233}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -23,16 +23,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.47636017, y: -0.21362334}
-      - {x: 0.479616, y: 0.16750014}
-      - {x: 0.30350044, y: 0.33811897}
-      - {x: -0.005832836, y: 0.4427667}
-      - {x: -0.28118083, y: 0.3389158}
-      - {x: -0.4723144, y: 0.16645016}
-      - {x: -0.4826414, y: -0.21220793}
-      - {x: -0.015113547, y: -0.4800596}
+  serializedVersion: 2
+  m_Size: {x: 0.9756098, y: 0.7613251}
+  m_EdgeRadius: 0
 --- !u!1001 &4977234554726829415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,7 +212,7 @@ PrefabInstance:
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3a5e7cd926a4d2d40bc8344caa75b69b, type: 3}
+      objectReference: {fileID: 21300000, guid: 4de09cc5f6cf7674faaf60ae42fa92d7, type: 3}
     - target: {fileID: 4947253479601624891, guid: 6db8c7b2d1cea63488472a07cdb1af82, type: 3}
       propertyPath: m_Color.b
       value: 1

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuOpcionesGameplay : MonoBehaviour
 {
@@ -10,25 +11,23 @@ public class MenuOpcionesGameplay : MonoBehaviour
     public GameObject flechaMusicaDer;
     public GameObject flechaSFXIqz;
     public GameObject flechaSFXDer;
-    public GameObject cursor;
     public GameObject contenedorMenu;
     public Text musicaNum;
     public Text sfxNum;
-
-    MenuPausa menuPausa;
 
     [Header("Audio")]
     public AudioClip clipPrueba;
     GameObject objetoSonidos;
     AudioSource sourceMusica, sourceSFX;
-    public AudioClip moverCursorSFX;
     public AudioClip seleccionar;
 
-    [SerializeField]
-    int lugarCursor = 0;
     int musica = 0;
     int sfx = 0;
-    int moverCursor = 43;
+
+    [Header("Elementos del menú de pausa")]
+    MenuPausa pausa;
+    public GameObject panelOpciones;
+
 
     #endregion
 
@@ -39,127 +38,83 @@ public class MenuOpcionesGameplay : MonoBehaviour
         sfxNum.text = PlayerPrefs.GetInt("SFX", 10).ToString();
         musica = PlayerPrefs.GetInt("Musica", 10);
         sfx = PlayerPrefs.GetInt("SFX", 10);
-        menuPausa = GetComponent<MenuPausa>();
-
         objetoSonidos = GameObject.Find("--Musica--");
         sourceMusica = objetoSonidos.GetComponent<AudioController>().sourceMusica;
         sourceSFX = objetoSonidos.GetComponent<AudioController>().sourceSFX;
+
+        pausa = FindObjectOfType<MenuPausa>();
 
         ComprobarFlechasMenu();
 
     }
 
-
-    void Update()
+    public void SubirVolumenMusica()
     {
-        //TODO: poner un audioclip con la musica al volumen cuando se ajuste al pulsar una tecla
-        if (cursor != null)
+        if (musica < 10)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) && lugarCursor > 0)
-            {
-                lugarCursor--;
-                objetoSonidos.GetComponent<AudioController>().PlaySFX(moverCursorSFX);
-                if (lugarCursor == 1)
-                {
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(-344, 115, 0);
-                }
-                else
-                {
-
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(cursor.GetComponent<RectTransform>().anchoredPosition.x, cursor.GetComponent<RectTransform>().anchoredPosition.y + moverCursor, 0);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.DownArrow) && lugarCursor < 3)
-            {
-                objetoSonidos.GetComponent<AudioController>().PlaySFX(moverCursorSFX);
-                lugarCursor++;
-                if (lugarCursor == 2)
-                {
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(-198, -75, 0);
-                }
-                else
-                {
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(cursor.GetComponent<RectTransform>().anchoredPosition.x, cursor.GetComponent<RectTransform>().anchoredPosition.y - moverCursor, 0);
-                }
-            }
+            musica++;
+            sourceMusica.volume += 0.1f;
         }
 
-        switch (lugarCursor)
+        ComprobarFlechasMenu();
+
+        musicaNum.text = musica.ToString();
+    }
+
+    public void BajarVolumenMusica()
+    {
+        if (musica > 0)
         {
-            case 0:
+            musica--;
+            sourceMusica.volume -= 0.1f;
+        }
 
-                if (Input.GetKeyDown(KeyCode.LeftArrow) && musica > 0)
-                {
-                    musica--;
-                    sourceMusica.volume -= 0.1f;
-                }
+        ComprobarFlechasMenu();
 
-                if (Input.GetKeyDown(KeyCode.RightArrow) && musica < 10)
-                {
-                    musica++;
-                    sourceMusica.volume += 0.1f;
-                }
+        musicaNum.text = musica.ToString();
+    }
 
-                ComprobarFlechasMenu();
+    public void SubirVolumenSFX()
+    {
+        if (sfx < 10)
+        {
 
-                musicaNum.text = musica.ToString();
-
-                break;
-
-            case 1:
-
-                if (Input.GetKeyDown(KeyCode.LeftArrow) && sfx > 0)
-                {
-                    sfx--;
-                    sourceSFX.volume -= 0.1f;
-                    sourceSFX.PlayOneShot(clipPrueba);
-                }
-
-                if (Input.GetKeyDown(KeyCode.RightArrow) && sfx < 10)
-                {
-                    sfx++;
-                    sourceSFX.volume += 0.1f;
-                    sourceSFX.PlayOneShot(clipPrueba);
-                }
-
-                ComprobarFlechasMenu();
-
-                sfxNum.text = sfx.ToString();
-                break;
-
-            case 2:
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    objetoSonidos.GetComponent<AudioController>().PlaySFX(seleccionar);
-                    PlayerPrefs.SetInt("Musica", musica);
-                    PlayerPrefs.SetInt("SFX", sfx);
-                    menuPausa.estaViendoOpciones = false;
-                    contenedorMenu.SetActive(false);
-                    lugarCursor = 0;
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(-344, 158, 0);
-                    this.enabled = false;
-                }
-                break;
-
-            case 3:
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    objetoSonidos.GetComponent<AudioController>().PlaySFX(seleccionar);
-                    menuPausa.estaViendoOpciones = false;
-                    contenedorMenu.SetActive(false);
-                    lugarCursor = 0;
-                    cursor.GetComponent<RectTransform>().anchoredPosition = new Vector3(-344, 158, 0);
-
-                    musicaNum.text = PlayerPrefs.GetInt("Musica", 10).ToString();
-                    sfxNum.text = PlayerPrefs.GetInt("SFX", 10).ToString();
-                    musica = PlayerPrefs.GetInt("Musica", 10);
-                    sfx = PlayerPrefs.GetInt("SFX", 10);
-                    this.enabled = false;
-                }
-                break;
+            sfx++;
+            sourceSFX.volume += 0.1f;
+            sourceSFX.PlayOneShot(seleccionar);
 
         }
+
+        ComprobarFlechasMenu();
+
+        sfxNum.text = sfx.ToString();
+    }
+
+    public void BajarVolumenSFX()
+    {
+        if (sfx > 0)
+        {
+
+            sfx--;
+            sourceSFX.volume -= 0.1f;
+            sourceSFX.PlayOneShot(seleccionar);
+
+        }
+
+        ComprobarFlechasMenu();
+
+        sfxNum.text = sfx.ToString();
+    }
+
+
+    public void RegresarAPausa()
+    {
+        objetoSonidos.GetComponent<AudioController>().PlaySFX(seleccionar);
+        PlayerPrefs.SetInt("Musica", musica);
+        PlayerPrefs.SetInt("SFX", sfx);
+        panelOpciones.SetActive(false);
+        pausa.enabled = true;
+        this.enabled = false;
     }
 
     /// <summary>
@@ -169,50 +124,48 @@ public class MenuOpcionesGameplay : MonoBehaviour
     {
         if (flechaMusicaIqz != null && flechaMusicaDer != null)
         {
+            //Musica
 
             if (musica == 0)
             {
-                flechaMusicaIqz.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                flechaMusicaIqz.SetActive(false);
             }
             else
             {
-                flechaMusicaIqz.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                flechaMusicaIqz.SetActive(true);
             }
 
             if (musica == 10)
             {
-                flechaMusicaDer.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                flechaMusicaDer.SetActive(false);
             }
             else
             {
-                flechaMusicaDer.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                flechaMusicaDer.SetActive(true);
             }
 
-
-        }
-
-        if (flechaMusicaIqz != null && flechaMusicaDer != null)
-        {
+            //SFX
 
             if (sfx == 0)
             {
-                flechaSFXIqz.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                flechaSFXIqz.SetActive(false);
             }
             else
             {
-                flechaSFXIqz.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                flechaSFXIqz.SetActive(true);
             }
 
             if (sfx == 10)
             {
-                flechaSFXDer.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                flechaSFXDer.SetActive(false);
             }
             else
             {
-                flechaSFXDer.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                flechaSFXDer.SetActive(true);
             }
 
         }
 
     }
+
 }

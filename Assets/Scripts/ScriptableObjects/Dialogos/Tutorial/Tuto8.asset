@@ -15,7 +15,7 @@ MonoBehaviour:
   personaje: {fileID: 0}
   nombrePersonaje: Ellhan
   texto: "Por \xFAltimo, lo m\xE1s importante: aumentar el poder de su ej\xE9rcito.
-    Una vez tenga recursos suficientes para construir un Campo de Combate, obtendr\xE1
-    nuevos soldados con los que luchar."
+    Una vez tenga recursos suficientes para construir un Campo de Entrenamiento,
+    obtendr\xE1 nuevos soldados con los que luchar."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 10bfd09e84a899d4aab8cd787beb4f76, type: 2}

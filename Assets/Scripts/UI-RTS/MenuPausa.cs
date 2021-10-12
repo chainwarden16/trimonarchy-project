@@ -7,31 +7,29 @@ public class MenuPausa : MonoBehaviour
 
     #region Variables
     [Header("UI")]
-    public GameObject uiMenuHab;
     public GameObject uiMenuOpciones;
     public GameObject uiMenuPausa;
-    public GameObject cursorPausa;
 
     [Header("Comprobador menú activo")]
-    public bool estaViendoHabilidades;
-    public bool estaViendoOpciones;
-    public bool estaPausado;
+    public bool estaPausado = false;
 
     [Header("Control del cursor")]
 
     [Header("Audio")]
     //AudioController contAudio;
-    public AudioClip moverCursor;
     public AudioClip seleccionar;
+
+    MenuOpcionesGameplay gameplay;
 
     #endregion
 
     void Start()
     {
+        gameplay = FindObjectOfType<MenuOpcionesGameplay>();
 
-        uiMenuHab.SetActive(false);
         uiMenuPausa.SetActive(false);
         uiMenuOpciones.SetActive(false);
+        gameplay.enabled = false;
 
         //contAudio = FindObjectOfType<AudioController>();
     }
@@ -58,5 +56,27 @@ public class MenuPausa : MonoBehaviour
                 }
             }
         
+    }
+
+    public void AbrirMenuOpciones()
+    {
+
+        uiMenuOpciones.SetActive(true);
+        //uiMenuPausa.SetActive(false);
+        gameplay.enabled = true;
+        this.enabled = false;
+
+    }
+
+    public void CerrarMenuPausa()
+    {
+        estaPausado = false;
+        Time.timeScale = 1;
+        uiMenuPausa.SetActive(false);
+    }
+
+    public void CerrarJuego()
+    {
+        Application.Quit();
     }
 }

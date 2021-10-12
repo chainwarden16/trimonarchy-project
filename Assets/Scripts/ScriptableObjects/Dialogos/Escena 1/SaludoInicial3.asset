@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SaludoInicial3
   m_EditorClassIdentifier: 
   personaje: {fileID: 0}
-  nombrePersonaje: Lhorenthz
+  nombrePersonaje: Lhorenth
   texto: "Entonces... \xBFpor qu\xE9 tengo este mal presentimiento? Mi padre me dijo
-    que confiara en \xE9l, que el instinto a veces es m\xE1s sabio que la mente..."
+    que confiara en mi instinto, que a veces es m\xE1s sabio que la mente..."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 1b40f1fc843a430418a851e6db157f17, type: 2}

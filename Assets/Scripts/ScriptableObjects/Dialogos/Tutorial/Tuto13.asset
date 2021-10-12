@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personaje: {fileID: 0}
   nombrePersonaje: Ellhan
-  texto: "Un \xFAltimo detalle: tenemos dos tipos de soldados: los guerreros y los
-    magos. Los primeros son cuerpo a puerpo; los segundos, a rango. Piense qu\xE9
+  texto: "Un \xFAltimo detalle. Tenemos dos tipos de soldados: los guerreros y los
+    magos. Los primeros luchan cuerpo a cuerpo; los segundos, a rango. Piense qu\xE9
     necesitar\xE1 m\xE1s en batalla antes de invertir sus recursos, Su Majestad."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 2e6ace05af2e53a458e63149279bf2bb, type: 2}

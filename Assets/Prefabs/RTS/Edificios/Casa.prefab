@@ -1,38 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!60 &93000144375168456
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7638158833965746611}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9756098, y: 0.9756098}
-    newSize: {x: 0.9756098, y: 0.9756098}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.47636017, y: -0.21362334}
-      - {x: 0.479616, y: 0.16750014}
-      - {x: 0.30350044, y: 0.33811897}
-      - {x: -0.005832836, y: 0.4427667}
-      - {x: -0.28118083, y: 0.3389158}
-      - {x: -0.4723144, y: 0.16645016}
-      - {x: -0.4826414, y: -0.21220793}
-      - {x: -0.015113547, y: -0.4800596}
 --- !u!61 &1810418180293890153
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -71,34 +71,13 @@ public class Unidad : MonoBehaviour
 
     public void Desplazarse()
     {
-        //Las unidades se desplazan hacia el punto que el jugador indique
-        //si tiene un objetivo al que dirigirse O un punto nuevo al que caminar Y a su vez no está haciendo ya algo
-
-
-        /*if (posicionObjetivo != gameObject.transform.position && objetivoActual == null)
-
-        {
-
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posicionObjetivo, Time.deltaTime*3);
-
-            
-            if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, posicionObjetivo)) <= 1f)
-            {
-
-                posicionObjetivo = gameObject.transform.position;
-
-            }
-
-
-        }*/
 
         if (objetivoActual != null)
         {
-            Debug.Log("Tengo un objetivo");
 
             if (Mathf.Abs(Vector3.Distance(gameObject.transform.position, objetivoActual.transform.position)) > unidad.rangoAtaque)
             {
-                ejecutandoAccion = false;
+                //ejecutandoAccion = false;
                 //Se deja por si es necesario añadir algo
 
             }
@@ -116,7 +95,7 @@ public class Unidad : MonoBehaviour
 
         else if (objetivoActual == null && unidad.tipo != UnidadScriptable.TipoUnidad.Civil)
         {
-            List<UnidadEnemiga> soldadosRestantes = FindObjectsOfType<UnidadEnemiga>().Where(un => un.unidad.tipo != UnidadScriptable.TipoUnidad.Civil).ToList();
+            List<UnidadEnemiga> soldadosRestantes = FindObjectsOfType<UnidadEnemiga>().ToList();
 
             if (soldadosRestantes.Count != 0)
             {
@@ -141,19 +120,23 @@ public class Unidad : MonoBehaviour
         if (vidaActual <= 0)
         {
             estaMuerto = true;
-            foreach (UnidadEnemiga uni in unidadesAsignadas)
+            if (unidadesAsignadas.Count > 0)
             {
-                uni.LiberarUnidad();
+
+                foreach (UnidadEnemiga uni in unidadesAsignadas)
+                {
+                    uni.unidadesAsignadas.Remove(this);
+                    uni.LiberarUnidad();
+
+                }
+
             }
-            Debug.Log("Me he morío");
+
             if (unidad.tipo != UnidadScriptable.TipoUnidad.Civil)
             {
                 Recursos.soldados--;
             }
-            /*if (controlUnidades.unidadesSeleccionadas[0] == this)
-            {
-                controlUnidades.CerrarPanel();
-            }*/
+
             controlUnidades.unidadesSeleccionadas.Remove(this);
             Destroy(gameObject);
         }
@@ -162,10 +145,9 @@ public class Unidad : MonoBehaviour
     public void AtacarUnidad()
     {
         if (objetivoActual != null && objetivoActual.GetComponent<UnidadEnemiga>() != null && objetivoActual.GetComponent<UnidadEnemiga>().unidad.bando != unidad.bando && ejecutandoAccion)
-        { //si el objetivo no es nulo, tiene componente unidad Y no es el del mismo bando, atácalo
+        {
+            //si el objetivo no es nulo, tiene componente unidad Y no es el del mismo bando, atácalo
             UnidadEnemiga unidadEnemiga = objetivoActual.GetComponent<UnidadEnemiga>();
-
-            Debug.Log(gameObject.name + " va a atacar a un enemigo que tiene todavía " + unidadEnemiga.vidaActual + " puntos de vida");
 
             if (enfriamientoAtaqueRestante <= 0) //claro que para eso debe haber pasado el tiempo de enfriamiento
             {
@@ -201,6 +183,10 @@ public class Unidad : MonoBehaviour
 
 
         }
+        if (agente != null)
+        {
+            agente.ResetPath();
+        }
         ejecutandoAccion = false;
         objetivoActual = null;
     }
@@ -235,35 +221,17 @@ public class Unidad : MonoBehaviour
                 {
                     //Debug.Log(diferenciaY);
 
-                    if (diferenciaY <= 0f) //está debajo
+                    if (diferenciaY < 0f) //está debajo
                     {
-                        if (tipoAccion != 2)
-                        {
 
-                            SetAnimAtaque(0, 1f, true);
+                        SetAnimAtaque(0, -1f, true);
 
-
-                        }
-                        else
-                        {
-                            SetAnimAtaque(0, -1f, true);
-
-                        }
                     }
                     else //está encima
                     {
-                        if (tipoAccion != 2)
-                        {
 
-                            SetAnimAtaque(0, -1f, true);
+                        SetAnimAtaque(0, 1f, true);
 
-
-                        }
-                        else
-                        {
-                            SetAnimAtaque(0, 1f, true);
-
-                        }
                     }
                 }
 
@@ -357,31 +325,55 @@ public class Unidad : MonoBehaviour
 
     public void SetAnimAtaque(float numeroX, float numeroZ, bool debeActivarse)
     {
-        anim.SetBool("atacando", debeActivarse);
-        anim.SetFloat("atacarX", numeroX);
-        anim.SetFloat("atacarZ", numeroZ);
+        if (anim != null)
+        {
+
+            anim.SetBool("atacando", debeActivarse);
+            anim.SetFloat("atacarX", numeroX);
+            anim.SetFloat("atacarZ", numeroZ);
+
+        }
 
     }
 
     public void SetAnimCaminar(float numeroX, float numeroZ, bool debeActivarse)
     {
-        anim.SetBool("caminando", debeActivarse);
-        anim.SetFloat("movX", numeroX);
-        anim.SetFloat("movZ", numeroZ);
+        if (anim != null)
+        {
+
+            anim.SetBool("caminando", debeActivarse);
+            anim.SetFloat("movX", numeroX);
+            anim.SetFloat("movZ", numeroZ);
+
+        }
 
     }
 
     private void SetAnimConstruirRecoger()
     {
-        anim.SetInteger("tipoAccion", tipoAccion);
+        if (anim != null)
+        {
+
+            anim.SetInteger("tipoAccion", tipoAccion);
+
+        }
     }
 
     public void SetTipoAccion(int tipo)
     {
         tipoAccion = tipo;
-        anim.SetInteger("tipoAccion", tipoAccion);
+        if (anim != null)
+        {
+
+            anim.SetInteger("tipoAccion", tipoAccion);
+
+        }
     }
 
+    public bool GetEstaMuerto()
+    {
+        return estaMuerto;
+    }
 
     #endregion
 

@@ -16,12 +16,13 @@ MonoBehaviour:
   nombre: Escuela de magia
   beneficio: 0000000004000000
   materiales: 0000000000000000000000000000000000000000000000000000000000000000
-  estado: 1
+  estado: 0
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 8
+  tiempoConstruccion: 50
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
-  terminado: {fileID: 21300000, guid: 3a5e7cd926a4d2d40bc8344caa75b69b, type: 3}
+  terminado: {fileID: 21300000, guid: 4de09cc5f6cf7674faaf60ae42fa92d7, type: 3}
   limiteCiviles: 4
   indiceEdificio: 6
+  tiempoDarRecurso: 0

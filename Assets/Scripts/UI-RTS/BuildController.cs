@@ -9,6 +9,7 @@ public class BuildController : MonoBehaviour
     [Header("Datos del edificio a construir")]
     public GameObject edificioAConstruir;
     SpriteRenderer edificioRenderer;
+    public SpriteRenderer areaConstruccion;
 
     [Header("Tilemap donde se edificará")]
     Tilemap tileSuelo;
@@ -60,13 +61,13 @@ public class BuildController : MonoBehaviour
             {
 
                 edificioRenderer.color = new Color(0, 1, 0, 1);
-
+                areaConstruccion.color = new Color(0, 0.35f, 0, 0.6f);
             }
             else
             {
 
                 edificioRenderer.color = new Color(1, 0, 0, 1);
-
+                areaConstruccion.color = new Color(0.35f, 0, 0, 0.6f);
             }
 
 
@@ -105,6 +106,7 @@ public class BuildController : MonoBehaviour
                     }
 
                     edificioRenderer.color = new Color(1, 1, 1, 0);
+                    areaConstruccion.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
                     Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
                     //nuevoEdificio.GetComponent<Edificio>().ProcesoConstruccion();
@@ -117,6 +119,7 @@ public class BuildController : MonoBehaviour
                 {
                     cajaMensaje.SetActive(true);
                     edificioRenderer.color = new Color(1, 1, 1, 0);
+                    areaConstruccion.color = new Color(1, 1, 1, 0);
                     textoError.text = "";
                     if (!condicion1)
                     {
@@ -144,6 +147,7 @@ public class BuildController : MonoBehaviour
         else
         {
             edificioRenderer.color = new Color(0, 1, 0, 0);
+            areaConstruccion.color = new Color(0, 1, 0, 0);
         }
     }
 

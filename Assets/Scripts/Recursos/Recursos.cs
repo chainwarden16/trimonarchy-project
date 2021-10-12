@@ -79,5 +79,15 @@ public class Recursos : MonoBehaviour
         recursos = recur;
     }
 
+    public static void SetSoldados(int sold)
+    {
+        soldados = sold;
+    }
+
+    public static void SetHabitantes(int habi)
+    {
+        habitantes = habi;
+    }
+
 
 }

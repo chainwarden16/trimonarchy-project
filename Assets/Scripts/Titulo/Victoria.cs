@@ -8,7 +8,7 @@ public class Victoria : MonoBehaviour
     public Text texto; 
     void Start()
     {
-        texto.text = PlayerPrefs.GetString("TiempoGastado", "15:00") + " minutos";
+        texto.text = PlayerPrefs.GetString("TiempoRecord", "15:00") + " minutos";
     }
 
 }

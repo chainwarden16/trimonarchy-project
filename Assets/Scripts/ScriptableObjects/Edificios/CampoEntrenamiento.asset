@@ -20,8 +20,9 @@ MonoBehaviour:
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 8
+  tiempoConstruccion: 50
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
-  terminado: {fileID: 21300000, guid: 376c3e7156fb4674c928acaec79e2d40, type: 3}
+  terminado: {fileID: 21300000, guid: 52e9c06733e56d94e8c534836a9fe1f2, type: 3}
   limiteCiviles: 4
   indiceEdificio: 7
+  tiempoDarRecurso: 0

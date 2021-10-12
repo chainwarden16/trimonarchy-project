@@ -16,12 +16,13 @@ MonoBehaviour:
   nombre: Iglesia
   beneficio: 0000000000000000
   materiales: 0000000000000000000000000000000000000000000000000000000000000000
-  estado: 1
+  estado: 0
   ancho: 1
   largo: 1
   spriteActual: {fileID: 0}
-  tiempoConstruccion: 10
+  tiempoConstruccion: 40
   enConstruccion: {fileID: 21300000, guid: b4a9ecb4bd7f68f4ea4d6d5166c409d6, type: 3}
-  terminado: {fileID: 21300000, guid: 44febc760ba268f4598e9469f15aaa87, type: 3}
+  terminado: {fileID: 21300000, guid: 9b6a5ced8294c8f4b92ce8cca1067982, type: 3}
   limiteCiviles: 3
   indiceEdificio: 5
+  tiempoDarRecurso: 0

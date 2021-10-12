@@ -16,6 +16,7 @@ public class UnidadEnemiga : MonoBehaviour
     SpriteRenderer renderer;
     Animator anim;
     NavMeshAgent agente;
+    GameManager manager;
 
     [Header("Propiedades de selección y cumplimiento de órdenes")]
 
@@ -40,6 +41,7 @@ public class UnidadEnemiga : MonoBehaviour
         agente.updateRotation = false;
         agente.updateUpAxis = false;
         //el selector empieza apagado, pues no se tienen unidades escogidas
+        manager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -123,6 +125,7 @@ public class UnidadEnemiga : MonoBehaviour
 
     }
 
+    //Al morir, se elimina el elemento de la lista y se liberan las unidades que lo estaban atacando
     public void Morir()
     {
 
@@ -131,10 +134,15 @@ public class UnidadEnemiga : MonoBehaviour
             estaMuerto = true;
             foreach (Unidad uni in unidadesAsignadas)
             {
+                uni.unidadesAsignadas.Remove(this);
                 uni.LiberarUnidad();
             }
             Debug.Log("Me he morío (enemigo)");
-            GameManager.manager.unidadesEnemigas.Remove(this);
+            if (manager != null)
+            {
+                GameManager.manager.unidadesEnemigas.Remove(this);
+
+            }
             Destroy(gameObject);
         }
     }
@@ -236,8 +244,12 @@ public class UnidadEnemiga : MonoBehaviour
             //SetTipoAccion(0);
             SetAnimAtaque(0f, 0f, false);
             SetAnimCaminar(0f, 0f, false);
-            anim.SetFloat("mirarZ", 0f);
-            anim.SetFloat("mirarX", 0f);
+            if (anim != null)
+            {
+                anim.SetFloat("mirarZ", 0f);
+                anim.SetFloat("mirarX", 0f);
+            }
+
         }
 
     }
@@ -255,17 +267,23 @@ public class UnidadEnemiga : MonoBehaviour
 
     public void SetAnimAtaque(float numeroX, float numeroZ, bool debeActivarse)
     {
-        anim.SetBool("atacando", debeActivarse);
-        anim.SetFloat("atacarX", numeroX);
-        anim.SetFloat("atacarZ", numeroZ);
+        if (anim != null)
+        {
+            anim.SetBool("atacando", debeActivarse);
+            anim.SetFloat("atacarX", numeroX);
+            anim.SetFloat("atacarZ", numeroZ);
+        }
 
     }
 
     public void SetAnimCaminar(float numeroX, float numeroZ, bool debeActivarse)
     {
-        anim.SetBool("caminando", debeActivarse);
-        anim.SetFloat("movX", numeroX);
-        anim.SetFloat("movZ", numeroZ);
+        if (anim != null)
+        {
+            anim.SetBool("caminando", debeActivarse);
+            anim.SetFloat("movX", numeroX);
+            anim.SetFloat("movZ", numeroZ);
+        }
 
     }
 
