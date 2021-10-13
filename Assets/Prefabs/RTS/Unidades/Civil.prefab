@@ -210,6 +210,102 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8081848, y: 1}
   m_EdgeRadius: 0
+--- !u!82 &7230371554559009397
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220106476665350385}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &576026995
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -249,6 +345,13 @@ MonoBehaviour:
   objetivoActual: {fileID: 0}
   posicionObjetivo: {x: 0, y: 0, z: 0}
   unidadesAsignadas: []
+  recogerMadera: {fileID: 8300000, guid: 54691a536d4a94c408e12be5532a798d, type: 3}
+  recogerPiedra: {fileID: 8300000, guid: afdfa8bd0a0e3dc4db3fee46f71271f8, type: 3}
+  construirEdificio: {fileID: 8300000, guid: 00ad1b4e020122f45bc2a87c9322f86b, type: 3}
+  luchaLanza1: {fileID: 8300000, guid: e9a0ad767fb986a49b07d800f27a1c0e, type: 3}
+  luchaLanza2: {fileID: 8300000, guid: ffc48f74992b63b448c21c5315b2342f, type: 3}
+  luchaLanza3: {fileID: 8300000, guid: 99576a717bf68414fa5f14367f421e73, type: 3}
+  hechizo: {fileID: 8300000, guid: fe10b9af5cfa5cf4e9937fe635473525, type: 3}
 --- !u!114 &8733958670822409442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +421,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 715367435
+  m_SortingLayerID: -842171557
   m_SortingOrder: 1001
   m_TargetDisplay: 0
 --- !u!114 &8823997962125412262
@@ -430,8 +533,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 715367435
-  m_SortingLayer: 2
+  m_SortingLayerID: -842171557
+  m_SortingLayer: 3
   m_SortingOrder: 1000
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}

@@ -16,7 +16,8 @@ public class TutorialController : MonoBehaviour
     DialogoFunciones dialogo;
     [SerializeField]
     int contador = 1;
-    int contadorPrueba = 0;
+
+    [Header("Elementos que aparecen en el mapa")]
     public GameObject casa;
     public GameObject pozo;
     public GameObject centroEntrenamiento;
@@ -27,10 +28,21 @@ public class TutorialController : MonoBehaviour
     public TextMeshProUGUI tituloError, textoError;
     public Text textoTutorial;
 
+    [Header("Padre de los enemigos a invocar, para poner orden en la jerarquía")]
+    GameObject padreEnemigos;
+
+    [Header("SFX")]
+    AudioController audioC;
+    public AudioClip confirmar;
+
     void Start()
     {
+        audioC = FindObjectOfType<AudioController>();
+
         dialogo = FindObjectOfType<DialogoFunciones>();
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
+
+        padreEnemigos = GameObject.Find("--unidades--");
     }
 
 
@@ -46,8 +58,12 @@ public class TutorialController : MonoBehaviour
 
             if (contador < 5 || (contador >= 5 && contador < 8) || (contador >= 8 && contador < 15) || (contador > 15))
             {
+                if(audioC != null)
+                {
+                    audioC.PlaySFX(confirmar);
+                }
+
                 contador++;
-                Debug.Log("Deteniendo el tiempo");
 
                 dialogo.MostrarDialogoSinEleccion();
             }
@@ -56,28 +72,28 @@ public class TutorialController : MonoBehaviour
             {
                 textoTutorial.text = "";
                 textoTutorial.enabled = false;
-                Debug.Log("Reanudando el tiempo (Movido Unidad)");
+
                 Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 8 && !CheckHaConstruidoEdificio())
             {
-                Debug.Log("Reanudando el tiempo (Ha consturido edificio)");
+
                 Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 11 && !CheckHaConseguidoSoldados())
             {
-                Debug.Log("Reanudando el tiempo (Ha conseguido soldados)");
+
                 Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
 
             if (contador == 12 && !CheckHaMatadoEnemigo())
             {
-                Debug.Log("Reanudando el tiempo (Ha matado enemigo)");
+
                 Time.timeScale = 1f;
                 dialogo.CerrarDialogoDondeEstaba();
             }
@@ -110,9 +126,7 @@ public class TutorialController : MonoBehaviour
         {
             Time.timeScale = 0f;
             dialogo.AbrirDialogoDondeEstaba();
-            /*Vector2 centroCasill = tileSuelo.GetCellCenterLocal(new Vector3Int(3, 3, 0));
-            centroCasill = tileSuelo.GetCellCenterLocal(new Vector3Int(4, 4, 0));
-            Instantiate(soldadoEnemigo, new Vector2(centroCasill.x, centroCasill.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);*/
+            
             if (Input.GetMouseButtonDown(0))
             {
                 dialogo.MostrarDialogoSinEleccion();
@@ -140,48 +154,14 @@ public class TutorialController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
+            if(audioC != null)
+            {
+                audioC.PlaySFX(confirmar);
+            }
             Time.timeScale = 1f;
             SceneManager.LoadScene("MapaCiudad");
         }
 
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (contadorPrueba)
-            {
-                case 0:
-                    Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(3,3,0));
-                    GameObject ca = Instantiate(casa, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
-                    ca.GetComponent<Edificio>().haFinalizadoConstruccion = true;
-                    contadorPrueba++;
-                    break;
-                case 1:
-                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(4, 4, 0));
-                    GameObject po = Instantiate(pozo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
-                    po.GetComponent<Edificio>().haFinalizadoConstruccion = true;
-                    contadorPrueba++;
-                    break;
-                case 2:
-                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(5, 5, 0));
-                    GameObject ce = Instantiate(centroEntrenamiento, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
-                    ce.GetComponent<Edificio>().haFinalizadoConstruccion = true;
-                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(4, 4, 0));
-                    Instantiate(soldado, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
-                    contadorPrueba++;
-                    break;
-                case 3:
-                    centroCasilla = tileSuelo.GetCellCenterLocal(new Vector3Int(7, 8, 0));
-                    Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity); 
-                    contadorPrueba++;
-                    break;
-                case 4:
-                    UnidadEnemiga soldadoE = FindObjectOfType<UnidadEnemiga>();
-                    Destroy(soldadoE.gameObject);
-                    contadorPrueba++;
-                    break;
-            }
-        }
-        */
     }
 
     bool CheckHaMovidoUnidad()
@@ -230,7 +210,6 @@ public class TutorialController : MonoBehaviour
     {
         bool tieneSoldados = false;
 
-        //Unidad[] unidadesEnCampo = FindObjectsOfType<Unidad>().Where( sol => sol.GetComponent<Unidad>().unidad.tipo != UnidadScriptable.TipoUnidad.Civil).ToArray();
         UnidadEnemiga[] enemigos = FindObjectsOfType<UnidadEnemiga>();
         int soldadosAliados = (int)Recursos.soldados;
 
@@ -242,7 +221,14 @@ public class TutorialController : MonoBehaviour
             if (enemigos.Length == 0)
             {
 
-                Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+                GameObject ene = Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+                GameObject ene2 = Instantiate(soldadoEnemigo, new Vector2(centroCasilla.x+1, centroCasilla.y + 1 + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+
+                if (padreEnemigos != null)
+                {
+                    ene.transform.SetParent(padreEnemigos.transform, true);
+                    ene2.transform.SetParent(padreEnemigos.transform, true);
+                }
 
             }
         }
@@ -269,7 +255,7 @@ public class TutorialController : MonoBehaviour
             aceptarDerrota.SetActive(true);
 
             tituloError.text = "Has fallado el tutorial";
-            textoError.text = "De alguna forma, has perdido en la fase de entrenamiento. Pero no te preocupes, puedes volver a intentarlo.";
+            textoError.text = "De alguna forma, has perdido en el tutorial. Pero no importa, puedes volver a intentarlo.";
         } else if (contador > 11 && Recursos.soldados <= 0 && unidadesEnCampo.Length <= 0)
         {
             Time.timeScale = 0f;
@@ -278,7 +264,7 @@ public class TutorialController : MonoBehaviour
             aceptarDerrota.SetActive(true);
 
             tituloError.text = "Has empatado";
-            textoError.text = "Has perdido a todos tus soldados y derrotaste a los oponentes. Aun así, no se considera que hayas ganado. Vuelve a intentarlo.";
+            textoError.text = "Aun así, no se considera que hayas ganado. Vuelve a intentarlo.";
         }
 
             return haMatado;

@@ -11,7 +11,7 @@ public class FuenteRecursosOperaciones : MonoBehaviour
     int cantidadExtraida = 0;
     public List<Unidad> unidadesAsignadas = new List<Unidad>();
     public Tile obstaculoInvisible;
-    
+
     Tilemap tileSuelo;
     Tilemap tileObstaculos;
     SpriteRenderer rendererRecurso;
@@ -46,8 +46,9 @@ public class FuenteRecursosOperaciones : MonoBehaviour
             }
 
             if (tiempoEnfriamientoActual >= fuente.tiempoEnfriamiento && trabajando)
-            { //tiene que haber pasado el tiempo de enfriamiento para proporcionar el recurso
-                Debug.Log("Ahora voy a dar recursos");
+            { 
+                //tiene que haber pasado el tiempo de enfriamiento para proporcionar el recurso
+
                 int cantidadAObtener = fuente.cantidad * unidadesAsignadas.Count;
                 Recursos.SumarRecurso(fuente.indiceRecurso, cantidadAObtener); //cuantos más trabajen en este recurso, más rápido extraerán material
                 cantidadExtraida += cantidadAObtener;
@@ -67,19 +68,25 @@ public class FuenteRecursosOperaciones : MonoBehaviour
                     }
                     Vector3Int tpos = tileSuelo.WorldToCell(gameObject.transform.position);
                     if (GameManager.manager != null)
+                    {
                         GameManager.manager.RellenarCasillaGrid(tpos.x, tpos.y, 0);
+
+                    }
                     else
+                    {
+
                         FindObjectOfType<GameManagerTutorial>().RellenarCasillaGrid(tpos.x, tpos.y, 0);
-                    Debug.Log("Me he agotado, me borro");
+                    }
+
                     gameObject.layer = 0;
-                    
+
                     Vector2 centroCasillaObstaculo = tileObstaculos.GetCellCenterWorld(new Vector3Int(tpos.x, tpos.y, 0));
                     tileObstaculos.SetTile(tileObstaculos.WorldToCell(centroCasillaObstaculo), null);
 
                     NavMeshSurface2d nav = FindObjectOfType<NavMeshSurface2d>();
                     nav.BuildNavMesh();
                     Destroy(gameObject);
-                    
+
                 }
 
             }

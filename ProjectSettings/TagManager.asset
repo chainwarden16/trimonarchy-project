@@ -52,3 +52,6 @@ TagManager:
   - name: Recursos y edificios
     uniqueID: 715367435
     locked: 0
+  - name: Barra Vida
+    uniqueID: 3452795739
+    locked: 0

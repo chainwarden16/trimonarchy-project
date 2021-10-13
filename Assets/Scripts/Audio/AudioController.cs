@@ -5,12 +5,13 @@ using UnityEngine;
 public class AudioController : MonoBehaviour
 {
 
-
     public AudioSource sourceMusica, sourceSFX;
     public AudioClip musicaTitulo;
-    public AudioClip musicaZonas;
-    public AudioClip musicaJefe;
-    public AudioClip musicaEscenaFinal;
+    public AudioClip musicaDerrota;
+    public AudioClip musicaTutorial;
+    public AudioClip musicaCombate;
+    public AudioClip musicaVictoria;
+    public AudioClip musicaConstruccion;
     public AudioClip musicaIntro;
 
     public static AudioController _instance;
@@ -54,7 +55,12 @@ public class AudioController : MonoBehaviour
 
     public void PlaySFX(AudioClip aud)
     {
-        sourceSFX.PlayOneShot(aud);
+        if (!sourceSFX.isPlaying)
+        {
+
+            sourceSFX.PlayOneShot(aud);
+
+        }
     }
 
     #endregion

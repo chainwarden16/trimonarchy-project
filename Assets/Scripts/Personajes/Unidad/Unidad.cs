@@ -13,9 +13,10 @@ public class Unidad : MonoBehaviour
     float enfriamientoAtaqueRestante;
     int tipoAccion = 0;
     bool estaMuerto = false;
+    //Canvas barraUI;
 
     [Header("Propiedades visuales")]
-    SpriteRenderer renderer;
+    SpriteRenderer spriteAliado;
     Animator anim;
     NavMeshAgent agente;
 
@@ -27,6 +28,16 @@ public class Unidad : MonoBehaviour
     UnidadController controlUnidades;
     public List<UnidadEnemiga> unidadesAsignadas = new List<UnidadEnemiga>(); //indica el número de enemigos que lo están atacando
 
+    [Header("SFX")]
+    AudioSource audioS;
+    public AudioClip recogerMadera;
+    public AudioClip recogerPiedra;
+    public AudioClip construirEdificio;
+    public AudioClip luchaLanza1;
+    public AudioClip luchaLanza2;
+    public AudioClip luchaLanza3;
+    public AudioClip hechizo;
+
     private void Awake()
     {
         selector = transform.Find("Selector").gameObject;
@@ -36,15 +47,18 @@ public class Unidad : MonoBehaviour
         enfriamientoAtaqueRestante = 0f;
         controlUnidades = FindObjectOfType<UnidadController>();
         agente = GetComponent<NavMeshAgent>();
+
     }
     void Start()
     {
-        renderer = GetComponentInChildren<SpriteRenderer>();
+        spriteAliado = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
 
         var agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        audioS = GetComponent<AudioSource>();
 
         //el selector empieza apagado, pues no se tienen unidades escogidas
     }
@@ -79,14 +93,44 @@ public class Unidad : MonoBehaviour
             {
                 //ejecutandoAccion = false;
                 //Se deja por si es necesario añadir algo
-
+                if(unidad.tipo != UnidadScriptable.TipoUnidad.Civil)
+                {
+                    agente.SetDestination(objetivoActual.transform.position);
+                    SetAnimAtaque(0f, 0f, false);
+                    
+                }
             }
 
             else
             {
-                //GetComponent<AIDestinationSetter>().target = null;
+
                 ejecutandoAccion = true;
                 posicionObjetivo = gameObject.transform.position;
+
+                if(unidad.tipo == UnidadScriptable.TipoUnidad.Civil)
+                {
+                    if(audioS != null && !audioS.isPlaying && Time.timeScale > 0)
+                    {
+
+                        audioS.volume = PlayerPrefs.GetInt("SFX", 10) * 0.1f;
+
+                        switch (tipoAccion)
+                        {
+                            case 1:
+                                audioS.PlayOneShot(recogerMadera);
+                                break;
+                            case 2:
+                                audioS.PlayOneShot(recogerPiedra);
+                                break;
+                            case 3:
+                                audioS.PlayOneShot(construirEdificio);
+                                break;
+                            default:
+                                audioS.PlayOneShot(construirEdificio);
+                                break;
+                        }
+                    }
+                }
 
             }
         }
@@ -153,12 +197,27 @@ public class Unidad : MonoBehaviour
             {
                 if (unidadEnemiga.vidaActual - unidad.fuerza < 0)
                 {
+                    ReproducirSonidos();
                     unidadEnemiga.vidaActual = 0;
                 }
                 else
                 {
+                    ReproducirSonidos();
                     unidadEnemiga.vidaActual -= unidad.fuerza;
                     enfriamientoAtaqueRestante = unidad.tiempoEnfriamientoAtaque;
+                    unidadEnemiga.GetComponentInChildren<BarraVidaUnidad>().ActualizarVidaUnidad();
+
+                    //Si se trata de un mago el que ataca, entonces se hace que salga el efecto de partículas de fuego
+
+                    if(unidad.tipo == UnidadScriptable.TipoUnidad.Mago)
+                    {
+                        ParticleSystem particulas = objetivoActual.GetComponent<ParticleSystem>();
+                        if (particulas != null && !particulas.isPlaying)
+                        {
+                            particulas.Play();
+                        }
+                    }
+
                 }
             }
             else
@@ -275,17 +334,9 @@ public class Unidad : MonoBehaviour
         else if (agente.velocity != Vector3.zero)
         {
 
-            /*if(agente.velocity.x < 0 && Mathf.Abs(agente.velocity.x) > Mathf.Abs(agente.velocity.y))
-            {
-                anim.SetFloat("movZ", 0f);
-                anim.SetFloat("movX", -1f);
-                anim.SetFloat("atacarZ", 0f);
-                anim.SetFloat("atacarX", 0f);
-            }*/
-
             SetAnimAtaque(0f, 0f, false);
             SetAnimCaminar(agente.velocity.x, agente.velocity.y, true);
-            //SetTipoAccion(0);
+
 
         }
         //Está quieto, sin realizar acciones ni caminar
@@ -301,6 +352,41 @@ public class Unidad : MonoBehaviour
     }
 
     #endregion
+
+    public void ReproducirSonidos()
+    {
+        //si el audiosource existe, entonces se mira qué tipo de unidad es
+        if (audioS != null && !audioS.isPlaying && Time.timeScale > 0)
+        {
+            audioS.volume = PlayerPrefs.GetInt("SFX", 10) * 0.1f;
+            //Si es un guerrero, se elige uno de tres sonidos aleatorios, para dar variedad
+            if (unidad.tipo == UnidadScriptable.TipoUnidad.Guerrero)
+            {
+                int ran = UnityEngine.Random.Range(0, 3);
+
+                switch (ran)
+                {
+                    case 0:
+                        audioS.PlayOneShot(luchaLanza1);
+                        break;
+                    case 1:
+                        audioS.PlayOneShot(luchaLanza2);
+                        break;
+                    case 2:
+                        audioS.PlayOneShot(luchaLanza3);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (unidad.tipo == UnidadScriptable.TipoUnidad.Mago)
+            {
+                audioS.PlayOneShot(hechizo);
+            }
+
+        }
+    }
+
 
     #region Agregar o quitar unidad
 

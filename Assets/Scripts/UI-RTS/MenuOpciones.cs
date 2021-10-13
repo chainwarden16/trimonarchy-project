@@ -47,6 +47,7 @@ public class MenuOpciones : MonoBehaviour
         {
             musica++;
             sourceMusica.volume += 0.1f;
+            sourceSFX.PlayOneShot(seleccionar);
         }
 
         ComprobarFlechasMenu();
@@ -60,6 +61,7 @@ public class MenuOpciones : MonoBehaviour
         {
             musica--;
             sourceMusica.volume -= 0.1f;
+            sourceSFX.PlayOneShot(seleccionar);
         }
 
         ComprobarFlechasMenu();

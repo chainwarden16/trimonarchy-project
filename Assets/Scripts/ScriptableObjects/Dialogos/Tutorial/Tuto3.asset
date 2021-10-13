@@ -15,7 +15,7 @@ MonoBehaviour:
   personaje: {fileID: 0}
   nombrePersonaje: Ellhan
   texto: "Los recursos son necesarios para construir edificios. Puede ver qu\xE9
-    necesita cada tipo colocando el rat\xF3n sobre el bot\xF3n. Si hace clic, podr\xE1
+    requiere cada tipo colocando el rat\xF3n sobre el bot\xF3n. Si hace clic, podr\xE1
     seleccionar d\xF3nde construir ese edificio, suponiendo que tenga suficientes
     recursos y espacio."
   posibilidadesDialogo:

@@ -33,6 +33,9 @@ public class Edificio : MonoBehaviour
     [Header("Civiles trabajando en la construcción")]
     public List<Unidad> unidadesAsignadas = new List<Unidad>(); //indica el número de civiles que lo están construyendo
 
+    [Header("Objetos padre donde colocar las unidades, para poner orden en la jerarquía")]
+    GameObject padreUnidades;
+
     #endregion
 
     private void Start()
@@ -47,6 +50,7 @@ public class Edificio : MonoBehaviour
         duracionRestante = edificioData.tiempoConstruccion;
 
         progresoRecurso = edificioData.tiempoDarRecurso;
+        padreUnidades = GameObject.Find("--unidades--");
 
     }
 
@@ -113,7 +117,13 @@ public class Edificio : MonoBehaviour
 
                 if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                 {
-                    Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                    GameObject civil = Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                    if (padreUnidades != null)
+                    {
+
+                        civil.transform.SetParent(padreUnidades.transform, true);
+
+                    }
                     contadorCiudadanos++;
                     if (contadorCiudadanos == edificioData.beneficio[0])
                     {
@@ -124,7 +134,15 @@ public class Edificio : MonoBehaviour
                 }
                 else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                 {
-                    Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+                    GameObject civil = Instantiate(ciudadano, lugarSpawn, Quaternion.identity);
+
+                    if (padreUnidades != null)
+                    {
+
+                        civil.transform.SetParent(padreUnidades.transform, true);
+
+                    }
+
                     contadorCiudadanos++;
                     if (contadorCiudadanos == edificioData.beneficio[0])
                     {
@@ -166,13 +184,19 @@ public class Edificio : MonoBehaviour
 
                 }
 
-                while (contadorSoldados < 5)
+                while (contadorSoldados < 4)
                 {
                     Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
 
                     if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                     {
-                        Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        GameObject unid = Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        if (padreUnidades != null)
+                        {
+
+                            unid.transform.SetParent(padreUnidades.transform, true);
+
+                        }
                         contadorSoldados++;
                         if (contadorSoldados == edificioData.beneficio[1])
                         {
@@ -183,7 +207,13 @@ public class Edificio : MonoBehaviour
                     }
                     else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                     {
-                        Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        GameObject unid = Instantiate(guerrero, lugarSpawn, Quaternion.identity);
+                        if (padreUnidades != null)
+                        {
+
+                            unid.transform.SetParent(padreUnidades.transform, true);
+
+                        }
                         contadorSoldados++;
                         if (contadorSoldados == edificioData.beneficio[1])
                         {
@@ -218,13 +248,19 @@ public class Edificio : MonoBehaviour
 
                     }
 
-                    while (contadorSoldados < 5)
+                    while (contadorSoldados < 4)
                     {
                         Vector3 lugarSpawn = tileSuelo.GetCellCenterWorld(new Vector3Int(k, j, 0));
 
                         if (GameManager.manager != null && GameManager.manager.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                         {
-                            Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            GameObject unid = Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            if (padreUnidades != null)
+                            {
+
+                                unid.transform.SetParent(padreUnidades.transform, true);
+
+                            }
                             contadorSoldados++;
                             if (contadorSoldados == edificioData.beneficio[1])
                             {
@@ -235,7 +271,13 @@ public class Edificio : MonoBehaviour
                         }
                         else if (tuto != null && tuto.gridCiudad[k, j] == 0 && !posiciones.Contains(lugarSpawn))
                         {
-                            Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            GameObject unid = Instantiate(mago, lugarSpawn, Quaternion.identity);
+                            if (padreUnidades != null)
+                            {
+
+                                unid.transform.SetParent(padreUnidades.transform, true);
+
+                            }
                             contadorSoldados++;
                             if (contadorSoldados == edificioData.beneficio[1])
                             {

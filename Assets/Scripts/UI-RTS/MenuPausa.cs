@@ -16,8 +16,9 @@ public class MenuPausa : MonoBehaviour
     [Header("Control del cursor")]
 
     [Header("Audio")]
-    //AudioController contAudio;
+    AudioController contAudio;
     public AudioClip seleccionar;
+    public AudioClip cancelar;
 
     MenuOpcionesGameplay gameplay;
 
@@ -31,38 +32,46 @@ public class MenuPausa : MonoBehaviour
         uiMenuOpciones.SetActive(false);
         gameplay.enabled = false;
 
-        //contAudio = FindObjectOfType<AudioController>();
+        contAudio = FindObjectOfType<AudioController>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.Escape)) //pausa el juego
+        if (Input.GetKeyDown(KeyCode.Escape)) //pausa el juego
+        {
+
+            if (contAudio != null)
+            {
+                contAudio.PlaySFX(cancelar);
+            }
+
+            estaPausado = !estaPausado;
+            if (estaPausado)
             {
 
-                estaPausado = !estaPausado;
-                if (estaPausado)
-                {
-                    
-                    Time.timeScale = 0;
-                    uiMenuPausa.SetActive(true);
-                }
-                else //se devuelve todo al estado original
-                {
-                    
-                    Time.timeScale = 1;
-                    uiMenuPausa.SetActive(false);
-
-                }
+                Time.timeScale = 0;
+                uiMenuPausa.SetActive(true);
             }
-        
+            else //se devuelve todo al estado original
+            {
+
+                Time.timeScale = 1;
+                uiMenuPausa.SetActive(false);
+
+            }
+        }
+
     }
 
     public void AbrirMenuOpciones()
     {
-
+        if (contAudio != null)
+        {
+            contAudio.PlaySFX(seleccionar);
+        }
         uiMenuOpciones.SetActive(true);
-        //uiMenuPausa.SetActive(false);
+
         gameplay.enabled = true;
         this.enabled = false;
 
@@ -70,6 +79,10 @@ public class MenuPausa : MonoBehaviour
 
     public void CerrarMenuPausa()
     {
+        if (contAudio != null)
+        {
+            contAudio.PlaySFX(cancelar);
+        }
         estaPausado = false;
         Time.timeScale = 1;
         uiMenuPausa.SetActive(false);
@@ -77,6 +90,10 @@ public class MenuPausa : MonoBehaviour
 
     public void CerrarJuego()
     {
+        if (contAudio != null)
+        {
+            contAudio.PlaySFX(cancelar);
+        }
         Application.Quit();
     }
 }

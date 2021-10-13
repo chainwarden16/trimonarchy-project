@@ -13,7 +13,7 @@ public class UnidadEnemiga : MonoBehaviour
     bool estaMuerto = false;
 
     [Header("Propiedades visuales")]
-    SpriteRenderer renderer;
+    SpriteRenderer spriteEnemigo;
     Animator anim;
     NavMeshAgent agente;
     GameManager manager;
@@ -26,6 +26,13 @@ public class UnidadEnemiga : MonoBehaviour
 
     public List<Unidad> unidadesAsignadas = new List<Unidad>(); //indica el número de enemigos que lo están atacando
 
+    [Header("SFX")]
+    AudioSource audioS;
+    public AudioClip luchaLanza1;
+    public AudioClip luchaLanza2;
+    public AudioClip luchaLanza3;
+    public AudioClip hechizo;
+
     private void Awake()
     {
         posicionObjetivo = gameObject.transform.position;
@@ -34,7 +41,7 @@ public class UnidadEnemiga : MonoBehaviour
     }
     void Start()
     {
-        renderer = GetComponentInChildren<SpriteRenderer>();
+        spriteEnemigo = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         agente = GetComponent<NavMeshAgent>();
 
@@ -95,8 +102,6 @@ public class UnidadEnemiga : MonoBehaviour
                 if (!ejecutandoAccion)
                 {
 
-                    Debug.Log("Tengo un objetivo");
-
                     if (objetivoActual.GetComponent<Unidad>() != null && objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Contains(this)) //&& objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Count < objetivoActual.GetComponent<Unidad>().unidad.limiteUnidadesAsignadas
                     {
 
@@ -107,7 +112,7 @@ public class UnidadEnemiga : MonoBehaviour
 
                 else if (objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Count >= objetivoActual.GetComponent<Unidad>().unidad.limiteUnidadesAsignadas && !objetivoActual.GetComponent<Unidad>().unidadesAsignadas.Contains(this))
                 {
-                    Debug.Log("Dejo de atacar con " + this.name);
+
                     LiberarUnidad();
                 }
 
@@ -137,7 +142,7 @@ public class UnidadEnemiga : MonoBehaviour
                 uni.unidadesAsignadas.Remove(this);
                 uni.LiberarUnidad();
             }
-            Debug.Log("Me he morío (enemigo)");
+
             if (manager != null)
             {
                 GameManager.manager.unidadesEnemigas.Remove(this);
@@ -153,18 +158,33 @@ public class UnidadEnemiga : MonoBehaviour
         { //si el objetivo no es nulo, tiene componente unidad Y no es el del mismo bando, atácalo
             Unidad unidadJugador = objetivoActual.GetComponent<Unidad>();
 
-            Debug.Log(gameObject.name + " va a atacar a un aliado que tiene todavía " + unidadJugador.vidaActual + " puntos de vida");
-
             if (enfriamientoAtaqueRestante <= 0) //claro que para eso debe haber pasado el tiempo de enfriamiento
             {
                 if (unidadJugador.vidaActual - unidad.fuerza < 0)
                 {
+
+                    ReproducirSonidos();
+
                     unidadJugador.vidaActual = 0;
                 }
                 else
                 {
+                    ReproducirSonidos();
                     unidadJugador.vidaActual -= unidad.fuerza;
                     enfriamientoAtaqueRestante = unidad.tiempoEnfriamientoAtaque;
+                    unidadJugador.GetComponentInChildren<BarraVidaUnidad>().ActualizarVidaUnidad();
+
+                    //Si se trata de un mago el que ataca, entonces se hace que salga el efecto de partículas de fuego
+
+                    if (unidad.tipo == UnidadScriptable.TipoUnidad.Mago)
+                    {
+                        ParticleSystem particulas = objetivoActual.GetComponent<ParticleSystem>();
+                        if (particulas != null && !particulas.isPlaying)
+                        {
+                            particulas.Play();
+                        }
+                    }
+
                 }
             }
             else
@@ -254,6 +274,39 @@ public class UnidadEnemiga : MonoBehaviour
 
     }
 
+    public void ReproducirSonidos() 
+    {
+        //si el audiosource existe, entonces se mira qué tipo de unidad es
+        if (audioS != null && !audioS.isPlaying && Time.timeScale > 0)
+        {
+            audioS.volume = PlayerPrefs.GetInt("SFX", 10) * 0.1f;
+            //Si es un guerrero, se elige uno de tres sonidos aleatorios, para dar variedad
+            if (unidad.tipo == UnidadScriptable.TipoUnidad.Guerrero)
+            {
+                int ran = Random.Range(0, 3);
+
+                switch (ran)
+                {
+                    case 0:
+                        audioS.PlayOneShot(luchaLanza1);
+                        break;
+                    case 1:
+                        audioS.PlayOneShot(luchaLanza2);
+                        break;
+                    case 2:
+                        audioS.PlayOneShot(luchaLanza3);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (unidad.tipo == UnidadScriptable.TipoUnidad.Mago)
+            {
+                audioS.PlayOneShot(hechizo);
+            }
+
+        }
+    }
 
     public void AddUnidad(Unidad unidad)
     {

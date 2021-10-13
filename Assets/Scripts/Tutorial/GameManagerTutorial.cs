@@ -35,7 +35,7 @@ public class GameManagerTutorial : MonoBehaviour
     public GameObject recurso1, recurso2;
     public float probabilidadGeneracionRecurso;
     GameManager manager;
-
+    GameObject padreRecursos;
 
     [Header("Enemigos presentes")]
     public List<UnidadEnemiga> unidadesEnemigas = new List<UnidadEnemiga>();
@@ -43,12 +43,18 @@ public class GameManagerTutorial : MonoBehaviour
     public GameObject mago;
     public GameObject guerrero;
 
+    [Header("Música y SFX")]
+    AudioController audioC;
+    public AudioClip confirmar, cancelar;
+
+
     #endregion
 
     #region Start y Update
     void Start()
     {
         manager = FindObjectOfType<GameManager>();
+        audioC = FindObjectOfType<AudioController>();
 
         if(manager != null)
         {
@@ -61,7 +67,10 @@ public class GameManagerTutorial : MonoBehaviour
         Recursos.SetHabitantes(1);
         Recursos.SetSoldados(0);
 
+        padreRecursos = GameObject.Find("--fuente recursos--");
+
         gridCiudad = new int[anchoGrid, largoGrid];
+
         for (int i = anchoGrid - 1; i >= 0; i--)
         {
             for (int j = largoGrid - 1; j >= 0; j--) //TODO: se generan algunos elementos aleatorios que son recursos naturales (madera y piedra) por el mapa
@@ -90,6 +99,12 @@ public class GameManagerTutorial : MonoBehaviour
 
                                 GameObject recurso = Instantiate(recurso1, new Vector2(centroCasilla.x, centroCasilla.y - 0.15f), Quaternion.identity);
 
+                                //Se coloca en el objeto padre correspondiente en la escena, por mantener orden
+                                if (padreRecursos != null)
+                                {
+                                    recurso.transform.SetParent(padreRecursos.transform, true);
+                                }
+
                                 gridCiudad[i, j] = contenido;
                                 obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
 
@@ -110,6 +125,12 @@ public class GameManagerTutorial : MonoBehaviour
                                 
                                 GameObject recurso = Instantiate(recurso2, new Vector2(centroCasilla.x, centroCasilla.y), Quaternion.identity);
 
+                                //Se coloca en el objeto padre correspondiente en la escena, por mantener orden
+                                if (padreRecursos != null)
+                                {
+                                    recurso.transform.SetParent(padreRecursos.transform, true);
+                                }
+
                                 gridCiudad[i, j] = contenido;
                                 obstaculos.SetTile(obstaculos.WorldToCell(centroCasillaObstaculo), obstaculoInvisible);
 
@@ -124,17 +145,12 @@ public class GameManagerTutorial : MonoBehaviour
 
             }
         }
-
+        if(audioC != null)
+        {
+            audioC.PlaySong(audioC.musicaTutorial);
+        }
         ActualizarContadorRecursos();
         FindObjectOfType<NavMeshSurface2d>().BuildNavMesh();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        //PruebaABorrarLuego();
     }
 
     #endregion

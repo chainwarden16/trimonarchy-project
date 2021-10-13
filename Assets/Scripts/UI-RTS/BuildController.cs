@@ -10,6 +10,7 @@ public class BuildController : MonoBehaviour
     public GameObject edificioAConstruir;
     SpriteRenderer edificioRenderer;
     public SpriteRenderer areaConstruccion;
+    GameObject padreEdificios;
 
     [Header("Tilemap donde se edificará")]
     Tilemap tileSuelo;
@@ -26,12 +27,21 @@ public class BuildController : MonoBehaviour
     [Header("Comprobador de si el controlador de unidades está desactivado durante la construcción de un edificio")]
     UnidadController unidadCon;
 
+    [Header("SFX")]
+    public AudioClip construir, cancelar;
+    AudioController audioC;
+
+    #region Start
+
     private void Start()
     {
+        audioC = FindObjectOfType<AudioController>();
+
         manager = GameManager.manager;
         edificioRenderer = gameObject.GetComponent<SpriteRenderer>();
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
         edificioAConstruir = null;
+        padreEdificios = GameObject.Find("--edificios--");
 
         cajaMensaje = GameObject.Find("Panel-Error");
         textoError = GameObject.Find("Texto-Error").GetComponent<TextMeshProUGUI>();
@@ -40,10 +50,11 @@ public class BuildController : MonoBehaviour
         unidadCon = GameObject.FindObjectOfType<UnidadController>();
         gameObject.GetComponent<BuildController>().enabled = false;
 
-        /*Edificio ed = edificioAConstruir.GetComponent<Edificio>();
-        EdificioScriptable edSc = ed.edificioData;
-        Sprite edi = edSc.terminado;*/
     }
+
+    #endregion
+
+    #region Update, donde ocurre todo
 
     void Update()
     {
@@ -81,12 +92,10 @@ public class BuildController : MonoBehaviour
                 gameObject.transform.position = tpos;
 
 
-
-                // Try to get a tile from cell position
                 bool condicion1 = condiciones[0]; //comprueba si se puede construir el edificio con los materiales actuales
                 bool condicion2 = condiciones[1]; //mira si está dentro del Tilemap donde se permite construir
-                bool condicion3 = condiciones[2]; //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos cerca (en el recinto designaod por x e y más arriba)
-                bool condicion4 = condiciones[3];
+                bool condicion3 = condiciones[2]; //busca si es un punto vacío, donde no haya ya un edificio o una fuente de recursos cerca (en el recinto designado por x e y más arriba)
+                bool condicion4 = condiciones[3]; //mira que no sea el punto de spawn de unidades nuevas
 
                 if (condicion1 && condicion2 && condicion3 && condicion4) //condicion1 && condicion2 && condicion3
                 {
@@ -108,15 +117,32 @@ public class BuildController : MonoBehaviour
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     areaConstruccion.color = new Color(1, 1, 1, 0);
                     Vector2 centroCasilla = tileSuelo.GetCellCenterLocal(tpos);
-                    Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
-                    //nuevoEdificio.GetComponent<Edificio>().ProcesoConstruccion();
+                    
+                    GameObject edi = Instantiate(edificioAConstruir, new Vector2(centroCasilla.x, centroCasilla.y + tileSuelo.layoutGrid.cellSize.y / 2), Quaternion.identity);
+                    
+                    if(audioC != null)
+                    {
+                        audioC.PlaySFX(construir);
+                    }
+
+                    if (padreEdificios != null)
+                    {
+
+                        edi.transform.SetParent(padreEdificios.transform, true);
+
+                    }
+
 
                     edificioAConstruir = null;
 
 
                 }
-                else
+                else //se abre el panel de error, con las razones que hacen que no puedas construir ahí
                 {
+                    if(audioC != null)
+                    {
+                        audioC.PlaySFX(cancelar);
+                    }
                     cajaMensaje.SetActive(true);
                     edificioRenderer.color = new Color(1, 1, 1, 0);
                     areaConstruccion.color = new Color(1, 1, 1, 0);
@@ -151,6 +177,9 @@ public class BuildController : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Método auxiliar para comprobar las condiciones de construcción
 
     private List<bool> ComprobarCondicionesConstruccion()
     {
@@ -200,5 +229,7 @@ public class BuildController : MonoBehaviour
         return condiciones;
 
     }
+
+    #endregion
 
 }

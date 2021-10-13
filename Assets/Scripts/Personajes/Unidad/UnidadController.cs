@@ -36,6 +36,10 @@ public class UnidadController : MonoBehaviour
     public GameObject seguirRaton;
     public List<Unidad> unidadesSeleccionadas = new List<Unidad>();
 
+    [Header("SFX")]
+    AudioController audioC;
+    public AudioClip enviarAConstruir;
+
     #endregion
 
     private void Awake()
@@ -55,8 +59,12 @@ public class UnidadController : MonoBehaviour
         tileSuelo = GameObject.Find("Tilemap-Suelo").GetComponent<Tilemap>();
     }
 
+    #region Start y Update
+
+
     void Start()
     {
+        audioC = FindObjectOfType<AudioController>();
         panelUnidad.SetActive(false);
     }
 
@@ -66,31 +74,9 @@ public class UnidadController : MonoBehaviour
         EscalarAreaSeleccion();
     }
 
-    void ActivarPanel()
-    {
-        if (panelUnidad != null)
-        {
-            vidaMaxima.text = "/" + unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida.ToString();
-            vidaActual.text = unidadesSeleccionadas[0].vidaActual.ToString();
-            iconoPersonaje.sprite = unidadesSeleccionadas[0].GetComponentInChildren<SpriteRenderer>().sprite;
-            tipoUnidad.text = unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.tipo.ToString();
-            Debug.Log("Sin aplicar Casting Float: "+unidadesSeleccionadas[0].vidaActual / unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida);
-            Debug.Log("Al aplicar Casting Float: " + (float)unidadesSeleccionadas[0].vidaActual / (float)unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida);
-            barraVida.fillAmount = (float)unidadesSeleccionadas[0].vidaActual / (float)unidadesSeleccionadas[0].GetComponent<Unidad>().unidad.vida;
-            panelUnidad.SetActive(true);
-        }
+    #endregion
 
-    }
-
-    public void CerrarPanel()
-    {
-        //Hacer que se cierre si la unidad muere
-        if (panelUnidad != null)
-        {
-            panelUnidad.SetActive(false);
-
-        }
-    }
+    #region Control de seleccion de unidades
 
     private void InicioSeleccionarUnidades()
     {
@@ -135,21 +121,15 @@ public class UnidadController : MonoBehaviour
 
                 areaSeleccion.transform.localScale = new Vector3(1f, 1f);
 
-                if (unidadesSeleccionadas.Count > 0)
-                {
-                    ActivarPanel();
-
-                }
-                else
-                {
-                    CerrarPanel();
-                }
-
             }
 
         }
 
     }
+
+    #endregion
+
+    #region Escalado de area de seleccion
 
     private void EscalarAreaSeleccion()
     {
@@ -177,6 +157,10 @@ public class UnidadController : MonoBehaviour
 
         }
     }
+
+    #endregion
+
+    #region Métodos para desplazar y dar órdenes a las unidades
 
     private void DarOrdenesUnidades()
     {
@@ -251,7 +235,7 @@ public class UnidadController : MonoBehaviour
                     switch (valorCelda)
                     {
                         case 0: //Terreno vacío
-                            Debug.Log("Terreno vacío");
+
 
                             if (collidersEnemigos.Count == 0)
                             {
@@ -293,8 +277,12 @@ public class UnidadController : MonoBehaviour
                         case 3: //Edificio por construir (si varía, cámbialo también en BuildController)
                             if (collidersEdificiosCons.Count > 0)
                             {
-                                Debug.Log("Voy a ver si necesito llevar gente a este edificio");
+
                                 EnviarUnidadesSegunNumero(collidersEdificiosCons, unidad, 2);
+                                if(audioC != null)
+                                {
+                                    audioC.PlaySFX(enviarAConstruir);
+                                }
                             }
                             break;
                         default: // en los demás casos, se mira si hay un enemigo en la zona cercana al ratón
@@ -334,17 +322,6 @@ public class UnidadController : MonoBehaviour
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
 
-                    /*if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
-                    {
-
-                        unidad.objetivoActual = colliders[0].gameObject;
-                        unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
-                        unidadesSeleccionadas.Remove(unidad);
-                        unidad.MostrarSelectorUnidad(false);
-
-                    }
-                    else
-                    {*/
                     //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
                     int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
 
@@ -365,8 +342,6 @@ public class UnidadController : MonoBehaviour
                             unidad.SetAnimAtaque(0f, 0f, false);
                         }
 
-                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
                         unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0;
                         unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<FuenteRecursosOperaciones>().AsignarUnidad(unidad);
@@ -391,29 +366,13 @@ public class UnidadController : MonoBehaviour
                 if (unidad.unidad.tipo != UnidadScriptable.TipoUnidad.Civil) //separo este if en dos porque se puede elegir soldados también, pero estos no pueden recolectar. Es prioritario ver que
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
-                    /*
-                                        if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
-                                        {
-
-                                            unidad.objetivoActual = colliders[0].gameObject;
-                                            unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
-                                            unidadesSeleccionadas.Remove(unidad);
-                                            unidad.MostrarSelectorUnidad(false);
-                                            unidadesYaEnCamino++;
-
-                                        }
-                                        /*else
-                                        {*/
+                  
                     //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
                     int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
 
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
-                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
-
-                        //unidad.GetComponent<NavMeshAgent>().stoppingDistance = 0.1f;
 
                         unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<UnidadEnemiga>().AddUnidad(unidad);
@@ -437,27 +396,14 @@ public class UnidadController : MonoBehaviour
                                                                              //son civiles y luego contar cuántos civiles tienes
                 {
 
-                    /*if (unidadesAsignadasRecurso + numeroUnidadesSeleccionadas <= unidadesMaximasRecurso)
-                    {
-                        Debug.Log("Pues resulta que sí");
-                        unidad.objetivoActual = colliders[0].gameObject;
-                        unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
-                        unidadesSeleccionadas.Remove(unidad);
-                        unidad.MostrarSelectorUnidad(false);
-                        unidadesYaEnCamino++;
-
-                    }*/
-                    //else
-                    //{
                     //hay que mirar cuántas unidades tienen asignado este recurso y asignar las que falten (si es que hay sitio)
                     int diferencia = unidadesMaximasRecurso - unidadesAsignadasRecurso;
 
                     if (diferencia > 0)
                     {
                         unidad.objetivoActual = colliders[0].gameObject;
-                        //seguirRaton.transform.position = colliders[0].gameObject.transform.position;
-                        //unidad.GetComponent<AIDestinationSetter>().target = seguirRaton.transform;
-                        unidad.SetTipoAccion(2);
+                       
+                        unidad.SetTipoAccion(3);
                         unidad.GetComponent<NavMeshAgent>().stoppingDistance = 1f;
                         unidad.GetComponent<NavMeshAgent>().SetDestination(colliders[0].gameObject.transform.position);
                         unidad.objetivoActual.GetComponent<Edificio>().AsignarUnidad(unidad);
@@ -465,8 +411,6 @@ public class UnidadController : MonoBehaviour
                         unidad.MostrarSelectorUnidad(false);
                         unidadesYaEnCamino++;
                     }
-
-                    //}
 
                 }
 
@@ -477,6 +421,9 @@ public class UnidadController : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region Funciones del nuevo sistema de input
 
     void OnEnable()
     {
@@ -486,4 +433,6 @@ public class UnidadController : MonoBehaviour
     {
         controles.RTS.Disable();
     }
+
+    #endregion
 }

@@ -7,20 +7,28 @@ public class BarraVidaUnidad : MonoBehaviour
 {
     public Image barraVida;
     Unidad aliado;
+    UnidadEnemiga enemigo;
 
     void Start()
     {
         aliado = GetComponentInParent<Unidad>();
+        enemigo = GetComponentInParent<UnidadEnemiga>();
     }
 
-    void Update()
+    public void ActualizarVidaUnidad()
     {
-        if (aliado != null)
+        if(aliado != null)
         {
-            //ACTUALIZAR SOLO CUANDO RECIBA DAÑO O SE CURE
-            barraVida.fillAmount = (float)aliado.vidaActual / (float)aliado.unidad.vida;
+
+        barraVida.fillAmount = (float)aliado.vidaActual / (float)aliado.unidad.vida;
 
         }
+        else if(enemigo != null)
+        {
+            barraVida.fillAmount = (float)enemigo.vidaActual / (float)enemigo.unidad.vida;
+        }
     }
+
+
 
 }

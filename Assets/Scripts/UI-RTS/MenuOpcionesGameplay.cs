@@ -33,14 +33,19 @@ public class MenuOpcionesGameplay : MonoBehaviour
 
     void Start()
     {
-        //Los números no se actualizan. Haz que se pongan correctamente cada vez que se abra el menú
+
         musicaNum.text = PlayerPrefs.GetInt("Musica", 10).ToString();
         sfxNum.text = PlayerPrefs.GetInt("SFX", 10).ToString();
         musica = PlayerPrefs.GetInt("Musica", 10);
         sfx = PlayerPrefs.GetInt("SFX", 10);
         objetoSonidos = GameObject.Find("--Musica--");
-        sourceMusica = objetoSonidos.GetComponent<AudioController>().sourceMusica;
-        sourceSFX = objetoSonidos.GetComponent<AudioController>().sourceSFX;
+        if (objetoSonidos != null)
+        {
+
+            sourceMusica = objetoSonidos.GetComponent<AudioController>().sourceMusica;
+            sourceSFX = objetoSonidos.GetComponent<AudioController>().sourceSFX;
+
+        }
 
         pausa = FindObjectOfType<MenuPausa>();
 

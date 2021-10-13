@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personaje: {fileID: 0}
   nombrePersonaje: Ellhan
-  texto: Para atacar a un enemigo, basta con seleccionar soldados del mismo modo
-    que hizo con los civiles, pero eligiendo a un enemigo como blanco.
+  texto: "Para atacar a un enemigo, basta con seleccionar soldados del mismo modo
+    que hizo con los civiles, pero eligiendo a un enemigo como blanco. Si hay alg\xFAn
+    oponente cerca de ellos, los soldados combatir\xE1n autom\xE1ticamente."
   posibilidadesDialogo:
   - {fileID: 11400000, guid: 582e8dab073388a4088a7de400c73eac, type: 2}
