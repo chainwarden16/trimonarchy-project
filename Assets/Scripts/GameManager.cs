@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject panelFinPartida;
     public TextMeshProUGUI tituloFinPartida;
     public TextMeshProUGUI textoFinPartida;
+    public Button saltarABatalla;
 
     public Button botonConstruirCentro;
     public Button botonConstruirEscuela;
@@ -253,8 +254,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         DeterminarCondicionVictoriaDerrota();
-        /*BotonDerrotaTemporal();
-        BotonVictoriaTemporal();
+        ActivarBotonAdelantarTiempo(); //el único que se deja a disposición del jugador por si quisiera terminar con la batalla antes
+        //PonerSoldadosNecesarios();
+        /*BotonDerrota();
+        BotonVictoria();
         MuchosRecursos();
         SaltarMinutos();*/
     }
@@ -264,11 +267,27 @@ public class GameManager : MonoBehaviour
 
     #region Metodos para probar escenarios rapido
 
+    private void ActivarBotonAdelantarTiempo()
+    {
+        if(Recursos.soldados >= numeroSoldadosNecesario && !seHanCreadoEnemigos)
+        {
+            saltarABatalla.interactable = true;
+        }
+    }
+
     public void MuchosRecursos()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             Recursos.SetRecursos(new List<int>() { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 });
+        }
+    }
+
+    public void PonerSoldadosNecesarios()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Recursos.soldados = numeroSoldadosNecesario;
         }
     }
 
@@ -280,7 +299,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BotonVictoriaTemporal()
+    public void BotonVictoria()
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -307,7 +326,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BotonDerrotaTemporal()
+    public void BotonDerrota()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -610,6 +629,11 @@ public class GameManager : MonoBehaviour
     public bool GetSeHanCreadoEnemigos()
     {
         return seHanCreadoEnemigos;
+    }
+
+    public void SetTiempoRestante(float tiempo)
+    {
+        tiempoRestante = tiempo;
     }
 
     #endregion

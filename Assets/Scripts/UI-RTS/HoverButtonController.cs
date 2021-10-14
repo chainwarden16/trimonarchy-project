@@ -76,7 +76,7 @@ public class HoverButtonController : MonoBehaviour
 
         if(prefabEdificio.GetComponent<Edificio>().edificioData.nombre == "Iglesia") //especifica la función de la iglesia, pues no depende de materiales ni da más ciudadanos o soldados
         {
-            textosBeneficio[0].text = "Restaura algo de vida a cada unidad aliada periódicamente";
+            textosBeneficio[0].text = "Restaura algo de vida de tus soldados periódicamente";
         }
 
         //Hace aparecer el panel en sí

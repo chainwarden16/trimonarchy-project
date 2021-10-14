@@ -15,5 +15,5 @@ MonoBehaviour:
   personaje: {fileID: 21300000, guid: 0eed953af3f0d6548a786ebe70946fd5, type: 3}
   nombrePersonaje: Ellhan
   texto: "\xBFRecuerda lo que le ense\xF1\xF3 su padre, verdad? Vayamos a la sala
-    del trono y le ayudar\xE9 a repasar el protocolo."
+    del trono y le ayudar\xE9 a repasar sus lecciones."
   posibilidadesDialogo: []

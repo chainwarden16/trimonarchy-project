@@ -19,7 +19,7 @@ public class IglesiaController : MonoBehaviour
     void Update()
     {
         //Se busca todas las unidades que sean soldados (no improta si son guerreros o magos) y se les restaura un 10% de su vida máxima cada 3 segundos
-        if (temporizadorCuracion <= 0f && manager.GetSeHanCreadoEnemigos() && edificio.haFinalizadoConstruccion)
+        if (temporizadorCuracion <= 0f && manager != null && manager.GetSeHanCreadoEnemigos() && edificio.haFinalizadoConstruccion)
         {
             unidadesAliadas.Clear();
             unidadesAliadas = FindObjectsOfType<Unidad>().Where(uni => uni.unidad.tipo != UnidadScriptable.TipoUnidad.Civil).ToList();

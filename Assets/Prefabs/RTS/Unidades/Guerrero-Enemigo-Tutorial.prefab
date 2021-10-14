@@ -224,49 +224,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6703651, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1501274075549354340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4157586480609448795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8982784e144792346ad0dc16bfc4b0e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unidad: {fileID: 11400000, guid: ea1c8481f718cd34ca792c8eba70fd3d, type: 2}
-  vidaActual: 0
-  objetivoActual: {fileID: 0}
-  posicionObjetivo: {x: 0, y: 0, z: 0}
-  unidadesAsignadas: []
-  luchaLanza1: {fileID: 8300000, guid: e9a0ad767fb986a49b07d800f27a1c0e, type: 3}
-  luchaLanza2: {fileID: 8300000, guid: ffc48f74992b63b448c21c5315b2342f, type: 3}
-  luchaLanza3: {fileID: 8300000, guid: 99576a717bf68414fa5f14367f421e73, type: 3}
-  hechizo: {fileID: 8300000, guid: fe10b9af5cfa5cf4e9937fe635473525, type: 3}
---- !u!195 &2912602796874530056
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4157586480609448795}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.15
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.8
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!82 &5572735644127486699
 AudioSource:
   m_ObjectHideFlags: 0
@@ -363,6 +320,61 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &26383870473711902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157586480609448795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84aac997b252fa94e810f3bb053bfb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1501274075549354340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157586480609448795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8982784e144792346ad0dc16bfc4b0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unidad: {fileID: 11400000, guid: ea1c8481f718cd34ca792c8eba70fd3d, type: 2}
+  vidaActual: 0
+  objetivoActual: {fileID: 0}
+  posicionObjetivo: {x: 0, y: 0, z: 0}
+  unidadesAsignadas: []
+  luchaLanza1: {fileID: 8300000, guid: e9a0ad767fb986a49b07d800f27a1c0e, type: 3}
+  luchaLanza2: {fileID: 8300000, guid: ffc48f74992b63b448c21c5315b2342f, type: 3}
+  luchaLanza3: {fileID: 8300000, guid: 99576a717bf68414fa5f14367f421e73, type: 3}
+  hechizo: {fileID: 8300000, guid: fe10b9af5cfa5cf4e9937fe635473525, type: 3}
+--- !u!195 &2912602796874530056
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157586480609448795}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.15
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.8
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5665615651149090362
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.07796383, a: 1}
+  m_Color: {r: 1, g: 0.017761761, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

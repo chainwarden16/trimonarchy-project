@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personaje: {fileID: 0}
   nombrePersonaje: Lhorenth
-  texto: El reino sigue prosperando. Las cosechas son buenas, no hay rastro de esa
-    enfermedad desde hace meses y no ha habido revueltas en la plaza mayor.
+  texto: El reino sigue prosperando. Las cosechas son abundantes, no hay rastro de
+    esa enfermedad desde hace meses y el pueblo parece feliz.
   posibilidadesDialogo:
   - {fileID: 11400000, guid: addf67c20c6a44043905c19284b3d488, type: 2}
