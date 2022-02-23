@@ -1,5 +1,5 @@
 # trimonarchy-project
-Proyecto para mi trabajo de fin de máster. Se desarrollará en Unity y tendrá 3 partes diferenciadas. En el documento del guion se dará más detalles del contenido del juego.
+Proyecto para mi trabajo de fin de máster. Se desarrollará en Unity y se trata de un RTS sencillo donde el jugador recoge materiales durante un tiempo limitado para construir un ejército con el que defender su nación. En el documento del guion se dará más detalles del contenido del juego.
 
 Los commit se llevarán a cabo de la siguiente manera:
 
@@ -29,4 +29,4 @@ Donde DD es el día en el que se hace el commit, MM es el mes y Tipo corresponde
 
 * *__Packet:__* adición o eliminación de algún paquete hecho por un tercero (como TextMeshPro).
 
-Se trabajará en una rama aparte para evitar subir código erróneo o incompleto en la rama master. La descripción del commit deberá ser lo mñas clara y concisa posible sobre qué cambios se están subiendo, para así hacer más sencilla su identificación en caso de incidencias.
+La descripción del commit deberá ser lo más clara y concisa posible sobre qué cambios se están subiendo, para así hacer más sencilla su identificación en caso de incidencias.
